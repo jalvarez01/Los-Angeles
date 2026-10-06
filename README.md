@@ -1,6 +1,6 @@
 # Los Ángeles · sistema de información
 
-Grupo: Jeronimo Escobar Restrepo · Juan Jose Alvarez Ocampo · Repositorio: https://github.com/jalvarez01/Los-Angeles · Revisado: 2026-10-05
+Grupo: Jeronimo Escobar Restrepo · Juan Jose Alvarez Ocampo · Repositorio: https://github.com/jalvarez01/Los-Angeles · Sitio: https://los-angeles-lemon.vercel.app · Revisado: 2026-10-06
 
 ## Entrega 1 · el lago y su diccionario
 
@@ -43,7 +43,7 @@ que tiene la fuente, no en el del calendario.
 
 ## Capa web
 
-`web/` es un sitio estático que lee solo `lago/` y `territorio/` (sin llamadas en vivo; la llave del Censo nunca llega al navegador). Se prueba con `python3 web/build.py && python3 -m http.server -d web/dist`; `build.py` copia el lago al sitio.
+Publicada en https://los-angeles-lemon.vercel.app (producción; las vistas previas de Vercel quedan protegidas con inicio de sesión). `web/` es un sitio estático que lee solo `lago/` y `territorio/` (sin llamadas en vivo; la llave del Censo nunca llega al navegador). Se prueba con `python3 web/build.py && python3 -m http.server -d web/dist`; `build.py` copia el lago al sitio.
 
 ## Para quién y qué pregunta
 
