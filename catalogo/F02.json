@@ -1,0 +1,15 @@
+{
+ "id": "F02",
+ "nombre": "Crime Data from 2020 to 2024",
+ "entidad": "Los Angeles Police Department (portal data.lacity.org)",
+ "url": "https://data.lacity.org/resource/2nrs-mtv8.json",
+ "cobertura": "Ciudad · 21 áreas de LAPD · latitud y longitud",
+ "vigencia": "2020-01-01 a 2025-03-28 (fecha de reporte)",
+ "probado": "2026-10-05",
+ "estado": "Descartada",
+ "licencia": "Creative Commons 1.0 Universal (Public Domain Dedication)",
+ "personas": "Personas identificables",
+ "proteccion": "no se publica",
+ "uso": "",
+ "nota": "Congelada: LAPD cambió a NIBRS el 2024-03-07 y el último reporte es del 2025-03-28. Además trae edad, sexo y ascendencia de cada víctima. La reemplaza F01."
+}

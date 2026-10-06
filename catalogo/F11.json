@@ -1,0 +1,15 @@
+{
+ "id": "F11",
+ "nombre": "Vistas mensuales del artículo «Los Ángeles» en Wikipedia en español",
+ "entidad": "Wikimedia Foundation",
+ "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/es.wikipedia/all-access/user/Los_%C3%81ngeles/monthly/20250201/20260930",
+ "cobertura": "Ciudad (artículo)",
+ "vigencia": "2025-02 a 2026-09",
+ "probado": "2026-10-05",
+ "estado": "Integrada al lago",
+ "licencia": "CC0",
+ "personas": "No",
+ "proteccion": "abierto",
+ "uso": "Escucha: interés en la ciudad desde fuera",
+ "nota": "Se comprobó que «Los Ángeles» es un artículo y no una desambiguación. Cuenta personas, no bots. El mes más alto de la serie es junio de 2025 (34.980)."
+}

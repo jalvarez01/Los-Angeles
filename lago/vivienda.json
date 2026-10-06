@@ -1,0 +1,237 @@
+{
+ "tema": "vivienda",
+ "probado": "2026-10-06",
+ "fuentes": [
+  {
+   "id": "F04",
+   "nombre": "Building and Safety - Building Permits Issued from 2020 to Present (N)",
+   "url": "https://data.lacity.org/resource/pi9x-tg5x.json",
+   "estado": "vivo",
+   "licencia": "no declara"
+  }
+ ],
+ "cifras": {
+  "permisos_12m": {
+   "valor": 64247,
+   "unidad": "permisos de construcción emitidos",
+   "vigencia": "2025-10 a 2026-09",
+   "fuente": "F04"
+  },
+  "unidades_netas_12m": {
+   "valor": 17553,
+   "unidad": "unidades de vivienda (neto, según permisos emitidos)",
+   "vigencia": "2025-10 a 2026-09",
+   "fuente": "F04"
+  }
+ },
+ "series": {
+  "permisos_mensuales": {
+   "unidad": "permisos de construcción emitidos",
+   "fuente": "F04",
+   "puntos": [
+    [
+     "2025-02",
+     5096
+    ],
+    [
+     "2025-03",
+     5542
+    ],
+    [
+     "2025-04",
+     5487
+    ],
+    [
+     "2025-05",
+     5452
+    ],
+    [
+     "2025-06",
+     5239
+    ],
+    [
+     "2025-07",
+     5305
+    ],
+    [
+     "2025-08",
+     5334
+    ],
+    [
+     "2025-09",
+     5390
+    ],
+    [
+     "2025-10",
+     5845
+    ],
+    [
+     "2025-11",
+     4492
+    ],
+    [
+     "2025-12",
+     5075
+    ],
+    [
+     "2026-01",
+     5156
+    ],
+    [
+     "2026-02",
+     5040
+    ],
+    [
+     "2026-03",
+     5807
+    ],
+    [
+     "2026-04",
+     5380
+    ],
+    [
+     "2026-05",
+     5269
+    ],
+    [
+     "2026-06",
+     5379
+    ],
+    [
+     "2026-07",
+     5314
+    ],
+    [
+     "2026-08",
+     5558
+    ],
+    [
+     "2026-09",
+     5932
+    ]
+   ]
+  }
+ },
+ "tablas": {
+  "permisos_por_distrito": {
+   "unidad": "permisos emitidos / unidades de vivienda netas (y sus tasas por 10.000 habitantes)",
+   "vigencia": "2025-10 a 2026-09",
+   "fuente": "F04",
+   "columnas": [
+    "cd",
+    "permisos",
+    "unidades_netas",
+    "permisos_por_10mil",
+    "unidades_netas_por_10mil"
+   ],
+   "filas": [
+    [
+     1,
+     2181,
+     730,
+     86.6,
+     29.0
+    ],
+    [
+     2,
+     3896,
+     874,
+     159.7,
+     35.8
+    ],
+    [
+     3,
+     5036,
+     1716,
+     199.9,
+     68.1
+    ],
+    [
+     4,
+     7343,
+     822,
+     283.5,
+     31.7
+    ],
+    [
+     5,
+     6249,
+     1155,
+     237.7,
+     43.9
+    ],
+    [
+     6,
+     2679,
+     532,
+     105.5,
+     20.9
+    ],
+    [
+     7,
+     2978,
+     122,
+     117.7,
+     4.8
+    ],
+    [
+     8,
+     2925,
+     567,
+     119.0,
+     23.1
+    ],
+    [
+     9,
+     1673,
+     344,
+     64.9,
+     13.3
+    ],
+    [
+     10,
+     3379,
+     2680,
+     129.4,
+     102.6
+    ],
+    [
+     11,
+     11015,
+     3367,
+     413.8,
+     126.5
+    ],
+    [
+     12,
+     5605,
+     632,
+     210.5,
+     23.7
+    ],
+    [
+     13,
+     3688,
+     2227,
+     140.5,
+     84.8
+    ],
+    [
+     14,
+     3203,
+     680,
+     123.9,
+     26.3
+    ],
+    [
+     15,
+     2387,
+     1105,
+     94.1,
+     43.5
+    ]
+   ],
+   "nota": "10 permisos del periodo no traen distrito de consejo (y 0 de las unidades netas): quedan fuera de las filas y dentro de los totales. Las tasas son por 10.000 habitantes del distrito (población ACS 2024 de F07, aproximada)"
+  }
+ }
+}

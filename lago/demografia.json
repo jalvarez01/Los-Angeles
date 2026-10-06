@@ -1,0 +1,278 @@
+{
+ "tema": "demografia",
+ "probado": "2026-10-06",
+ "fuentes": [
+  {
+   "id": "F06",
+   "nombre": "California DOF · E-1 Population and Housing Estimates 2026",
+   "url": "https://dof.ca.gov/media/docs/forecasting/Demographics/estimates-e1/E-1_2026_InternetVersion.xlsx",
+   "estado": "vivo",
+   "licencia": "no declara"
+  },
+  {
+   "id": "F07",
+   "nombre": "American Community Survey 5-Year Estimates (API)",
+   "url": "https://api.census.gov/data/2024/acs/acs5",
+   "estado": "vivo",
+   "licencia": "Census Bureau API Terms of Service (census.gov/data/developers/about/terms-of-service.html): \"You may use the Census Bureau API to develop a service or service to search, display, analyze, retrieve, view and otherwise \"get\" information from Census Bureau data.\" Atribución exigida: \"This product uses the Census Bureau Data API but is not endorsed or certified by the Census Bureau.\""
+  }
+ ],
+ "cifras": {
+  "poblacion": {
+   "valor": 3806201,
+   "unidad": "habitantes",
+   "vigencia": "2026-01-01",
+   "fuente": "F06"
+  },
+  "poblacion_anio_anterior": {
+   "valor": 3839536,
+   "unidad": "habitantes",
+   "vigencia": "2025-01-01",
+   "fuente": "F06"
+  },
+  "variacion_poblacion_pct": {
+   "valor": -0.87,
+   "unidad": "% anual",
+   "vigencia": "2025-01-01 a 2026-01-01",
+   "fuente": "F06"
+  },
+  "viviendas": {
+   "valor": 1597841,
+   "unidad": "unidades de vivienda",
+   "vigencia": "2026-01-01",
+   "fuente": "F06"
+  },
+  "natalidad_ciudad_por_1000": {
+   "valor": 39.5,
+   "unidad": "nacimientos en los últimos 12 meses por 1.000 mujeres de 15 a 50 años",
+   "vigencia": "ACS 2020-2024",
+   "fuente": "F07"
+  }
+ },
+ "tablas": {
+  "natalidad_por_ambito": {
+   "unidad": "mujeres de 15 a 50 años; nacimientos en los últimos 12 meses; nacimientos por 1.000 mujeres",
+   "vigencia": "ACS 2020-2024",
+   "fuente": "F07",
+   "columnas": [
+    "ambito",
+    "mujeres_15_50",
+    "nacimientos",
+    "nacimientos_por_1000"
+   ],
+   "filas": [
+    [
+     "Ciudad de Los Ángeles",
+     1012365,
+     40027,
+     39.5
+    ],
+    [
+     "California",
+     9471090,
+     455771,
+     48.1
+    ],
+    [
+     "Estados Unidos",
+     78113460,
+     4009203,
+     51.3
+    ]
+   ],
+   "nota": "B13016_002E / B13016_001E × 1.000. Estimaciones del ACS con margen de error."
+  },
+  "natalidad_serie_ciudad": {
+   "unidad": "mujeres de 15 a 50 años; nacimientos en los últimos 12 meses; nacimientos por 1.000 mujeres",
+   "vigencia": "2006-2010 a 2020-2024",
+   "fuente": "F07",
+   "columnas": [
+    "periodo",
+    "mujeres_15_50",
+    "nacimientos",
+    "nacimientos_por_1000"
+   ],
+   "filas": [
+    [
+     "2006-2010",
+     1034037,
+     55893,
+     54.1
+    ],
+    [
+     "2007-2011",
+     1033381,
+     55622,
+     53.8
+    ],
+    [
+     "2008-2012",
+     1034993,
+     55573,
+     53.7
+    ],
+    [
+     "2009-2013",
+     1041034,
+     52176,
+     50.1
+    ],
+    [
+     "2010-2014",
+     1046626,
+     50441,
+     48.2
+    ],
+    [
+     "2011-2015",
+     1055427,
+     49348,
+     46.8
+    ],
+    [
+     "2012-2016",
+     1055991,
+     48074,
+     45.5
+    ],
+    [
+     "2013-2017",
+     1061167,
+     46114,
+     43.5
+    ],
+    [
+     "2014-2018",
+     1056486,
+     45173,
+     42.8
+    ],
+    [
+     "2015-2019",
+     1056711,
+     44513,
+     42.1
+    ],
+    [
+     "2016-2020",
+     1057644,
+     43278,
+     40.9
+    ],
+    [
+     "2017-2021",
+     1032107,
+     42631,
+     41.3
+    ],
+    [
+     "2018-2022",
+     1019510,
+     42777,
+     42.0
+    ],
+    [
+     "2019-2023",
+     1015250,
+     41593,
+     41.0
+    ],
+    [
+     "2020-2024",
+     1012365,
+     40027,
+     39.5
+    ]
+   ],
+   "nota": "Una fila por lanzamiento del ACS de 5 años (el periodo es la ventana de 5 años). Los lanzamientos consecutivos se traslapan (comparten cuatro de sus cinco años), así que los puntos consecutivos no son independientes y no deben compararse entre sí. Solo se deben comparar ventanas que no se traslapen: 2006-2010, 2011-2015, 2016-2020 y 2020-2024 (las dos últimas comparten únicamente el año 2020)."
+  },
+  "poblacion_por_distrito": {
+   "unidad": "habitantes",
+   "vigencia": "ACS 2020-2024",
+   "fuente": "F07",
+   "columnas": [
+    "cd",
+    "poblacion",
+    "sectores_censales"
+   ],
+   "filas": [
+    [
+     1,
+     251726,
+     79
+    ],
+    [
+     2,
+     243946,
+     70
+    ],
+    [
+     3,
+     251935,
+     66
+    ],
+    [
+     4,
+     258975,
+     77
+    ],
+    [
+     5,
+     262857,
+     84
+    ],
+    [
+     6,
+     254031,
+     69
+    ],
+    [
+     7,
+     252933,
+     69
+    ],
+    [
+     8,
+     245703,
+     61
+    ],
+    [
+     9,
+     257735,
+     66
+    ],
+    [
+     10,
+     261188,
+     82
+    ],
+    [
+     11,
+     266184,
+     81
+    ],
+    [
+     12,
+     266216,
+     70
+    ],
+    [
+     13,
+     262569,
+     81
+    ],
+    [
+     14,
+     258567,
+     83
+    ],
+    [
+     15,
+     253773,
+     72
+    ]
+   ],
+   "nota": "Método: se suman los 1.110 sectores censales del condado de Los Ángeles (ACS 2024, B01003_001E) cuyo punto interno (Gazetteer del Censo 2020) cae dentro de cada distrito, usando los límites completos de F12 (sin simplificar). Error: un sector que cruza el límite de dos distritos se asigna entero al distrito de su punto interno, así que cada distrito puede quedar algo por encima o por debajo; el error por distrito no se puede medir con esta fuente. A escala de ciudad, la suma de los distritos (3.848.338) difiere -8.925 habitantes (-0.23 %) de la población de la ciudad en el mismo ACS (3.857.263). Son estimaciones de encuesta con margen de error, no un censo."
+  }
+ }
+}

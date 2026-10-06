@@ -1,0 +1,45 @@
+{
+ "tema": "movilidad",
+ "probado": "2026-10-06",
+ "fuentes": [
+  {
+   "id": "F09",
+   "nombre": "Metro Bike Share · GBFS station_status",
+   "url": "https://gbfs.bcycle.com/bcycle_lametro/station_status.json",
+   "estado": "vivo",
+   "licencia": "no declara"
+  }
+ ],
+ "cifras": {
+  "estaciones": {
+   "valor": 224,
+   "unidad": "estaciones",
+   "vigencia": "2026-10-06T17:10Z",
+   "fuente": "F09"
+  },
+  "estaciones_operando": {
+   "valor": 212,
+   "unidad": "estaciones",
+   "vigencia": "2026-10-06T17:10Z",
+   "fuente": "F09"
+  },
+  "bicis_disponibles": {
+   "valor": 1406,
+   "unidad": "bicicletas",
+   "vigencia": "2026-10-06T17:10Z",
+   "fuente": "F09"
+  },
+  "anclajes_libres": {
+   "valor": 1858,
+   "unidad": "anclajes",
+   "vigencia": "2026-10-06T17:10Z",
+   "fuente": "F09"
+  },
+  "bicis_electricas": {
+   "valor": 101,
+   "unidad": "bicicletas eléctricas",
+   "vigencia": "2026-10-06T17:10Z",
+   "fuente": "F09"
+  }
+ }
+}

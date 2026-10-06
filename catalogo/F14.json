@@ -1,0 +1,15 @@
+{
+ "id": "F14",
+ "nombre": "Google News RSS · búsqueda «Los Angeles»",
+ "entidad": "Google",
+ "url": "https://news.google.com/rss/search?q=Los+Angeles&hl=en-US&gl=US&ceid=US:en",
+ "cobertura": "Titulares en inglés",
+ "vigencia": "Tiempo real",
+ "probado": null,
+ "estado": "Descartada",
+ "licencia": "no declara",
+ "personas": "Texto libre sin revisar",
+ "proteccion": "no se publica",
+ "uso": "",
+ "nota": "Intento del 2026-09-27: el acceso automatizado fue rechazado por robots.txt. No se esquiva: la «escucha» se hace con F11."
+}

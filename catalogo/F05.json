@@ -1,0 +1,15 @@
+{
+ "id": "F05",
+ "nombre": "LADBS-Permits (vista filtrada)",
+ "entidad": "LADBS (portal data.lacity.org)",
+ "url": "https://data.lacity.org/resource/hbkd-qubn.json",
+ "cobertura": "Ciudad",
+ "vigencia": "2013-01-01 a 2023-05-19",
+ "probado": "2026-10-05",
+ "estado": "Descartada",
+ "licencia": "Creative Commons Attribution 4.0 International",
+ "personas": "Personas identificables",
+ "proteccion": "no se publica",
+ "uso": "",
+ "nota": "Vista congelada en mayo de 2023 y con nombre y apellido de solicitantes y contratistas. La reemplaza F04."
+}

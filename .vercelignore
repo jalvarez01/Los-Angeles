@@ -1,0 +1,7 @@
+.env
+.env.*
+lago/raw/
+__pycache__/
+.DS_Store
+.git
+web/dist/

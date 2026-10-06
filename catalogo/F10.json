@@ -1,0 +1,15 @@
+{
+ "id": "F10",
+ "nombre": "OpenStreetMap vía Overpass API",
+ "entidad": "Colaboradores de OpenStreetMap",
+ "url": "https://overpass-api.de/api/interpreter",
+ "cobertura": "Límite administrativo de la ciudad (relación OSM 207359)",
+ "vigencia": "Estado actual del mapa",
+ "probado": "2026-10-05",
+ "estado": "Integrada al lago",
+ "licencia": "ODbL",
+ "personas": "No",
+ "proteccion": "abierto",
+ "uso": "Territorio: equipamientos de la ciudad",
+ "nota": "ODbL obliga a atribuir y a compartir igual lo derivado. Cobertura voluntaria: complementa, no reemplaza, los registros oficiales. La etiqueta population de OSM (4.030.904) no coincide con F06 y no se usa."
+}

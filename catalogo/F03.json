@@ -1,0 +1,15 @@
+{
+ "id": "F03",
+ "nombre": "MyLA311 Cases 2026",
+ "entidad": "City of Los Angeles · Information Technology Agency",
+ "url": "https://data.lacity.org/resource/2cy6-i7zn.json",
+ "cobertura": "Ciudad · dirección exacta, latitud y longitud, distrito de consejo, concejo vecinal",
+ "vigencia": "2026-01-01 a 2026-10-05",
+ "probado": "2026-10-05",
+ "estado": "Integrada al lago",
+ "licencia": "Creative Commons 1.0 Universal (Public Domain Dedication)",
+ "personas": "Personas identificables",
+ "proteccion": "solo agregados",
+ "uso": "Municipio: solicitudes 311 por tipo, distrito y mes",
+ "nota": "No trae nombres, pero sí la dirección exacta de cada solicitud (una recogida de enseres casi siempre es la casa de quien llama): al lago solo llegan conteos. Hay un conjunto por año: en 2027 cambia el ID. 133.436 solicitudes de 2026 (7,4 %) no traen distrito."
+}

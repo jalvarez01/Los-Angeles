@@ -1,0 +1,236 @@
+{
+ "tema": "seguridad",
+ "probado": "2026-10-06",
+ "fuentes": [
+  {
+   "id": "F01",
+   "nombre": "LAPD NIBRS Offenses Dataset",
+   "url": "https://data.lacity.org/resource/k7nn-b2ep.json",
+   "estado": "vivo",
+   "licencia": "no declara"
+  }
+ ],
+ "cifras": {
+  "delitos_12m": {
+   "valor": 219938,
+   "unidad": "ofensas registradas (NIBRS)",
+   "vigencia": "2025-09 a 2026-08",
+   "fuente": "F01"
+  },
+  "delitos_contra_personas_12m": {
+   "valor": 59381,
+   "unidad": "ofensas registradas (NIBRS)",
+   "vigencia": "2025-09 a 2026-08",
+   "fuente": "F01"
+  },
+  "delitos_contra_propiedad_12m": {
+   "valor": 117235,
+   "unidad": "ofensas registradas (NIBRS)",
+   "vigencia": "2025-09 a 2026-08",
+   "fuente": "F01"
+  },
+  "delitos_contra_sociedad_12m": {
+   "valor": 24465,
+   "unidad": "ofensas registradas (NIBRS)",
+   "vigencia": "2025-09 a 2026-08",
+   "fuente": "F01"
+  },
+  "delitos_varias_categorias_12m": {
+   "valor": 18765,
+   "unidad": "ofensas registradas (NIBRS) clasificadas por la fuente en varias categorías a la vez (p. ej. «Person, Property, Society»)",
+   "vigencia": "2025-09 a 2026-08",
+   "fuente": "F01"
+  },
+  "delitos_sin_categoria_12m": {
+   "valor": 92,
+   "unidad": "ofensas registradas (NIBRS) sin categoría (crime_against vacío en la fuente)",
+   "vigencia": "2025-09 a 2026-08",
+   "fuente": "F01"
+  }
+ },
+ "series": {
+  "delitos_mensuales": {
+   "unidad": "ofensas registradas (NIBRS)",
+   "fuente": "F01",
+   "puntos": [
+    [
+     "2025-01",
+     18295
+    ],
+    [
+     "2025-02",
+     17764
+    ],
+    [
+     "2025-03",
+     19241
+    ],
+    [
+     "2025-04",
+     18441
+    ],
+    [
+     "2025-05",
+     19721
+    ],
+    [
+     "2025-06",
+     18099
+    ],
+    [
+     "2025-07",
+     19245
+    ],
+    [
+     "2025-08",
+     19250
+    ],
+    [
+     "2025-09",
+     18333
+    ],
+    [
+     "2025-10",
+     18888
+    ],
+    [
+     "2025-11",
+     17771
+    ],
+    [
+     "2025-12",
+     18259
+    ],
+    [
+     "2026-01",
+     18313
+    ],
+    [
+     "2026-02",
+     16676
+    ],
+    [
+     "2026-03",
+     18741
+    ],
+    [
+     "2026-04",
+     18410
+    ],
+    [
+     "2026-05",
+     18549
+    ],
+    [
+     "2026-06",
+     18361
+    ],
+    [
+     "2026-07",
+     19324
+    ],
+    [
+     "2026-08",
+     18313
+    ]
+   ]
+  }
+ },
+ "tablas": {
+  "delitos_por_area": {
+   "unidad": "ofensas registradas (NIBRS)",
+   "vigencia": "2025-09 a 2026-08",
+   "fuente": "F01",
+   "columnas": [
+    "area_nombre",
+    "delitos_12m"
+   ],
+   "filas": [
+    [
+     "Central",
+     19273
+    ],
+    [
+     "Southwest",
+     13154
+    ],
+    [
+     "Rampart",
+     12605
+    ],
+    [
+     "77th Street",
+     12233
+    ],
+    [
+     "Olympic",
+     12178
+    ],
+    [
+     "N Hollywood",
+     11894
+    ],
+    [
+     "Hollywood",
+     11688
+    ],
+    [
+     "Pacific",
+     11344
+    ],
+    [
+     "Newton",
+     10871
+    ],
+    [
+     "Southeast",
+     10000
+    ],
+    [
+     "Northeast",
+     9674
+    ],
+    [
+     "Van Nuys",
+     9505
+    ],
+    [
+     "Mission",
+     9355
+    ],
+    [
+     "Topanga",
+     9251
+    ],
+    [
+     "West Valley",
+     9217
+    ],
+    [
+     "Wilshire",
+     9167
+    ],
+    [
+     "Devonshire",
+     8713
+    ],
+    [
+     "Harbor",
+     7959
+    ],
+    [
+     "West LA",
+     7685
+    ],
+    [
+     "Hollenbeck",
+     7631
+    ],
+    [
+     "Foothill",
+     6541
+    ]
+   ]
+  }
+ }
+}

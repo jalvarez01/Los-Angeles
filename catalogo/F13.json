@@ -1,0 +1,15 @@
+{
+ "id": "F13",
+ "nombre": "AirNow API",
+ "entidad": "U.S. Environmental Protection Agency (AirNow)",
+ "url": "https://docs.airnowapi.org/",
+ "cobertura": "Estaciones de monitoreo de EE. UU., Canadá y México",
+ "vigencia": "Tiempo real y pronósticos",
+ "probado": "2026-10-05",
+ "estado": "Descartada",
+ "licencia": "«should not be used to formulate or support regulation, trends, guidance, or any other government or public decision making»",
+ "personas": "No",
+ "proteccion": "no se publica",
+ "uso": "",
+ "nota": "Pide cuenta, y sus propios términos dicen que los datos son preliminares y no deben usarse para decisiones públicas: justo lo que haría un concejal con este sistema."
+}

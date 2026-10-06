@@ -1,0 +1,218 @@
+{
+ "tema": "municipio",
+ "probado": "2026-10-06",
+ "fuentes": [
+  {
+   "id": "F03",
+   "nombre": "MyLA311 Cases 2026",
+   "url": "https://data.lacity.org/resource/2cy6-i7zn.json",
+   "estado": "vivo",
+   "licencia": "Creative Commons 1.0 Universal (Public Domain Dedication)"
+  }
+ ],
+ "cifras": {
+  "solicitudes_anio": {
+   "valor": 1801215,
+   "unidad": "solicitudes de servicio",
+   "vigencia": "2026-01 a 2026-09",
+   "fuente": "F03"
+  },
+  "pct_cerradas": {
+   "valor": 86.1,
+   "unidad": "% de todas las solicitudes del periodo, incluidas las de tipo Information-Only (que se cierran al instante e inflan el porcentaje)",
+   "vigencia": "2026-01 a 2026-09",
+   "fuente": "F03"
+  },
+  "pct_cerradas_sin_informativas": {
+   "valor": 81.9,
+   "unidad": "% de las solicitudes del periodo sin contar el tipo Information-Only (1383021 de 1801215 solicitudes)",
+   "vigencia": "2026-01 a 2026-09",
+   "fuente": "F03"
+  }
+ },
+ "series": {
+  "solicitudes_mensuales": {
+   "unidad": "solicitudes de servicio",
+   "fuente": "F03",
+   "puntos": [
+    [
+     "2026-01",
+     198816
+    ],
+    [
+     "2026-02",
+     170823
+    ],
+    [
+     "2026-03",
+     218736
+    ],
+    [
+     "2026-04",
+     199584
+    ],
+    [
+     "2026-05",
+     189333
+    ],
+    [
+     "2026-06",
+     202377
+    ],
+    [
+     "2026-07",
+     195202
+    ],
+    [
+     "2026-08",
+     213023
+    ],
+    [
+     "2026-09",
+     213321
+    ]
+   ]
+  }
+ },
+ "tablas": {
+  "solicitudes_por_tipo": {
+   "unidad": "solicitudes de servicio",
+   "vigencia": "2026-01 a 2026-09",
+   "fuente": "F03",
+   "columnas": [
+    "tipo",
+    "solicitudes"
+   ],
+   "filas": [
+    [
+     "Information-Only",
+     418194
+    ],
+    [
+     "Item Pickups",
+     366920
+    ],
+    [
+     "Illegal Dumping Item Pickup",
+     363749
+    ],
+    [
+     "Graffiti Removal",
+     184890
+    ],
+    [
+     "Service Not Complete",
+     91645
+    ],
+    [
+     "Homeless Encampment",
+     81171
+    ],
+    [
+     "Street Pavement Issues",
+     36622
+    ],
+    [
+     "Streetlight Repair Services",
+     31383
+    ],
+    [
+     "Dead Animal Removal",
+     26242
+    ],
+    [
+     "Landscape Maintenance",
+     18205
+    ]
+   ]
+  },
+  "solicitudes_por_distrito": {
+   "unidad": "solicitudes de servicio (y solicitudes por 10.000 habitantes)",
+   "vigencia": "2026-01 a 2026-09",
+   "fuente": "F03",
+   "columnas": [
+    "cd",
+    "solicitudes",
+    "solicitudes_por_10mil"
+   ],
+   "filas": [
+    [
+     1,
+     167610,
+     6658.4
+    ],
+    [
+     2,
+     102893,
+     4217.9
+    ],
+    [
+     3,
+     88379,
+     3508.0
+    ],
+    [
+     4,
+     111520,
+     4306.2
+    ],
+    [
+     5,
+     107341,
+     4083.6
+    ],
+    [
+     6,
+     95650,
+     3765.3
+    ],
+    [
+     7,
+     83917,
+     3317.8
+    ],
+    [
+     8,
+     130621,
+     5316.2
+    ],
+    [
+     9,
+     89238,
+     3462.4
+    ],
+    [
+     10,
+     124548,
+     4768.5
+    ],
+    [
+     11,
+     108053,
+     4059.3
+    ],
+    [
+     12,
+     102534,
+     3851.5
+    ],
+    [
+     13,
+     117997,
+     4493.9
+    ],
+    [
+     14,
+     151360,
+     5853.8
+    ],
+    [
+     15,
+     86118,
+     3393.5
+    ]
+   ],
+   "nota": "133436 solicitudes del periodo no traen distrito de consejo. La tasa es solicitudes del periodo por 10.000 habitantes del distrito (población ACS 2024 de F07, aproximada: ver demografia.json)"
+  }
+ }
+}

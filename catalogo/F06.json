@@ -1,0 +1,15 @@
+{
+ "id": "F06",
+ "nombre": "E-1 Population and Housing Estimates for Cities, Counties, and the State (2026)",
+ "entidad": "California Department of Finance · Demographic Research Unit",
+ "url": "https://dof.ca.gov/media/docs/forecasting/Demographics/estimates-e1/E-1_2026_InternetVersion.xlsx",
+ "cobertura": "Estado, condados y ciudades de California",
+ "vigencia": "Estimaciones al 2025-01-01 y al 2026-01-01",
+ "probado": "2026-10-05",
+ "estado": "Integrada al lago",
+ "licencia": "no declara",
+ "personas": "No",
+ "proteccion": "abierto",
+ "uso": "Gente: población y viviendas de la ciudad",
+ "nota": "Publicado el 2026-05-01. Trae dos filas «Los Angeles»: el condado (9.837.286) y la ciudad (3.806.201). El script exige que sean dos y toma la ciudad; la verificación comprueba el rango."
+}

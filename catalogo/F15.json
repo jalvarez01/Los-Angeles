@@ -1,0 +1,15 @@
+{
+ "id": "F15",
+ "nombre": "«Transport for Los Angeles API» (api.metro.net/bus/stops)",
+ "entidad": "Ficha de publicapi.dev atribuida a Metro",
+ "url": "https://api.metro.net/bus/stops",
+ "cobertura": "",
+ "vigencia": "",
+ "probado": null,
+ "estado": "No existe (la inventó la IA)",
+ "licencia": "no declara",
+ "personas": "No",
+ "proteccion": "no se publica",
+ "uso": "",
+ "nota": "Intentos del 2026-09-28 y del 2026-10-05: 404. La ficha parece escrita por un generador automático: describe rutas que Metro no publica. Los datos reales de Metro están en developer.metro.net."
+}

@@ -1,0 +1,15 @@
+{
+ "id": "F01",
+ "nombre": "LAPD NIBRS Offenses Dataset",
+ "entidad": "Los Angeles Police Department (portal data.lacity.org)",
+ "url": "https://data.lacity.org/resource/k7nn-b2ep.json",
+ "cobertura": "Ciudad · 21 áreas de LAPD · ubicación por cuadra (hundred block)",
+ "vigencia": "Hechos ingresados al RMS desde 2024-03-07; último hecho 2026-09-19",
+ "probado": "2026-10-05",
+ "estado": "Integrada al lago",
+ "licencia": "no declara",
+ "personas": "Personas identificables",
+ "proteccion": "solo agregados",
+ "uso": "Seguridad: ofensas por área de LAPD y por mes",
+ "nota": "Una fila por ofensa, no por incidente. Trae dirección por cuadra, hora y marcas de violencia doméstica: al lago solo llegan conteos por área y por mes. Última carga del portal: 2026-09-29. Carga con rezago: septiembre llevaba 10.097 ofensas (un mes normal ronda 18.000), por eso la ventana termina en el último mes completo. Los metadatos no traen licencia (F02 y F03, del mismo portal, sí declaran CC0)."
+}

@@ -1,0 +1,15 @@
+{
+ "id": "F07",
+ "nombre": "American Community Survey 5-Year Estimates (API)",
+ "entidad": "U.S. Census Bureau",
+ "url": "https://api.census.gov/data/2024/acs/acs5?get=NAME,B13016_001E,B13016_002E&for=place:44000&in=state:06",
+ "cobertura": "Ciudad (place 06-44000), California, EE. UU. y sectores censales del condado de Los Ángeles",
+ "vigencia": "ACS 2020-2024 (serie desde 2006-2010)",
+ "probado": "2026-10-06",
+ "estado": "Integrada al lago",
+ "licencia": "Census Bureau API Terms of Service (census.gov/data/developers/about/terms-of-service.html): \"You may use the Census Bureau API to develop a service or service to search, display, analyze, retrieve, view and otherwise \"get\" information from Census Bureau data.\" Atribución exigida: \"This product uses the Census Bureau Data API but is not endorsed or certified by the Census Bureau.\"",
+ "personas": "No",
+ "proteccion": "solo agregados",
+ "uso": "Gente: natalidad y población por distrito (tasas per cápita)",
+ "nota": "Probada el 2026-10-06 con la llave gratuita (en .env, no en el repositorio). Último lanzamiento: ACS 2020-2024; responden los lanzamientos 2010 a 2024 (2009 da 400; 2025 y 2026 dan 404). B13016_001E = mujeres de 15 a 50 años y B13016_002E = las que tuvieron un nacimiento en los últimos 12 meses. Población por distrito: B01003_001E por sector censal del condado 037 (2.498 sectores) y puntos internos del Gazetteer del Censo (www2.census.gov/geo/docs/maps-data/data/gazetteer/2020_Gazetteer/2020_gaz_tracts_06.txt, 200 OK), asignados a distritos con los límites completos de F12; suma 0,23 % por debajo de la ciudad en el ACS. Son estimaciones con margen de error. Los términos exigen mostrar «This product uses the Census Bureau Data API but is not endorsed or certified by the Census Bureau.»; las tasas por 1.000 mujeres y por 10.000 habitantes las calculamos nosotros."
+}

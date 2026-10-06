@@ -1,0 +1,15 @@
+{
+ "id": "F12",
+ "nombre": "LA City Council Districts (Adopted 2021)",
+ "entidad": "City of Los Angeles · LA GeoHub (Bureau of Engineering)",
+ "url": "https://maps.lacity.org/lahub/rest/services/Boundaries/MapServer/13",
+ "cobertura": "Los 15 distritos de consejo",
+ "vigencia": "Límites adoptados en 2021",
+ "probado": "2026-10-05",
+ "estado": "Integrada al lago",
+ "licencia": "no declara",
+ "personas": "No",
+ "proteccion": "abierto",
+ "uso": "Territorio: capa de los 15 distritos de consejo",
+ "nota": "El hub marca la licencia como «none». El campo NAME es el nombre del concejal (cargo público). Se simplifica a ~300 m y 4 decimales: 15,6 KB."
+}

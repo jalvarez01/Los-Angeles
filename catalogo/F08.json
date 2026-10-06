@@ -1,0 +1,15 @@
+{
+ "id": "F08",
+ "nombre": "Census Data by Council District",
+ "entidad": "City of Los Angeles (portal data.lacity.org)",
+ "url": "https://data.lacity.org/resource/ucyn-ru6w.json",
+ "cobertura": "15 distritos de consejo (límites anteriores a 2021)",
+ "vigencia": "Censo 2010",
+ "probado": "2026-10-05",
+ "estado": "Descartada",
+ "licencia": "Creative Commons 1.0 Universal (Public Domain Dedication)",
+ "personas": "Solo conteos por zona",
+ "proteccion": "no se publica",
+ "uso": "",
+ "nota": "Es el censo de 2010 sobre los distritos viejos (última carga: 2017). No sirve para comparar hoy, y por eso el lago no tiene población por distrito."
+}

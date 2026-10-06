@@ -1,0 +1,39 @@
+{
+ "tema": "equipamientos",
+ "probado": "2026-10-06",
+ "fuentes": [
+  {
+   "id": "F10",
+   "nombre": "OpenStreetMap vía Overpass API",
+   "url": "https://overpass-api.de/api/interpreter",
+   "estado": "vivo",
+   "licencia": "ODbL"
+  }
+ ],
+ "cifras": {
+  "hoteles": {
+   "valor": 398,
+   "unidad": "elementos en OpenStreetMap",
+   "vigencia": "2026-10-06",
+   "fuente": "F10"
+  },
+  "hospitales": {
+   "valor": 58,
+   "unidad": "elementos en OpenStreetMap",
+   "vigencia": "2026-10-06",
+   "fuente": "F10"
+  },
+  "colegios": {
+   "valor": 1089,
+   "unidad": "elementos en OpenStreetMap",
+   "vigencia": "2026-10-06",
+   "fuente": "F10"
+  },
+  "parques": {
+   "valor": 667,
+   "unidad": "elementos en OpenStreetMap",
+   "vigencia": "2026-10-06",
+   "fuente": "F10"
+  }
+ }
+}

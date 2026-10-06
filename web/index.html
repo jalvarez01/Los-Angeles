@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Los Ángeles · Sistema de información</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css">
+<style>
+:root{--bg:#f7f7f5;--card:#fff;--ink:#1d2433;--mut:#5b6475;--line:#dfe2e8;--acc:#1f5fa8;--acc2:#c2571a}
+@media (prefers-color-scheme:dark){:root{--bg:#14171d;--card:#1d2129;--ink:#e8eaee;--mut:#9aa3b2;--line:#323846;--acc:#6aa7e8;--acc2:#e8935a}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,sans-serif}
+header,main{max-width:1100px;margin:0 auto;padding:0 16px}header{padding-top:28px}
+h1{font-size:1.7rem;margin:0}h2{font-size:1.25rem;margin:2.2rem 0 .3rem;border-bottom:1px solid var(--line);padding-bottom:.3rem}
+p.lead,.nota{color:var(--mut);font-size:.9rem;margin:.3rem 0}nav a{margin-right:12px;font-size:.9rem;color:var(--acc)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin:12px 0}
+.kpi,.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px}
+.kpi b{display:block;font-size:1.5rem}.kpi span{color:var(--mut);font-size:.8rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:12px}
+.chart{position:relative;height:300px}#mapa{height:460px;border-radius:8px;border:1px solid var(--line)}
+table{border-collapse:collapse;width:100%;font-size:.85rem}th,td{padding:4px 8px;border-bottom:1px solid var(--line);text-align:left}
+td.n,th.n{text-align:right}.pend{border:1px dashed var(--line);padding:10px;border-radius:8px;color:var(--mut);font-size:.9rem}
+select{font:inherit;padding:4px;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:6px}
+.gob{margin-bottom:12px}.gob h3{margin:0 0 4px;font-size:1rem}.gob dl{margin:0;display:grid;grid-template-columns:110px 1fr;gap:2px 8px;font-size:.85rem}
+.gob dt{color:var(--mut)}.gob dd{margin:0;overflow-wrap:anywhere}footer{padding:24px 16px;color:var(--mut);font-size:.8rem;max-width:1100px;margin:0 auto}
+</style>
+</head>
+<body>
+<header>
+<h1>Los Ángeles · Sistema de información</h1>
+<p class="lead" id="atrib"><strong>This product uses the Census Bureau Data API but is not endorsed or certified by the Census Bureau.</strong> Las cifras de natalidad y población por distrito provienen de esa API (ACS de 5 años); las tasas las calculó el proyecto.</p>
+<p class="lead">Tablero para el Ayuntamiento y su equipo. Todas las cifras provienen de agregados guardados en el lago de datos del proyecto; no se consulta ninguna fuente en vivo desde el navegador y no se muestra ningún registro individual.</p>
+<nav><a href="#demografia">Demografía</a><a href="#seguridad">Seguridad</a><a href="#m311">311</a><a href="#vivienda">Vivienda</a><a href="#movilidad">Movilidad</a><a href="#equipamientos">Equipamientos</a><a href="#interes">Interés externo</a><a href="#mapa-s">Mapa</a><a href="#gobernanza">Gobernanza</a></nav>
+</header>
+<main>
+<section id="demografia"><h2>Demografía y natalidad</h2><div class="kpis" id="k-demo"></div><div id="natal"></div><div id="poblacion"></div></section>
+<section id="seguridad"><h2>Seguridad</h2><p class="nota" id="n-seg"></p><div class="kpis" id="k-seg"></div>
+<div class="grid"><div class="card"><div class="chart"><canvas id="c-seg-area"></canvas></div></div><div class="card"><div class="chart"><canvas id="c-seg-mes"></canvas></div></div></div></section>
+<section id="m311"><h2>Solicitudes ciudadanas (311)</h2><p class="nota" id="n-311"></p><div class="kpis" id="k-311"></div>
+<div class="grid"><div class="card"><div class="chart"><canvas id="c-311-tipo"></canvas></div></div><div class="card"><div class="chart"><canvas id="c-311-dist"></canvas></div></div><div class="card"><div class="chart"><canvas id="c-311-mes"></canvas></div></div></div></section>
+<section id="vivienda"><h2>Vivienda y permisos</h2><p class="nota" id="n-viv"></p><div class="kpis" id="k-viv"></div>
+<div class="grid"><div class="card"><div class="chart"><canvas id="c-viv-dist"></canvas></div></div><div class="card"><div class="chart"><canvas id="c-viv-mes"></canvas></div></div></div></section>
+<section id="movilidad"><h2>Movilidad</h2><div class="kpis" id="k-mov"></div></section>
+<section id="equipamientos"><h2>Equipamientos</h2><div class="kpis" id="k-equ"></div></section>
+<section id="interes"><h2>Interés externo</h2><div class="kpis" id="k-esc"></div><div class="card"><div class="chart"><canvas id="c-esc"></canvas></div></div></section>
+<section id="mapa-s"><h2>Mapa de los 15 distritos de consejo</h2>
+<p class="nota">Indicador: <select id="sel-mapa"></select> <span id="n-mapa"></span></p><div id="mapa"></div></section>
+<section id="gobernanza"><h2>Gobernanza</h2><p class="nota">Fuentes, licencia, fecha de prueba y vigencia de cada archivo del lago.</p><div id="gob" class="grid"></div></section>
+</main>
+<footer>This product uses the Census Bureau Data API but is not endorsed or certified by the Census Bureau. Proyecto de gobierno de datos, EAFIT 2026-2. Datos abiertos de la Ciudad de Los Ángeles, California DOF, Metro Bike Share, OpenStreetMap y Wikipedia, con las licencias indicadas en «Gobernanza».</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+<script>
+const TEMAS=["demografia","seguridad","municipio","vivienda","movilidad","equipamientos","escucha"];
+const $=id=>document.getElementById(id), fmt=n=>Number(n).toLocaleString("es-CO",{maximumFractionDigits:1});
+const el=(t,txt,cls)=>{const e=document.createElement(t);e.textContent=txt;if(cls)e.className=cls;return e};
+const fetchJ=u=>fetch(u).then(r=>{if(!r.ok)throw new Error(u);return r.json()});
+const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+function kpi(box,c,titulo){const d=document.createElement("div");d.className="kpi";d.append(el("b",fmt(c.valor)),el("span",`${titulo} · ${c.unidad} · vigencia ${c.vigencia}`));$(box).append(d)}
+function kpis(box,lago,mapa){for(const[k,t]of Object.entries(mapa))if(lago.cifras[k])kpi(box,lago.cifras[k],t)}
+function chart(id,tipo,labels,data,etq,opts={}){return new Chart($(id),{type:tipo,data:{labels,datasets:[{label:etq,data,backgroundColor:css("--acc"),borderColor:css("--acc"),tension:.2}]},
+ options:{maintainAspectRatio:false,indexAxis:opts.h?"y":"x",plugins:{title:{display:true,text:opts.titulo||etq,color:css("--ink")},legend:{display:false}},
+ scales:{x:{ticks:{color:css("--mut")}},y:{ticks:{color:css("--mut")}}}}})}
+const col=(t,n)=>t.columnas.indexOf(n);
+function tabla(box,t){const T=document.createElement("table"),h=T.createTHead().insertRow();t.columnas.forEach((c,i)=>{const th=el("th",c,i?"n":"");h.append(th)});
+ const b=T.createTBody();t.filas.forEach(f=>{const r=b.insertRow();f.forEach((v,i)=>r.append(el("td",typeof v==="number"?fmt(v):v,i?"n":"")))});box.append(T)}
+function porDistrito(lago,clave,idx){const t=lago.tablas[clave];const pc=t.columnas.findIndex(c=>/por_10mil/.test(c));
+ const i=pc>=0?pc:idx;return{t,i,etq:t.columnas[i],filas:t.filas}}
+(async()=>{
+ const D={};await Promise.all(TEMAS.map(async t=>D[t]=await fetchJ(`lago/${t}.json`)));
+ const geo=await fetchJ("territorio/distritos_consejo.geojson");
+ // Demografía
+ const dm=D.demografia;kpis("k-demo",dm,{poblacion:"Población de la ciudad",viviendas:"Viviendas",variacion_poblacion_pct:"Variación anual",natalidad_ciudad_por_1000:"Natalidad de la ciudad"});
+ const nat=dm.tablas&&dm.tablas.natalidad_por_ambito;
+ if(nat){const box=$("natal");const g=document.createElement("div");g.className="grid";
+  const c1=document.createElement("div");c1.className="card";c1.innerHTML='<div class="chart"><canvas id="c-nat"></canvas></div>';g.append(c1);
+  const ser=dm.tablas.natalidad_serie_ciudad;if(ser){const c2=document.createElement("div");c2.className="card";c2.innerHTML='<div class="chart"><canvas id="c-nat-s"></canvas></div>';g.append(c2)}
+  box.append(g);const ci=col(nat,"nacimientos_por_1000");
+  chart("c-nat","bar",nat.filas.map(f=>f[0]),nat.filas.map(f=>f[ci]),"Nacimientos por 1.000 mujeres de 15 a 50 años");
+  if(ser)chart("c-nat-s","line",ser.filas.map(f=>f[0]),ser.filas.map(f=>f[ser.columnas.indexOf("nacimientos_por_1000")]),"Ciudad de Los Ángeles, serie anual ACS 5 años");
+  box.append(el("p",`${nat.unidad}. Vigencia ${nat.vigencia}.`,"nota"));if(ser)box.append(el("p",ser.nota,"nota"))}
+ else $("natal").append(el("div","Natalidad (ciudad, California y EE. UU.) y población por distrito: pendientes. Provienen del Censo de EE. UU. (ACS, fuente F07), que exige una llave gratuita aún no configurada en el proyecto.","pend"));
+ const pob=dm.tablas&&dm.tablas.poblacion_por_distrito;
+ if(pob){const c=document.createElement("div");c.className="card";c.innerHTML='<div class="chart"><canvas id="c-pob"></canvas></div>';$("poblacion").append(c,el("p",pob.nota,"nota"));
+  chart("c-pob","bar",pob.filas.map(f=>"D"+f[0]),pob.filas.map(f=>f[1]),"Población por distrito de consejo (aproximada, ACS "+pob.vigencia.replace("ACS ","")+")")}
+ // Seguridad
+ const sg=D.seguridad;$("n-seg").textContent="Ventana: "+sg.cifras.delitos_12m.vigencia+". Las categorías suman el total de ofensas.";
+ kpis("k-seg",sg,{delitos_12m:"Ofensas totales",delitos_contra_personas_12m:"Contra personas",delitos_contra_propiedad_12m:"Contra la propiedad",delitos_contra_sociedad_12m:"Contra la sociedad",delitos_varias_categorias_12m:"Varias categorías",delitos_sin_categoria_12m:"Sin categoría"});
+ const ar=sg.tablas.delitos_por_area;chart("c-seg-area","bar",ar.filas.map(f=>f[0]),ar.filas.map(f=>f[1]),"Ofensas por área de LAPD",{h:true});
+ const sm=sg.series.delitos_mensuales;chart("c-seg-mes","line",sm.puntos.map(p=>p[0]),sm.puntos.map(p=>p[1]),"Ofensas por mes");
+ // 311
+ const mu=D.municipio;$("n-311").textContent=mu.tablas.solicitudes_por_distrito.nota+". Los porcentajes de cierre se muestran con y sin el tipo Information-Only, que se cierra al instante.";
+ kpis("k-311",mu,{solicitudes_anio:"Solicitudes del año",pct_cerradas:"% cerradas (todas)",pct_cerradas_sin_informativas:"% cerradas sin informativas"});
+ const ty=mu.tablas.solicitudes_por_tipo;chart("c-311-tipo","bar",ty.filas.map(f=>f[0]),ty.filas.map(f=>f[1]),"Solicitudes por tipo (10 principales)",{h:true});
+ const d3=porDistrito(mu,"solicitudes_por_distrito",1);chart("c-311-dist","bar",d3.filas.map(f=>"D"+f[0]),d3.filas.map(f=>f[d3.i]),"Solicitudes por distrito · "+d3.etq);
+ const m3=mu.series.solicitudes_mensuales;chart("c-311-mes","line",m3.puntos.map(p=>p[0]),m3.puntos.map(p=>p[1]),"Solicitudes por mes");
+ // Vivienda
+ const vv=D.vivienda;$("n-viv").textContent=vv.tablas.permisos_por_distrito.nota;
+ kpis("k-viv",vv,{permisos_12m:"Permisos emitidos",unidades_netas_12m:"Unidades netas"});
+ const dv=porDistrito(vv,"permisos_por_distrito",1);chart("c-viv-dist","bar",dv.filas.map(f=>"D"+f[0]),dv.filas.map(f=>f[dv.i]),"Permisos por distrito · "+dv.etq);
+ const pm=vv.series.permisos_mensuales;chart("c-viv-mes","line",pm.puntos.map(p=>p[0]),pm.puntos.map(p=>p[1]),"Permisos por mes");
+ kpis("k-mov",D.movilidad,{estaciones:"Estaciones",estaciones_operando:"Operando",bicis_disponibles:"Bicicletas disponibles",anclajes_libres:"Anclajes libres",bicis_electricas:"Bicicletas eléctricas"});
+ kpis("k-equ",D.equipamientos,{hoteles:"Hoteles",hospitales:"Hospitales",colegios:"Colegios",parques:"Parques"});
+ kpis("k-esc",D.escucha,{vistas_ultimo_mes:"Vistas del artículo «Los Ángeles»"});
+ const es=D.escucha.series.vistas_mensuales;chart("c-esc","line",es.puntos.map(p=>p[0]),es.puntos.map(p=>p[1]),"Vistas mensuales en Wikipedia");
+ // Mapa (sin teselas: solo la geometría local)
+ const inds={};
+ const todas=(t,lago,sufijo)=>t.columnas.forEach((c,i)=>{if(i)inds[sufijo+c]={f:t.filas,i,u:t.unidad}});
+ todas(mu.tablas.solicitudes_por_distrito,mu,"311 · ");todas(vv.tablas.permisos_por_distrito,vv,"Permisos · ");
+ if(pob)inds["Población · habitantes"]={f:pob.filas,i:1,u:pob.unidad};
+ const sel=$("sel-mapa");Object.keys(inds).forEach(k=>sel.append(new Option(k,k)));
+ const map=L.map("mapa",{zoomControl:true,attributionControl:false});let capa;
+ const pal=["#deebf7","#c6dbef","#9ecae1","#6baed6","#3182bd","#08519c"];
+ function pinta(){const I=inds[sel.value],v=Object.fromEntries(I.f.map(f=>[f[0],f[I.i]])),vals=Object.values(v),mn=Math.min(...vals),mx=Math.max(...vals);
+  if(capa)capa.remove();$("n-mapa").textContent=I.u+" · "+geo.nota;
+  capa=L.geoJSON(geo,{style:f=>{const x=v[f.properties.cd],q=mx>mn?Math.min(5,Math.floor(5.999*(x-mn)/(mx-mn))):0;return{fillColor:pal[q],fillOpacity:.85,color:"#fff",weight:1.5}},
+   onEachFeature:(f,l)=>l.bindTooltip(`Distrito ${f.properties.cd} · ${f.properties.nombre}: ${fmt(v[f.properties.cd])}`)}).addTo(map);map.fitBounds(capa.getBounds())}
+ sel.onchange=pinta;pinta();
+ // Gobernanza
+ for(const t of TEMAS){const l=D[t],d=document.createElement("div");d.className="card gob";d.append(el("h3",`lago/${t}.json`));
+  const vig=[...new Set([...Object.values(l.cifras).map(c=>c.vigencia),...Object.values(l.tablas||{}).map(x=>x.vigencia)])].join(" · ");
+  const dl=document.createElement("dl");const add=(a,b)=>{dl.append(el("dt",a),el("dd",b))};
+  add("Probado",l.probado);add("Vigencia",vig);
+  l.fuentes.forEach(f=>{add("Fuente",`${f.id} · ${f.nombre}`);add("Licencia",f.licencia);add("Estado",f.estado);const a=el("a",f.url);a.href=f.url;a.rel="noopener";const dd=el("dd","");dd.append(a);dl.append(el("dt","URL"),dd)});
+  d.append(dl);$("gob").append(d)}
+})().catch(e=>{document.body.prepend(el("p","No se pudo cargar el lago de datos: "+e.message,"pend"))});
+</script>
+</body>
+</html>

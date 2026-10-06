@@ -1,0 +1,15 @@
+{
+ "id": "F16",
+ "nombre": "«City Council Districts» (872g-cjhh)",
+ "entidad": "Otro portal Socrata, no el de Los Ángeles",
+ "url": "https://data.lacity.org/resource/872g-cjhh.geojson",
+ "cobertura": "",
+ "vigencia": "",
+ "probado": null,
+ "estado": "Descartada",
+ "licencia": "no declara",
+ "personas": "No",
+ "proteccion": "no se publica",
+ "uso": "",
+ "nota": "Intentos del 2026-09-28 y del 2026-10-05: 404 en data.lacity.org. El catálogo mezcla portales de varias ciudades: un título que coincide no es la cosa. Los límites reales salen de F12."
+}

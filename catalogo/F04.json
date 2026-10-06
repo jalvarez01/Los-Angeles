@@ -1,0 +1,15 @@
+{
+ "id": "F04",
+ "nombre": "Building and Safety - Building Permits Issued from 2020 to Present (N)",
+ "entidad": "Los Angeles Department of Building and Safety (LADBS)",
+ "url": "https://data.lacity.org/resource/pi9x-tg5x.json",
+ "cobertura": "Ciudad · dirección, número de predio (APN), distrito de consejo, latitud y longitud",
+ "vigencia": "2020-01-01 a 2026-10-03",
+ "probado": "2026-10-05",
+ "estado": "Integrada al lago",
+ "licencia": "no declara",
+ "personas": "Personas identificables",
+ "proteccion": "solo agregados",
+ "uso": "Vivienda: permisos y unidades netas por distrito y mes",
+ "nota": "El APN se cruza con el registro de propietarios del condado: al lago solo llegan conteos. Los campos du_changed (cambio en unidades de vivienda) y valuation llegan como texto."
+}

@@ -1,0 +1,109 @@
+{
+ "tema": "escucha",
+ "probado": "2026-10-06",
+ "fuentes": [
+  {
+   "id": "F11",
+   "nombre": "Wikimedia Pageviews API",
+   "url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/es.wikipedia/all-access/user/Los_%C3%81ngeles/monthly/20250201/20260930",
+   "estado": "vivo",
+   "licencia": "CC0"
+  }
+ ],
+ "cifras": {
+  "vistas_ultimo_mes": {
+   "valor": 18658,
+   "unidad": "vistas de personas",
+   "vigencia": "2026-09",
+   "fuente": "F11"
+  }
+ },
+ "series": {
+  "vistas_mensuales": {
+   "unidad": "vistas de personas",
+   "fuente": "F11",
+   "puntos": [
+    [
+     "2025-02",
+     28374
+    ],
+    [
+     "2025-03",
+     27700
+    ],
+    [
+     "2025-04",
+     24056
+    ],
+    [
+     "2025-05",
+     24015
+    ],
+    [
+     "2025-06",
+     34980
+    ],
+    [
+     "2025-07",
+     24464
+    ],
+    [
+     "2025-08",
+     24046
+    ],
+    [
+     "2025-09",
+     22283
+    ],
+    [
+     "2025-10",
+     23295
+    ],
+    [
+     "2025-11",
+     22150
+    ],
+    [
+     "2025-12",
+     20675
+    ],
+    [
+     "2026-01",
+     22716
+    ],
+    [
+     "2026-02",
+     20425
+    ],
+    [
+     "2026-03",
+     20480
+    ],
+    [
+     "2026-04",
+     23573
+    ],
+    [
+     "2026-05",
+     22617
+    ],
+    [
+     "2026-06",
+     24694
+    ],
+    [
+     "2026-07",
+     25583
+    ],
+    [
+     "2026-08",
+     20484
+    ],
+    [
+     "2026-09",
+     18658
+    ]
+   ]
+  }
+ }
+}
