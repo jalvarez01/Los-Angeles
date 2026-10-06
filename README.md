@@ -6,7 +6,7 @@ Grupo: Jeronimo Escobar Restrepo · Juan Jose Alvarez Ocampo · Repositorio: htt
 
 - `entrega1/Diccionario_de_datos_LosAngeles.xlsx` — 16 fuentes, 62 campos y la bitácora de la búsqueda.
 - `entrega1/Preguntas_por_que_estos_datos_LosAngeles.docx` — las seis respuestas.
-- `catalogo/` — una ficha por fuente (`F01.json` … `F16.json`), generadas desde `catalogo/fuentes.py`.
+- `catalogo/` — una ficha por fuente (`F01.json` … `F17.json`), generadas desde `catalogo/fuentes.py`.
 - `lago/` — siete temas con la forma del contrato. `territorio/` — los 15 distritos de consejo.
 
 ## Cómo se reconstruye
@@ -45,6 +45,8 @@ que tiene la fuente, no en el del calendario.
 
 Publicada en https://los-angeles-lemon.vercel.app (producción; las vistas previas de Vercel quedan protegidas con inicio de sesión). `web/` es un sitio estático que lee solo `lago/` y `territorio/` (sin llamadas en vivo; la llave del Censo nunca llega al navegador). Se prueba con `python3 web/build.py && python3 -m http.server -d web/dist`; `build.py` copia el lago al sitio.
 
+Diseño: inspirado en los menús de pausa de los videojuegos de mundo abierto, sin ningún recurso de terceros del juego; tipografías Anton e IBM Plex Sans (Google Fonts). Fotografía de fondo: «Echo park lake with lotus flowers and Los Angeles skyline in the background», de Alaiben, CC BY-SA 4.0, vía [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Echo_park_lake_with_lotus_flowers_and_Los_Angeles_skyline_in_the_background.jpg) (F17, en `web/assets/`; la gradación de color es solo CSS).
+
 ## Para quién y qué pregunta
 
 - **Usuario:** un concejal del Ayuntamiento y su equipo.
@@ -61,6 +63,7 @@ Publicada en https://los-angeles-lemon.vercel.app (producción; las vistas previ
 | F04 Permisos LADBS | no declara | identificables (número de predio) | integrada | solo agregados |
 | F06 DOF E-1 | no declara | no | integrada | abierto |
 | F07 Census ACS 5 años | Términos de la API del Censo (exigen atribución; ver `lago/demografia.json`) | no (conteos agregados) | integrada | llave gratuita en `.env`; mostrar «This product uses the Census Bureau Data API but is not endorsed or certified by the Census Bureau.» |
+| F17 Fotografía de fondo (Wikimedia Commons) | CC BY-SA 4.0 (Alaiben) | no (figuras lejanas) | integrada a la capa web | atribución en el pie de la web; la copia redimensionada se comparte igual |
 | F09 Metro Bike Share | no declara | no | integrada | abierto |
 | F10 OpenStreetMap | ODbL | no | integrada | atribución y compartir igual |
 | F11 Wikipedia | CC0 | no | integrada | abierto |

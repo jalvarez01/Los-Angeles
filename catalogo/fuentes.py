@@ -122,6 +122,17 @@ FUENTES = [
      "Lo propuso la IA, tomado del catálogo federado de Socrata sin filtrar por dominio",
      "Intentos del 2026-09-28 y del 2026-10-05: 404 en data.lacity.org. El catálogo mezcla portales de varias ciudades: un título "
      "que coincide no es la cosa. Los límites reales salen de F12."],
+    ["F17", "Echo park lake with lotus flowers and Los Angeles skyline in the background (fotografía)",
+     "Alaiben (colaborador de Wikimedia Commons)", "Plataforma colaborativa",
+     "https://commons.wikimedia.org/wiki/File:Echo_park_lake_with_lotus_flowers_and_Los_Angeles_skyline_in_the_background.jpg",
+     "JPEG", "Descarga directa", "Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)",
+     "Figuras lejanas, sin rostros identificables", "Echo Park, Los Ángeles (34.0753, -118.2615)", "Tomada el 2019-07-12",
+     "Única vez", "2026-10-06", "Integrada a la capa web",
+     "Búsqueda propia en la API de Wikimedia Commons (palmeras y horizonte del centro); la licencia se confirmó en la página del archivo",
+     "Fondo de la página web, no del lago. Autoría: Alaiben, obra propia, CC BY-SA 4.0 (la página del archivo y el autor aparecen en el pie de la web). "
+     "Se redujo a 2400 px de ancho y a JPEG (453 KB): esa copia redimensionada es una adaptación y se comparte bajo la misma licencia. "
+     "La gradación de color es solo CSS y no modifica el archivo. Se descartaron otras candidatas: «Dodger Stadium and DTLA» (marca de agua y logotipo) "
+     "y «Los Angeles with Mount Baldy» (sin palmeras)."],
 ]
 
 # Nivel de protección y uso en el sistema, para las fichas del catálogo
@@ -135,6 +146,7 @@ USO = {
     "F10": ("abierto", "Territorio: equipamientos de la ciudad"),
     "F11": ("abierto", "Escucha: interés en la ciudad desde fuera"),
     "F12": ("abierto", "Territorio: capa de los 15 distritos de consejo"),
+    "F17": ("abierto", "Capa web: fotografía de fondo (atribución exigida y compartir igual)"),
 }
 
 if __name__ == "__main__":
