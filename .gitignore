@@ -2,3 +2,4 @@ lago/raw/
 .env
 __pycache__/
 web/dist/
+.vercel/

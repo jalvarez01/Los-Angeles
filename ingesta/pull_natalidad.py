@@ -76,7 +76,7 @@ escribir_lago(
             "nota": "Una fila por lanzamiento del ACS de 5 años (el periodo es la ventana de 5 años). Los lanzamientos "
                     "consecutivos se traslapan (comparten cuatro de sus cinco años), así que los puntos consecutivos no "
                     "son independientes y no deben compararse entre sí. Solo se deben comparar ventanas que no se "
-                    "traslapen: 2006-2010, 2011-2015, 2016-2020 y 2020-2024 (las dos últimas comparten únicamente el año 2020)."},
+                    "traslapen: 2010-2014, 2015-2019 y 2020-2024."},
         "poblacion_por_distrito": {
             "unidad": "habitantes", "vigencia": V, "fuente": "F07",
             "columnas": ["cd", "poblacion", "sectores_censales"],
