@@ -1,7 +1,7 @@
 # Los Ángeles · Sistema de Información
 
-Grupo: Jeronimo Escobar Restrepo · Juan Jose Alvarez Ocampo 
-Sitio: https://los-angeles-lemon.vercel.app
+- Jeronimo Escobar Restrepo · Juan Jose Alvarez Ocampo 
+- Sitio: https://los-angeles-lemon.vercel.app
 
 ## Entrega 1 · el lago y su diccionario
 
