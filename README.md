@@ -1,6 +1,7 @@
-# Los Ángeles · sistema de información
+# Los Ángeles · Sistema de Información
 
-Grupo: Jeronimo Escobar Restrepo · Juan Jose Alvarez Ocampo · Repositorio: https://github.com/jalvarez01/Los-Angeles · Sitio: https://los-angeles-lemon.vercel.app · Revisado: 2026-10-06
+Grupo: Jeronimo Escobar Restrepo · Juan Jose Alvarez Ocampo 
+Sitio: https://los-angeles-lemon.vercel.app
 
 ## Entrega 1 · el lago y su diccionario
 
