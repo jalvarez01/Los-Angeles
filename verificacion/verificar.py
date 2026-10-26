@@ -194,7 +194,10 @@ if "movilidad" in lagos:
         check("bicis · misma vigencia que las cifras", tes["vigencia"] == lagos["movilidad"]["cifras"]["estaciones"]["vigencia"])
 
 # Natalidad y población por distrito (F07) y tasas per cápita
-if "demografia" in lagos:
+# Si pull_natalidad.py no corrió (sin llave o sin red), demografia.json queda solo con F06: eso es un FAIL, no un error
+censo = "demografia" in lagos and "poblacion_por_distrito" in lagos["demografia"].get("tablas", {})
+check("demografía · tablas del Censo (F07) presentes", censo)
+if censo:
     tb = lagos["demografia"]["tablas"]
     pd = {f[0]: f[1] for f in tb["poblacion_por_distrito"]["filas"]}
     check("población por distrito · distritos 1 a 15", sorted(pd) == list(range(1, 16)), sorted(pd))
