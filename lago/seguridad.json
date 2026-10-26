@@ -1,6 +1,6 @@
 {
  "tema": "seguridad",
- "probado": "2026-10-06",
+ "probado": "2026-10-26",
  "fuentes": [
   {
    "id": "F01",
@@ -12,39 +12,39 @@
  ],
  "cifras": {
   "delitos_12m": {
-   "valor": 219938,
+   "valor": 219165,
    "unidad": "ofensas registradas (NIBRS)",
-   "vigencia": "2025-09 a 2026-08",
+   "vigencia": "2025-10 a 2026-09",
    "fuente": "F01"
   },
   "delitos_contra_personas_12m": {
-   "valor": 59381,
+   "valor": 59380,
    "unidad": "ofensas registradas (NIBRS)",
-   "vigencia": "2025-09 a 2026-08",
+   "vigencia": "2025-10 a 2026-09",
    "fuente": "F01"
   },
   "delitos_contra_propiedad_12m": {
-   "valor": 117235,
+   "valor": 116160,
    "unidad": "ofensas registradas (NIBRS)",
-   "vigencia": "2025-09 a 2026-08",
+   "vigencia": "2025-10 a 2026-09",
    "fuente": "F01"
   },
   "delitos_contra_sociedad_12m": {
-   "valor": 24465,
+   "valor": 24511,
    "unidad": "ofensas registradas (NIBRS)",
-   "vigencia": "2025-09 a 2026-08",
+   "vigencia": "2025-10 a 2026-09",
    "fuente": "F01"
   },
   "delitos_varias_categorias_12m": {
-   "valor": 18765,
+   "valor": 19017,
    "unidad": "ofensas registradas (NIBRS) clasificadas por la fuente en varias categorías a la vez (p. ej. «Person, Property, Society»)",
-   "vigencia": "2025-09 a 2026-08",
+   "vigencia": "2025-10 a 2026-09",
    "fuente": "F01"
   },
   "delitos_sin_categoria_12m": {
-   "valor": 92,
+   "valor": 97,
    "unidad": "ofensas registradas (NIBRS) sin categoría (crime_against vacío en la fuente)",
-   "vigencia": "2025-09 a 2026-08",
+   "vigencia": "2025-10 a 2026-09",
    "fuente": "F01"
   }
  },
@@ -54,28 +54,24 @@
    "fuente": "F01",
    "puntos": [
     [
-     "2025-01",
-     18295
-    ],
-    [
      "2025-02",
-     17764
+     17766
     ],
     [
      "2025-03",
-     19241
+     19262
     ],
     [
      "2025-04",
-     18441
+     18445
     ],
     [
      "2025-05",
-     19721
+     19724
     ],
     [
      "2025-06",
-     18099
+     18100
     ],
     [
      "2025-07",
@@ -83,55 +79,59 @@
     ],
     [
      "2025-08",
-     19250
+     19254
     ],
     [
      "2025-09",
-     18333
+     18343
     ],
     [
      "2025-10",
-     18888
+     18907
     ],
     [
      "2025-11",
-     17771
+     17787
     ],
     [
      "2025-12",
-     18259
+     18269
     ],
     [
      "2026-01",
-     18313
+     18323
     ],
     [
      "2026-02",
-     16676
+     16687
     ],
     [
      "2026-03",
-     18741
+     18755
     ],
     [
      "2026-04",
-     18410
+     18429
     ],
     [
      "2026-05",
-     18549
+     18572
     ],
     [
      "2026-06",
-     18361
+     18386
     ],
     [
      "2026-07",
-     19324
+     19373
     ],
     [
      "2026-08",
-     18313
+     18459
+    ],
+    [
+     "2026-09",
+     17218
     ]
    ]
   }
@@ -139,7 +139,7 @@
  "tablas": {
   "delitos_por_area": {
    "unidad": "ofensas registradas (NIBRS)",
-   "vigencia": "2025-09 a 2026-08",
+   "vigencia": "2025-10 a 2026-09",
    "fuente": "F01",
    "columnas": [
     "area_nombre",
@@ -148,87 +148,87 @@
    "filas": [
     [
      "Central",
-     19273
+     19253
     ],
     [
      "Southwest",
-     13154
+     13046
     ],
     [
      "Rampart",
-     12605
-    ],
-    [
-     "77th Street",
-     12233
+     12666
     ],
     [
      "Olympic",
-     12178
+     12244
+    ],
+    [
+     "77th Street",
+     12186
     ],
     [
      "N Hollywood",
-     11894
+     11721
     ],
     [
      "Hollywood",
-     11688
+     11712
     ],
     [
      "Pacific",
-     11344
+     11131
     ],
     [
      "Newton",
-     10871
+     11068
     ],
     [
      "Southeast",
-     10000
+     10087
     ],
     [
      "Northeast",
-     9674
+     9632
     ],
     [
      "Van Nuys",
-     9505
+     9402
     ],
     [
      "Mission",
-     9355
-    ],
-    [
-     "Topanga",
-     9251
+     9248
     ],
     [
      "West Valley",
-     9217
+     9163
+    ],
+    [
+     "Topanga",
+     9155
     ],
     [
      "Wilshire",
-     9167
+     9058
     ],
     [
      "Devonshire",
-     8713
+     8630
     ],
     [
      "Harbor",
-     7959
-    ],
-    [
-     "West LA",
-     7685
+     7980
     ],
     [
      "Hollenbeck",
-     7631
+     7606
+    ],
+    [
+     "West LA",
+     7602
     ],
     [
      "Foothill",
-     6541
+     6575
     ]
    ]
   }

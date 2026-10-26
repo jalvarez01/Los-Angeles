@@ -1,6 +1,6 @@
 {
  "tema": "equipamientos",
- "probado": "2026-10-06",
+ "probado": "2026-10-26",
  "fuentes": [
   {
    "id": "F10",
@@ -14,25 +14,25 @@
   "hoteles": {
    "valor": 398,
    "unidad": "elementos en OpenStreetMap",
-   "vigencia": "2026-10-06",
+   "vigencia": "2026-10-26",
    "fuente": "F10"
   },
   "hospitales": {
-   "valor": 58,
+   "valor": 57,
    "unidad": "elementos en OpenStreetMap",
-   "vigencia": "2026-10-06",
+   "vigencia": "2026-10-26",
    "fuente": "F10"
   },
   "colegios": {
-   "valor": 1089,
+   "valor": 1088,
    "unidad": "elementos en OpenStreetMap",
-   "vigencia": "2026-10-06",
+   "vigencia": "2026-10-26",
    "fuente": "F10"
   },
   "parques": {
-   "valor": 667,
+   "valor": 670,
    "unidad": "elementos en OpenStreetMap",
-   "vigencia": "2026-10-06",
+   "vigencia": "2026-10-26",
    "fuente": "F10"
   }
  }

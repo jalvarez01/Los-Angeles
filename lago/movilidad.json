@@ -1,6 +1,6 @@
 {
  "tema": "movilidad",
- "probado": "2026-10-06",
+ "probado": "2026-10-26",
  "fuentes": [
   {
    "id": "F09",
@@ -14,31 +14,31 @@
   "estaciones": {
    "valor": 224,
    "unidad": "estaciones",
-   "vigencia": "2026-10-06T17:10Z",
+   "vigencia": "2026-10-26T19:30Z",
    "fuente": "F09"
   },
   "estaciones_operando": {
-   "valor": 212,
+   "valor": 218,
    "unidad": "estaciones",
-   "vigencia": "2026-10-06T17:10Z",
+   "vigencia": "2026-10-26T19:30Z",
    "fuente": "F09"
   },
   "bicis_disponibles": {
-   "valor": 1406,
+   "valor": 1391,
    "unidad": "bicicletas",
-   "vigencia": "2026-10-06T17:10Z",
+   "vigencia": "2026-10-26T19:30Z",
    "fuente": "F09"
   },
   "anclajes_libres": {
-   "valor": 1858,
+   "valor": 1875,
    "unidad": "anclajes",
-   "vigencia": "2026-10-06T17:10Z",
+   "vigencia": "2026-10-26T19:30Z",
    "fuente": "F09"
   },
   "bicis_electricas": {
-   "valor": 101,
+   "valor": 113,
    "unidad": "bicicletas eléctricas",
-   "vigencia": "2026-10-06T17:10Z",
+   "vigencia": "2026-10-26T19:30Z",
    "fuente": "F09"
   }
  }
