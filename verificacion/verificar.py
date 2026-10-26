@@ -105,11 +105,51 @@ if "seguridad" in lagos:
         g = json.load(open(areas_geo, encoding="utf-8"))
         check("áreas · los códigos del lago coinciden con los de la geometría",
               sorted(f["properties"]["area"] for f in g["features"]) == sorted(f[ia["area"]] for f in areas))
-        check("áreas · geometría con fuente, nota de simplificación y vigencia",
+        check("áreas · geometría con fuente, nota de simplificación y vigencia (F18)",
               g.get("fuente") == "F18" and "simplificada" in g.get("nota", "")
               and all(f["geometry"]["type"] in ("Polygon", "MultiPolygon")
                       and re.fullmatch(r"\d{4}-\d{2}-\d{2}", str(f["properties"].get("vigencia")))
                       for f in g["features"]))
+    tr = lagos["seguridad"]["tablas"].get("delitos_por_distrito_reporte")
+    check("distritos de reporte · tabla presente", tr is not None)
+    if tr:
+        ir = {c: tr["columnas"].index(c) for c in tr["columnas"]}
+        rf = tr["filas"]
+        n = [f[ir["delitos_12m"]] for f in rf]
+        check("distritos de reporte · ningún conteo guardado entre 1 y 9", not [x for x in n if x is not None and 0 < x < 10],
+              [x for x in n if x is not None and 0 < x < 10][:5])
+        check("distritos de reporte · null si y solo si suprimido",
+              all((f[ir["delitos_12m"]] is None) == (f[ir["suprimido"]] is True) for f in rf))
+        check("distritos de reporte · la nota dice la regla de supresión",
+              "menos de 10" in tr.get("nota", "") and "suprim" in tr["nota"])
+        check("distritos de reporte · sin códigos repetidos", len({f[ir["rd"]] for f in rf}) == len(rf))
+        tot_area = {f[ia["area"]]: f[ia["delitos_12m"]] for f in areas}
+        ok_comp, ok_suma = True, True
+        for a, t in tot_area.items():
+            fa = [f for f in rf if f[ir["area"]] == a]
+            ocultas = sum(1 for f in fa if f[ir["suprimido"]])
+            vis = sum(f[ir["delitos_12m"]] or 0 for f in fa)
+            ok_comp &= ocultas != 1
+            ok_suma &= vis == t if ocultas == 0 else vis < t
+        check("distritos de reporte · ninguna área con una sola celda suprimida (supresión complementaria)", ok_comp)
+        check("distritos de reporte · por área, visibles = total si no hay supresión y menor si la hay", ok_suma)
+        check("distritos de reporte · visibles no superan el total de la ciudad",
+              sum(x or 0 for x in n) <= v("seguridad", "delitos_12m"))
+        rd_geo = RAIZ / "territorio" / "distritos_reporte_lapd.geojson"
+        check("distritos de reporte · existe territorio/distritos_reporte_lapd.geojson", rd_geo.exists())
+        if rd_geo.exists():
+            g = json.load(open(rd_geo, encoding="utf-8"))
+            geo = {f["properties"]["rd"]: f["properties"]["area"] for f in g["features"]}
+            check("distritos de reporte · geometría con fuente, nota de simplificación y vigencia (F19)",
+                  g.get("fuente") == "F19" and "simplificada" in g.get("nota", "") and len(geo) == len(g["features"])
+                  and all(re.fullmatch(r"\d{4}-\d{2}-\d{2}", str(f["properties"].get("vigencia"))) for f in g["features"]))
+            check("distritos de reporte · en_capa coincide con la geometría",
+                  all(f[ir["en_capa"]] == (f[ir["rd"]] in geo) for f in rf))
+            check("distritos de reporte · todo polígono tiene fila", set(geo) <= {f[ir["rd"]] for f in rf})
+            check("distritos de reporte · el área de cada distrito es la de su polígono y la del código",
+                  all(geo[f[ir["rd"]]] == f[ir["area"]] == int(f[ir["rd"]]) // 100 for f in rf if f[ir["en_capa"]]))
+            check("distritos de reporte · las áreas de la geometría son las 21 de F18",
+                  sorted(set(geo.values())) == list(range(1, 22)))
 if "municipio" in lagos:
     cds = filas("municipio", "solicitudes_por_distrito")
     check("311 · distritos 1 a 15", sorted(f[0] for f in cds) == list(range(1, 16)), [f[0] for f in cds])

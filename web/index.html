@@ -190,7 +190,9 @@ footer p{margin:.3rem 0}footer b{color:#fff}
 <section id="seguridad" class="panel c2" style="--i:2"><h2><span class="n">02</span>Seguridad</h2><p class="nota" id="n-seg"></p><div class="kpis" id="k-seg"></div>
 <div class="grid"><div class="sub"><div class="chart"><canvas id="c-seg-area"></canvas></div></div><div class="sub"><div class="chart"><canvas id="c-seg-mes"></canvas></div></div></div>
 <div class="sub mapa-box"><h3>Ofensas por área de LAPD</h3><p class="nota"><label for="sel-areas">Indicador:</label> <select id="sel-areas"></select></p>
-<div id="mapa-areas" class="mapa" role="img" aria-label="Mapa de las 21 áreas de LAPD, coloreadas según el indicador elegido"></div><div class="leyenda" id="ley-areas"></div><p class="pie-mapa" id="pie-areas"></p></div></section>
+<div id="mapa-areas" class="mapa" role="img" aria-label="Mapa de las 21 áreas de LAPD, coloreadas según el indicador elegido"></div><div class="leyenda" id="ley-areas"></div><p class="pie-mapa" id="pie-areas"></p></div>
+<div class="sub mapa-box"><h3>Ofensas por distrito de reporte</h3><p class="nota"><label for="sel-rd">Acercar a:</label> <select id="sel-rd"></select></p>
+<div id="mapa-rd" class="mapa" role="img" aria-label="Mapa de los distritos de reporte de LAPD, coloreados por ofensas en 12 meses; los distritos con menos de 10 ofensas aparecen rayados"></div><div class="leyenda" id="ley-rd"></div><p class="pie-mapa" id="pie-rd"></p></div></section>
 <section id="m311" class="panel c3" style="--i:3"><h2><span class="n">03</span>Solicitudes ciudadanas (311)</h2><p class="nota" id="n-311"></p><div class="kpis" id="k-311"></div>
 <div class="grid"><div class="sub"><div class="chart"><canvas id="c-311-tipo"></canvas></div></div><div class="sub"><div class="chart"><canvas id="c-311-dist"></canvas></div></div><div class="sub"><div class="chart"><canvas id="c-311-mes"></canvas></div></div></div></section>
 <section id="vivienda" class="panel c4" style="--i:4"><h2><span class="n">04</span>Vivienda y permisos</h2><p class="nota" id="n-viv"></p><div class="kpis" id="k-viv"></div>
@@ -236,7 +238,7 @@ function menuActivo(){const links=[...document.querySelectorAll("#menu a")],porI
  marca("demografia");
  const io=new IntersectionObserver(es=>{es.filter(e=>e.isIntersecting).forEach(e=>{marca(e.target.id);const a=porId[e.target.id];if(a&&innerWidth<=900)a.scrollIntoView({inline:"center",block:"nearest"})})},{rootMargin:"-25% 0px -65% 0px"});
  Object.keys(porId).forEach(id=>{const s=$(id);if(s)io.observe(s)})}
-// Mapas: solo geometría local, sin teselas. Cinco clases por quintiles; null = celda suprimida (menos de 10)
+// Mapas: solo geometría local, sin teselas. Cinco clases por quintiles; null = celda suprimida (menos de 10, o complementaria)
 const PAL=["#3a1c5a","#7d1f7c","#c4266a","#f2604c","#ffc15e"];
 function cortes(vals){const v=[...vals].sort((a,b)=>a-b),c=[];
  for(let i=1;i<PAL.length;i++){const x=v[Math.floor(i*v.length/PAL.length)];if(x>v[0]&&!c.includes(x))c.push(x)}return c}
@@ -249,17 +251,17 @@ function coropleta(o){
   const color=x=>x===null?"url(#rayado)":x===undefined?"#2a2d36":PAL[Math.round(c.filter(k=>x>=k).length*paso)];
   if(capa)capa.remove();
   capa=L.geoJSON(o.geo,{style:f=>({fillColor:color(I.v[o.clave(f)]),fillOpacity:.92,color:"rgba(255,255,255,.65)",weight:o.peso||1.2}),
-   onEachFeature:(f,l)=>{const x=I.v[o.clave(f)];l.bindTooltip(`${o.nombre(f)}: ${x===null?"menos de 10":x===undefined?"sin dato":fmt(x)+" "+I.corta}`,{sticky:true})}}).addTo(map);
+   onEachFeature:(f,l)=>{const x=I.v[o.clave(f)];l.bindTooltip(`${o.nombre(f)}: ${x===null?"suprimido (menos de 10, o complementario)":x===undefined?"sin dato":fmt(x)+" "+I.corta}`,{sticky:true})}}).addTo(map);
   const lim=[mn,...c,mx],ley=$(o.ley);ley.replaceChildren(el("b",I.u));
   for(let i=0;i<lim.length-1;i++){const s=el("span",`${fmt(lim[i])} – ${fmt(lim[i+1])}`);s.prepend(muestra("",PAL[Math.round(i*paso)]));ley.append(s)}
-  if(Object.values(I.v).includes(null)){const s=el("span","menos de 10 (suprimido)");s.prepend(muestra("raya"));ley.append(s)}
+  if(Object.values(I.v).includes(null)){const s=el("span","suprimido: menos de 10, o complementario");s.prepend(muestra("raya"));ley.append(s)}
   $(o.pie).textContent=I.pie;
   if(primera){map.invalidateSize();map.fitBounds(capa.getBounds(),{padding:[14,14]});primera=false}}
  if(o.sel)o.sel.onchange=pinta;pinta();return{map,capa:()=>capa}}
 (async()=>{
  menuActivo();
  const D={};await Promise.all(TEMAS.map(async t=>D[t]=await fetchJ(`lago/${t}.json`)));
- const geo=await fetchJ("territorio/distritos_consejo.geojson"),areasGeo=await fetchJ("territorio/areas_lapd.geojson");
+ const [geo,areasGeo,rdGeo]=await Promise.all(["distritos_consejo","areas_lapd","distritos_reporte_lapd"].map(n=>fetchJ(`territorio/${n}.geojson`)));
  await Promise.race([document.fonts.ready,new Promise(r=>setTimeout(r,1500))]);
  pintaDefaults();
  // HUD de cifras clave (mismos datos del lago)
@@ -289,6 +291,12 @@ function coropleta(o){
  coropleta({id:"mapa-areas",geo:areasGeo,sel:$("sel-areas"),ley:"ley-areas",pie:"pie-areas",clave:f=>f.properties.area,nombre:f=>`Área ${f.properties.area} · ${nomArea[f.properties.area]}`,
   inds:{"Ofensas totales (12 meses)":{v:porArea("delitos_12m"),u:"Ofensas registradas en 12 meses",corta:"ofensas",pie:pieA},
         "Ofensas por 10.000 habitantes":{v:porArea("delitos_por_10mil"),u:"Ofensas por 10.000 habitantes (población ACS por área, aproximada)",corta:"por 10.000 hab.",pie:pieA}}});
+ const tr=sg.tablas.delitos_por_distrito_reporte;
+ if(tr){const ir=c=>tr.columnas.indexOf(c),vrd=Object.fromEntries(tr.filas.filter(f=>f[ir("en_capa")]).map(f=>[f[ir("rd")],f[ir("delitos_12m")]]));
+  const m=coropleta({id:"mapa-rd",geo:rdGeo,ley:"ley-rd",pie:"pie-rd",peso:.35,clave:f=>f.properties.rd,nombre:f=>`Distrito ${f.properties.rd} · ${nomArea[f.properties.area]}`,
+   inds:{o:{v:vrd,u:"Ofensas registradas en 12 meses por distrito de reporte",corta:"ofensas",pie:`Fuentes: F01 (ofensas), F19 (límites) · vigencia ${tr.vigencia}. ${tr.nota} ${rdGeo.nota}`}}});
+  const sr=$("sel-rd");sr.append(new Option("Toda la ciudad",""));Object.entries(nomArea).sort((a,b)=>a[1].localeCompare(b[1])).forEach(([a,n])=>sr.append(new Option(n,a)));
+  sr.onchange=()=>{const a=+sr.value,b=L.latLngBounds([]);m.capa().eachLayer(l=>{if(!a||l.feature.properties.area===a)b.extend(l.getBounds())});m.map.fitBounds(b,{padding:[14,14]})}}
  // 311
  const mu=D.municipio;$("n-311").textContent=mu.tablas.solicitudes_por_distrito.nota+". Los porcentajes de cierre se muestran con y sin el tipo Information-Only, que se cierra al instante.";
  kpis("k-311",mu,{solicitudes_anio:"Solicitudes del año",pct_cerradas:"% cerradas (todas)",pct_cerradas_sin_informativas:"% cerradas sin informativas"});
