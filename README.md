@@ -46,7 +46,7 @@ que tiene la fuente, no en el del calendario.
 
 Publicada en https://los-angeles-lemon.vercel.app (producción; las vistas previas de Vercel quedan protegidas con inicio de sesión). `web/` es un sitio estático que lee solo `lago/` y `territorio/` (sin llamadas en vivo; la llave del Censo nunca llega al navegador). Se prueba con `python3 web/build.py && python3 -m http.server -d web/dist`; `build.py` copia el lago al sitio.
 
-Diseño: inspirado en los menús de pausa de los videojuegos de mundo abierto, sin ningún recurso de terceros del juego; tipografías Anton e IBM Plex Sans (Google Fonts). Fotografía de fondo: «Echo park lake with lotus flowers and Los Angeles skyline in the background», de Alaiben, CC BY-SA 4.0, vía [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Echo_park_lake_with_lotus_flowers_and_Los_Angeles_skyline_in_the_background.jpg) (F17, en `web/assets/`; la gradación de color es solo CSS).
+Diseño: inspirado en los menús de pausa de los videojuegos de mundo abierto, sin ningún recurso de terceros del juego; tipografías Anton e IBM Plex Sans (Google Fonts). Fotografía de fondo: «Echo park lake with lotus flowers and Los Angeles skyline in the background», de Alaiben, CC BY-SA 4.0, vía [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Echo_park_lake_with_lotus_flowers_and_Los_Angeles_skyline_in_the_background.jpg) (F17, en `web/assets/fondo-los-angeles.jpg`, 2400 × 1515 px y 452.634 bytes; la gradación de color es solo CSS).
 
 ## Para quién y qué pregunta
 
