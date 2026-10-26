@@ -273,6 +273,110 @@
     ]
    ],
    "nota": "Método: se suman los 1.110 sectores censales del condado de Los Ángeles (ACS 2024, B01003_001E) cuyo punto interno (Gazetteer del Censo 2020) cae dentro de cada distrito, usando los límites completos de F12 (sin simplificar). Error: un sector que cruza el límite de dos distritos se asigna entero al distrito de su punto interno, así que cada distrito puede quedar algo por encima o por debajo; el error por distrito no se puede medir con esta fuente. A escala de ciudad, la suma de los distritos (3.848.338) difiere -8.925 habitantes (-0.23 %) de la población de la ciudad en el mismo ACS (3.857.263). Son estimaciones de encuesta con margen de error, no un censo."
+  },
+  "natalidad_por_distrito": {
+   "unidad": "mujeres de 15 a 50 años; nacimientos en los últimos 12 meses; nacimientos por 1.000 mujeres",
+   "vigencia": "ACS 2020-2024",
+   "fuente": "F07",
+   "columnas": [
+    "cd",
+    "mujeres_15_50",
+    "nacimientos",
+    "nacimientos_por_1000"
+   ],
+   "filas": [
+    [
+     1,
+     63516,
+     2659,
+     41.9
+    ],
+    [
+     2,
+     68275,
+     2871,
+     42.1
+    ],
+    [
+     3,
+     61034,
+     2713,
+     44.5
+    ],
+    [
+     4,
+     66801,
+     2183,
+     32.7
+    ],
+    [
+     5,
+     83291,
+     2076,
+     24.9
+    ],
+    [
+     6,
+     63700,
+     2378,
+     37.3
+    ],
+    [
+     7,
+     61209,
+     3090,
+     50.5
+    ],
+    [
+     8,
+     64629,
+     2541,
+     39.3
+    ],
+    [
+     9,
+     71966,
+     3778,
+     52.5
+    ],
+    [
+     10,
+     69664,
+     2799,
+     40.2
+    ],
+    [
+     11,
+     70739,
+     2838,
+     40.1
+    ],
+    [
+     12,
+     60318,
+     2501,
+     41.5
+    ],
+    [
+     13,
+     73802,
+     1746,
+     23.7
+    ],
+    [
+     14,
+     68487,
+     2550,
+     37.2
+    ],
+    [
+     15,
+     63143,
+     3210,
+     50.8
+    ]
+   ],
+   "nota": "Método: B13016_001E (mujeres de 15 a 50 años) y B13016_002E (las que tuvieron un nacimiento en los últimos 12 meses) de los 1.110 sectores censales del condado (ACS 2020-2024) cuyo punto interno cae en cada distrito, con los límites completos de F12; la tasa es nacimientos / mujeres × 1.000. Error: un sector que cruza el límite de dos distritos se asigna entero al de su punto interno, y a esta escala el margen de error del ACS es grande (pocas mujeres con nacimiento por sector), así que diferencias pequeñas entre distritos no son significativas. A escala de ciudad, la suma de los distritos (1.010.574 mujeres, 39.933 nacimientos) difiere -0.18 % y -0.23 % de las cifras de la ciudad en el mismo ACS (1.012.365 y 40.027)."
   }
  }
 }

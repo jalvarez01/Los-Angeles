@@ -4,19 +4,14 @@
 Natalidad: de B13016 (mujeres de 15 a 50 años y las que tuvieron un nacimiento en los últimos 12 meses) se
 calculan nacimientos por 1.000 mujeres de 15 a 50 años, para la ciudad (place 06-44000), California y EE. UU.,
 en el último lanzamiento disponible, y para la ciudad en todos los lanzamientos que responden.
-Población por distrito: B01003 por sector censal del condado de Los Ángeles, asignado a cada distrito de
-consejo por el punto interno del sector (ver _censo.py). Ningún dato individual llega al lago.
+Población y natalidad por distrito: B01003 y B13016 por sector censal del condado de Los Ángeles, asignados a cada
+distrito de consejo por el punto interno del sector (ver _censo.py). Ningún dato individual llega al lago.
 Necesita CENSUS_API_KEY en .env. Se funde con lo que F06 ya escribió en demografia.json.
 """
-from _censo import api, lanzamientos, poblacion_por_distrito
+from _censo import LICENCIA, api, lanzamientos, poblacion_por_distrito, poligonos_distritos, suma_por_poligono
 from _comun import escribir_lago
 
 URL = "https://api.census.gov/data/{anio}/acs/acs5"
-# Texto copiado de https://www.census.gov/data/developers/about/terms-of-service.html (consultado el día de la ingesta)
-LICENCIA = ('Census Bureau API Terms of Service (census.gov/data/developers/about/terms-of-service.html): '
-            '"You may use the Census Bureau API to develop a service or service to search, display, analyze, '
-            'retrieve, view and otherwise \"get\" information from Census Bureau data." Atribución exigida: '
-            '"This product uses the Census Bureau Data API but is not endorsed or certified by the Census Bureau."')
 VARS = ["B13016_001E", "B13016_002E"]
 AMBITOS = [("Ciudad de Los Ángeles", "place:44000", ["state:06"]),
            ("California", "state:06", None),
@@ -53,6 +48,21 @@ nota_pob = (
 )
 
 V = f"ACS {periodo(ultimo)}"
+
+# Natalidad por distrito: mismos sectores y mismo lanzamiento que la cifra de la ciudad
+nd = suma_por_poligono(ultimo, VARS, poligonos_distritos())
+filas_cd = [[cd, m, n, tasa(m, n)] for cd, (m, n) in sorted(nd["suma"].items())]
+sm, sn = sum(f[1] for f in filas_cd), sum(f[2] for f in filas_cd)
+pct = lambda a, b: f"{100 * (a - b) / b:+.2f} %"
+nota_nat = (
+    f"Método: B13016_001E (mujeres de 15 a 50 años) y B13016_002E (las que tuvieron un nacimiento en los últimos "
+    f"12 meses) de los {miles(sum(nd['sectores'].values()))} sectores censales del condado (ACS {periodo(ultimo)}) "
+    "cuyo punto interno cae en cada distrito, con los límites completos de F12; la tasa es nacimientos / mujeres × 1.000. "
+    "Error: un sector que cruza el límite de dos distritos se asigna entero al de su punto interno, y a esta escala el "
+    "margen de error del ACS es grande (pocas mujeres con nacimiento por sector), así que diferencias pequeñas entre "
+    f"distritos no son significativas. A escala de ciudad, la suma de los distritos ({miles(sm)} mujeres, {miles(sn)} "
+    f"nacimientos) difiere {pct(sm, ciudad[1])} y {pct(sn, ciudad[2])} de las cifras de la ciudad en el mismo ACS "
+    f"({miles(ciudad[1])} y {miles(ciudad[2])}).")
 escribir_lago(
     "demografia",
     fuentes=[{"id": "F07", "nombre": "American Community Survey 5-Year Estimates (API)",
@@ -82,6 +92,11 @@ escribir_lago(
             "columnas": ["cd", "poblacion", "sectores_censales"],
             "filas": [[int(cd), pob["poblacion"][cd], pob["sectores"][cd]] for cd in pob["poblacion"]],
             "nota": nota_pob},
+        "natalidad_por_distrito": {
+            "unidad": "mujeres de 15 a 50 años; nacimientos en los últimos 12 meses; nacimientos por 1.000 mujeres",
+            "vigencia": V, "fuente": "F07",
+            "columnas": ["cd", "mujeres_15_50", "nacimientos", "nacimientos_por_1000"], "filas": filas_cd,
+            "nota": nota_nat},
     },
     fusionar=True,
 )

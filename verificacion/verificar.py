@@ -196,6 +196,21 @@ if "demografia" in lagos:
           len(ser) >= 2 and [f[0] for f in ser] == sorted({f[0] for f in ser}))
     check("natalidad · último lanzamiento de la serie igual a la tabla comparada",
           ser[-1][3] == nat["Ciudad de Los Ángeles"][3])
+    nd = tb.get("natalidad_por_distrito")
+    check("natalidad por distrito · tabla presente", nd is not None)
+    if nd:
+        fd = nd["filas"]
+        check("natalidad por distrito · distritos 1 a 15", sorted(f[0] for f in fd) == list(range(1, 16)))
+        check("natalidad por distrito · tasa recalculada y en rango (10 a 100)",
+              all(abs(f[3] - 1000 * f[2] / f[1]) < 0.06 and 10 < f[3] < 100 for f in fd))
+        c = nat["Ciudad de Los Ángeles"]
+        for i, nombre in ((1, "mujeres de 15 a 50"), (2, "nacimientos")):
+            s = sum(f[i] for f in fd)
+            check(f"natalidad por distrito · suma de {nombre} cerca de la ciudad en el mismo ACS (±1 %)",
+                  abs(s - c[i]) / c[i] < 0.01, (s, c[i]))
+        check("natalidad por distrito · mismo lanzamiento que la cifra de la ciudad",
+              nd["vigencia"] == tb["natalidad_por_ambito"]["vigencia"])
+        check("natalidad por distrito · la nota dice el método y el error", "Método" in nd.get("nota", "") and "Error" in nd["nota"])
     lic = next(f["licencia"] for f in lagos["demografia"]["fuentes"] if f["id"] == "F07")
     check("F07 · licencia con atribución exigida por el Censo", "not endorsed or certified" in lic, lic)
     for tema, clave, cols in (("municipio", "solicitudes_por_distrito", {"solicitudes": "solicitudes_por_10mil"}),
