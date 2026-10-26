@@ -214,7 +214,7 @@ footer p{margin:.3rem 0}footer b{color:#fff}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
 <script>
 const TEMAS=["demografia","seguridad","municipio","vivienda","movilidad","equipamientos","escucha"];
-const $=id=>document.getElementById(id), fmt=n=>Number(n).toLocaleString("es-CO",{maximumFractionDigits:1});
+const $=id=>document.getElementById(id), fmt=n=>Number(n).toLocaleString("es-CO",{maximumFractionDigits:Math.abs(n)<1?2:1});
 const el=(t,txt,cls)=>{const e=document.createElement(t);e.textContent=txt;if(cls)e.className=cls;return e};
 const fetchJ=u=>fetch(u).then(r=>{if(!r.ok)throw new Error(u);return r.json()});
 const COL={verde:"#2EBD59",naranja:"#FF8A3D",rosa:"#FF6AA5",cian:"#2BD4F0"};
@@ -324,6 +324,8 @@ function coropleta(o){
   unidades_netas_por_10mil:["unidades netas por 10.000 habitantes","Unidades netas por 10.000 habitantes","por 10.000 hab."]});
  if(pob)aDist(pob,"Población",{poblacion:["habitantes","Habitantes (ACS, aproximada)","habitantes"]});
  const nd=dm.tablas&&dm.tablas.natalidad_por_distrito;
+ const eq=D.equipamientos.tablas&&D.equipamientos.tablas.equipamientos_por_distrito;
+ if(eq)for(const[k,n]of[["colegios","Colegios"],["hospitales","Hospitales"],["parques","Parques"]])aDist(eq,n,{[k]:[k+" en OpenStreetMap",n+" en OpenStreetMap (por distrito)",k],[k+"_por_10mil"]:[k+" por 10.000 habitantes",n+" por 10.000 habitantes",`por 10.000 hab.`]});
  if(nd)aDist(nd,"Natalidad",{nacimientos_por_1000:["nacimientos por 1.000 mujeres de 15 a 50 años","Nacimientos en 12 meses por 1.000 mujeres de 15 a 50 años (ACS, aproximada)","por 1.000 mujeres"]});
  coropleta({id:"mapa",geo,sel:$("sel-mapa"),ley:"ley-mapa",pie:"pie-mapa",inds,peso:1.4,clave:f=>f.properties.cd,nombre:f=>`Distrito ${f.properties.cd} · ${f.properties.nombre}`});
  // Gobernanza

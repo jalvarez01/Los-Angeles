@@ -145,8 +145,8 @@ def poblacion_por_area_lapd():
     return _poblacion(CACHE_AREAS, poligonos(URL_AREAS_LAPD, lambda p: int(p["PREC"])))
 
 
-def por_10mil(n, cd, pob):
-    return round(10000 * n / pob["poblacion"][str(cd)], 1)
+def por_10mil(n, cd, pob, decimales=1):
+    return round(10000 * n / pob["poblacion"][str(cd)], decimales)
 
 
 def nota_metodo(pob, zonas, capa):

@@ -8,6 +8,20 @@
    "url": "https://overpass-api.de/api/interpreter",
    "estado": "vivo",
    "licencia": "ODbL"
+  },
+  {
+   "id": "F12",
+   "nombre": "LA City Council Districts (Adopted 2021)",
+   "url": "https://maps.lacity.org/lahub/rest/services/Boundaries/MapServer/13",
+   "estado": "vivo",
+   "licencia": "no declara"
+  },
+  {
+   "id": "F07",
+   "nombre": "American Community Survey 5-Year Estimates (API)",
+   "url": "https://api.census.gov/data/2024/acs/acs5",
+   "estado": "vivo",
+   "licencia": "Census Bureau API Terms of Service (census.gov/data/developers/about/terms-of-service.html): \"You may use the Census Bureau API to develop a service or service to search, display, analyze, retrieve, view and otherwise \"get\" information from Census Bureau data.\" Atribución exigida: \"This product uses the Census Bureau Data API but is not endorsed or certified by the Census Bureau.\""
   }
  ],
  "cifras": {
@@ -34,6 +48,165 @@
    "unidad": "elementos en OpenStreetMap",
    "vigencia": "2026-10-26",
    "fuente": "F10"
+  }
+ },
+ "tablas": {
+  "equipamientos_por_distrito": {
+   "unidad": "elementos en OpenStreetMap; por 10.000 habitantes (ACS)",
+   "vigencia": "2026-10-26",
+   "fuente": "F10",
+   "columnas": [
+    "cd",
+    "colegios",
+    "hospitales",
+    "parques",
+    "colegios_por_10mil",
+    "hospitales_por_10mil",
+    "parques_por_10mil"
+   ],
+   "filas": [
+    [
+     1,
+     84,
+     3,
+     40,
+     3.3,
+     0.12,
+     1.6
+    ],
+    [
+     2,
+     60,
+     1,
+     39,
+     2.5,
+     0.04,
+     1.6
+    ],
+    [
+     3,
+     77,
+     5,
+     35,
+     3.1,
+     0.2,
+     1.4
+    ],
+    [
+     4,
+     75,
+     4,
+     30,
+     2.9,
+     0.15,
+     1.2
+    ],
+    [
+     5,
+     61,
+     6,
+     42,
+     2.3,
+     0.23,
+     1.6
+    ],
+    [
+     6,
+     69,
+     6,
+     39,
+     2.7,
+     0.24,
+     1.5
+    ],
+    [
+     7,
+     77,
+     5,
+     46,
+     3.0,
+     0.2,
+     1.8
+    ],
+    [
+     8,
+     64,
+     1,
+     15,
+     2.6,
+     0.04,
+     0.6
+    ],
+    [
+     9,
+     64,
+     1,
+     32,
+     2.5,
+     0.04,
+     1.2
+    ],
+    [
+     10,
+     60,
+     2,
+     22,
+     2.3,
+     0.08,
+     0.8
+    ],
+    [
+     11,
+     79,
+     1,
+     80,
+     3.0,
+     0.04,
+     3.0
+    ],
+    [
+     12,
+     94,
+     3,
+     69,
+     3.5,
+     0.11,
+     2.6
+    ],
+    [
+     13,
+     59,
+     7,
+     46,
+     2.2,
+     0.27,
+     1.8
+    ],
+    [
+     14,
+     85,
+     7,
+     62,
+     3.3,
+     0.27,
+     2.4
+    ],
+    [
+     15,
+     75,
+     1,
+     55,
+     3.0,
+     0.04,
+     2.2
+    ]
+   ],
+   "sin_distrito": {
+    "colegios": 5,
+    "hospitales": 4,
+    "parques": 18
+   },
+   "nota": "Cada elemento se asigna al distrito de consejo (límites completos de F12) que contiene su punto: el nodo, o el centro que calcula Overpass para vías y relaciones; un parque grande que cruza dos distritos cuenta solo en uno. 5 colegios, 4 hospitales, 18 parques quedaron dentro de la ciudad pero fuera de los 15 polígonos (en el borde) y no se asignan. Tasas con la población por distrito del ACS 2024 (F07); la de hospitales, con dos decimales porque hay pocos. No se guardan coordenadas."
   }
  }
 }

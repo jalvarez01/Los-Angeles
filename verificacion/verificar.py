@@ -220,6 +220,19 @@ if "demografia" in lagos:
         ok = all(abs(f[t["columnas"].index(tasa)] - 10000 * f[t["columnas"].index(base)] / pd[f[0]]) < 0.06
                  for f in t["filas"] for base, tasa in cols.items())
         check(f"{tema} · tasas por 10.000 habitantes recalculadas con la población por distrito", ok)
+    te = lagos.get("equipamientos", {}).get("tablas", {}).get("equipamientos_por_distrito")
+    check("equipamientos por distrito · tabla presente", te is not None)
+    if te:
+        cols = te["columnas"]
+        check("equipamientos por distrito · distritos 1 a 15", sorted(f[0] for f in te["filas"]) == list(range(1, 16)))
+        for k in ("colegios", "hospitales", "parques"):
+            i, it = cols.index(k), cols.index(f"{k}_por_10mil")
+            check(f"equipamientos por distrito · {k}: distritos + fuera de los polígonos = total de la ciudad",
+                  sum(f[i] for f in te["filas"]) + te["sin_distrito"][k] == v("equipamientos", k))
+            check(f"equipamientos por distrito · {k} por 10.000 habitantes recalculado",
+                  all(abs(f[it] - 10000 * f[i] / pd[f[0]]) < 0.06 for f in te["filas"]))
+        check("equipamientos por distrito · sin columnas de coordenadas",
+              not [c for c in cols if re.search(r"lat|lon|coord|geom", c, re.I)])
 
 # Ciclo de vida: un tema probado hace más de un año se declara vencido
 hoy = datetime.date.today()
