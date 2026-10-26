@@ -6,7 +6,7 @@
 ## Entrega 1 · el lago y su diccionario
 
 - `entrega1/Diccionario_de_datos_LosAngeles.xlsx` — 16 fuentes, 62 campos y la bitácora de la búsqueda.
-- `entrega1/Preguntas_por_que_estos_datos_LosAngeles.docx` — las seis respuestas.
+- `entrega1/LosAngeles.docx` — las seis respuestas.
 - `catalogo/` — una ficha por fuente (`F01.json` … `F17.json`), generadas desde `catalogo/fuentes.py`.
 - `lago/` — siete temas con la forma del contrato. `territorio/` — los 15 distritos de consejo.
 
