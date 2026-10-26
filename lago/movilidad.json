@@ -14,38 +14,38 @@
   "estaciones": {
    "valor": 224,
    "unidad": "estaciones",
-   "vigencia": "2026-10-26T19:49Z",
+   "vigencia": "2026-10-26T19:55Z",
    "fuente": "F09"
   },
   "estaciones_operando": {
    "valor": 219,
    "unidad": "estaciones",
-   "vigencia": "2026-10-26T19:49Z",
+   "vigencia": "2026-10-26T19:55Z",
    "fuente": "F09"
   },
   "bicis_disponibles": {
-   "valor": 1409,
+   "valor": 1419,
    "unidad": "bicicletas",
-   "vigencia": "2026-10-26T19:49Z",
+   "vigencia": "2026-10-26T19:55Z",
    "fuente": "F09"
   },
   "anclajes_libres": {
-   "valor": 1880,
+   "valor": 1870,
    "unidad": "anclajes",
-   "vigencia": "2026-10-26T19:49Z",
+   "vigencia": "2026-10-26T19:55Z",
    "fuente": "F09"
   },
   "bicis_electricas": {
    "valor": 114,
    "unidad": "bicicletas eléctricas",
-   "vigencia": "2026-10-26T19:49Z",
+   "vigencia": "2026-10-26T19:55Z",
    "fuente": "F09"
   }
  },
  "tablas": {
   "estaciones": {
    "unidad": "grados WGS84; bicicletas disponibles; anclajes libres",
-   "vigencia": "2026-10-26T19:49Z",
+   "vigencia": "2026-10-26T19:55Z",
    "fuente": "F09",
    "columnas": [
     "estacion",
@@ -465,8 +465,8 @@
      "Downtown Santa Monica E Line Station (North)",
      34.01431,
      -118.49134,
-     9,
-     31
+     15,
+     25
     ],
     [
      "Downtown Santa Monica E Line Station (South)",
@@ -570,8 +570,8 @@
      "Figueroa & Cesar Chavez",
      34.06318,
      -118.24588,
-     5,
-     10
+     6,
+     9
     ],
     [
      "Figueroa & Jefferson",
@@ -654,8 +654,8 @@
      "Grand & 8th",
      34.04613,
      -118.25759,
-     6,
-     11
+     7,
+     10
     ],
     [
      "Grand & LATTC",
@@ -892,8 +892,8 @@
      "Main & 1st",
      34.05194,
      -118.24353,
-     21,
-     8
+     22,
+     7
     ],
     [
      "Main & 8th",
@@ -913,8 +913,8 @@
      "Main & Winston",
      34.04744,
      -118.24794,
-     7,
-     6
+     6,
+     7
     ],
     [
      "Mariota & Riverside",
@@ -955,8 +955,8 @@
      "McLaughlin & Venice",
      34.00902,
      -118.42501,
-     2,
-     11
+     1,
+     12
     ],
     [
      "Melbourne & Vermont",
@@ -1221,8 +1221,8 @@
      "Shatto Pl & Wilshire",
      34.06258,
      -118.29009,
-     6,
-     4
+     5,
+     5
     ],
     [
      "Spring & 3rd",
@@ -1263,8 +1263,8 @@
      "Sunset & Silver Lake",
      34.08252,
      -118.27272,
-     13,
-     1
+     14,
+     0
     ],
     [
      "Sunset & Virgil",
@@ -1277,8 +1277,8 @@
      "Sunset Triangle Plaza",
      34.09028,
      -118.27719,
-     7,
-     9
+     8,
+     8
     ],
     [
      "Temple & Vignes",
@@ -1613,8 +1613,8 @@
      "Windward & Main",
      33.98813,
      -118.47174,
-     3,
-     18
+     5,
+     16
     ],
     [
      "Yucca & Argyle",
