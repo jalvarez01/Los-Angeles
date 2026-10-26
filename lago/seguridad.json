@@ -8,6 +8,20 @@
    "url": "https://data.lacity.org/resource/k7nn-b2ep.json",
    "estado": "vivo",
    "licencia": "no declara"
+  },
+  {
+   "id": "F18",
+   "nombre": "LAPD Divisions (LA GeoHub)",
+   "url": "https://services5.arcgis.com/7nsPwEMP38bSkCjy/arcgis/rest/services/LAPD_Division/FeatureServer/0",
+   "estado": "vivo",
+   "licencia": "This work is licensed under a Creative Commons Attribution 4.0 International License"
+  },
+  {
+   "id": "F07",
+   "nombre": "American Community Survey 5-Year Estimates (API)",
+   "url": "https://api.census.gov/data/2024/acs/acs5",
+   "estado": "vivo",
+   "licencia": "Census Bureau API Terms of Service (census.gov/data/developers/about/terms-of-service.html): \"You may use the Census Bureau API to develop a service or service to search, display, analyze, retrieve, view and otherwise \"get\" information from Census Bureau data.\" Atribución exigida: \"This product uses the Census Bureau Data API but is not endorsed or certified by the Census Bureau.\""
   }
  ],
  "cifras": {
@@ -138,99 +152,167 @@
  },
  "tablas": {
   "delitos_por_area": {
-   "unidad": "ofensas registradas (NIBRS)",
+   "unidad": "ofensas registradas (NIBRS); habitantes (ACS); ofensas por 10.000 habitantes",
    "vigencia": "2025-10 a 2026-09",
    "fuente": "F01",
    "columnas": [
     "area_nombre",
-    "delitos_12m"
+    "delitos_12m",
+    "area",
+    "poblacion",
+    "delitos_por_10mil"
    ],
    "filas": [
     [
      "Central",
-     19253
+     19253,
+     1,
+     80445,
+     2393.3
     ],
     [
      "Southwest",
-     13046
+     13046,
+     3,
+     191261,
+     682.1
     ],
     [
      "Rampart",
-     12666
+     12666,
+     2,
+     161899,
+     782.3
     ],
     [
      "Olympic",
-     12244
+     12244,
+     20,
+     181667,
+     674.0
     ],
     [
      "77th Street",
-     12186
+     12186,
+     12,
+     188103,
+     647.8
     ],
     [
      "N Hollywood",
-     11721
+     11721,
+     15,
+     205913,
+     569.2
     ],
     [
      "Hollywood",
-     11712
+     11712,
+     6,
+     129667,
+     903.2
     ],
     [
      "Pacific",
-     11131
+     11131,
+     14,
+     214216,
+     519.6
     ],
     [
      "Newton",
-     11068
+     11068,
+     13,
+     145650,
+     759.9
     ],
     [
      "Southeast",
-     10087
+     10087,
+     18,
+     145097,
+     695.2
     ],
     [
      "Northeast",
-     9632
+     9632,
+     11,
+     218895,
+     440.0
     ],
     [
      "Van Nuys",
-     9402
+     9402,
+     9,
+     188933,
+     497.6
     ],
     [
      "Mission",
-     9248
+     9248,
+     19,
+     237873,
+     388.8
     ],
     [
      "West Valley",
-     9163
+     9163,
+     10,
+     200761,
+     456.4
     ],
     [
      "Topanga",
-     9155
+     9155,
+     21,
+     203288,
+     450.3
     ],
     [
      "Wilshire",
-     9058
+     9058,
+     7,
+     147039,
+     616.0
     ],
     [
      "Devonshire",
-     8630
+     8630,
+     17,
+     234785,
+     367.6
     ],
     [
      "Harbor",
-     7980
+     7980,
+     5,
+     180341,
+     442.5
     ],
     [
      "Hollenbeck",
-     7606
+     7606,
+     4,
+     166004,
+     458.2
     ],
     [
      "West LA",
-     7602
+     7602,
+     8,
+     239101,
+     317.9
     ],
     [
      "Foothill",
-     6575
+     6575,
+     16,
+     187400,
+     350.9
     ]
-   ]
+   ],
+   "poblacion_ciudad_acs": 3857263,
+   "nota": "Población por área de LAPD (F18, ACS 2024, F07). Método: se suman los 1.110 sectores censales del condado de Los Ángeles (ACS 2024, B01003_001E) cuyo punto interno (Gazetteer del Censo 2020) cae dentro de cada área, usando los límites completos de F18 (sin simplificar). Error: un sector que cruza el límite de dos zonas se asigna entero a la zona de su punto interno, así que cada área puede quedar algo por encima o por debajo; ese error no se puede medir con esta fuente. A escala de ciudad, la suma (3.848.338) difiere -8.925 habitantes (-0.23 %) de la población de la ciudad en el mismo ACS (3.857.263). Son estimaciones de encuesta con margen de error, no un censo. La tasa usa esa población: es una aproximación, no la población que LAPD atiende."
   }
  }
 }

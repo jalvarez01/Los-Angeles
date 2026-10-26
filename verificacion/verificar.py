@@ -80,9 +80,11 @@ if "demografia" in lagos:
     check("población de la ciudad (no del condado) en un rango sensato", 3_000_000 < pob < 4_500_000, pob)
     check("viviendas menos que habitantes", 0 < v("demografia", "viviendas") < pob)
 if "seguridad" in lagos:
-    areas = filas("seguridad", "delitos_por_area")
+    ta = lagos["seguridad"]["tablas"]["delitos_por_area"]
+    areas = ta["filas"]
+    ia = {c: ta["columnas"].index(c) for c in ta["columnas"]}
     check("LAPD tiene 21 áreas", len(areas) == 21, len(areas))
-    check("las áreas suman el total de delitos", sum(n for _, n in areas) == v("seguridad", "delitos_12m"))
+    check("las áreas suman el total de delitos", sum(f[ia["delitos_12m"]] for f in areas) == v("seguridad", "delitos_12m"))
     partes = ("personas", "propiedad", "sociedad", "varias_categorias", "sin_categoria")
     check("personas + propiedad + sociedad + varias + sin categoría = total exacto",
           sum(v("seguridad", f"delitos_{'contra_' if p in partes[:3] else ''}{p}_12m") for p in partes)
@@ -90,6 +92,24 @@ if "seguridad" in lagos:
     check("personas + propiedad no superan el total",
           v("seguridad", "delitos_contra_personas_12m") + v("seguridad", "delitos_contra_propiedad_12m")
           <= v("seguridad", "delitos_12m"))
+    check("áreas · códigos 1 a 21 sin repetir", sorted(f[ia["area"]] for f in areas) == list(range(1, 22)))
+    pa = sum(f[ia["poblacion"]] for f in areas)
+    check("áreas · población suma cerca de la de la ciudad en el mismo ACS (±1 %)",
+          abs(pa - ta["poblacion_ciudad_acs"]) / ta["poblacion_ciudad_acs"] < 0.01, (pa, ta["poblacion_ciudad_acs"]))
+    check("áreas · ofensas por 10.000 habitantes recalculadas",
+          all(abs(f[ia["delitos_por_10mil"]] - 10000 * f[ia["delitos_12m"]] / f[ia["poblacion"]]) < 0.06 for f in areas))
+    check("áreas · la nota dice el método y el error", "Método" in ta.get("nota", "") and "Error" in ta["nota"])
+    areas_geo = RAIZ / "territorio" / "areas_lapd.geojson"
+    check("áreas · existe territorio/areas_lapd.geojson", areas_geo.exists())
+    if areas_geo.exists():
+        g = json.load(open(areas_geo, encoding="utf-8"))
+        check("áreas · los códigos del lago coinciden con los de la geometría",
+              sorted(f["properties"]["area"] for f in g["features"]) == sorted(f[ia["area"]] for f in areas))
+        check("áreas · geometría con fuente, nota de simplificación y vigencia",
+              g.get("fuente") == "F18" and "simplificada" in g.get("nota", "")
+              and all(f["geometry"]["type"] in ("Polygon", "MultiPolygon")
+                      and re.fullmatch(r"\d{4}-\d{2}-\d{2}", str(f["properties"].get("vigencia")))
+                      for f in g["features"]))
 if "municipio" in lagos:
     cds = filas("municipio", "solicitudes_por_distrito")
     check("311 · distritos 1 a 15", sorted(f[0] for f in cds) == list(range(1, 16)), [f[0] for f in cds])
