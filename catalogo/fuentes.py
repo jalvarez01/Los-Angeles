@@ -61,7 +61,7 @@ FUENTES = [
      "JSON", "API con llave gratuita", 'Census Bureau API Terms of Service (census.gov/data/developers/about/terms-of-service.html): "You may use the Census Bureau API to develop a service or service to search, display, analyze, retrieve, view and otherwise "get" information from Census Bureau data." Atribución exigida: "This product uses the Census Bureau Data API but is not endorsed or certified by the Census Bureau."', "No",
      "Ciudad (place 06-44000), California, EE. UU. y sectores censales del condado de Los Ángeles", "ACS 2020-2024 (serie desde 2006-2010)",
      "Anual", "2026-10-06", "Integrada al lago", "Se la pedimos a la IA (Claude); la probamos con la llave gratuita",
-     'Probada el 2026-10-06 con la llave gratuita (en .env, no en el repositorio). Último lanzamiento: ACS 2020-2024; responden los lanzamientos 2010 a 2024 (2009 da 400; 2025 y 2026 dan 404). B13016_001E = mujeres de 15 a 50 años y B13016_002E = las que tuvieron un nacimiento en los últimos 12 meses. Población por distrito: B01003_001E por sector censal del condado 037 (2.498 sectores) y puntos internos del Gazetteer del Censo (www2.census.gov/geo/docs/maps-data/data/gazetteer/2020_Gazetteer/2020_gaz_tracts_06.txt, 200 OK), asignados a distritos con los límites completos de F12; suma 0,23 % por debajo de la ciudad en el ACS. Son estimaciones con margen de error. Los términos exigen mostrar «This product uses the Census Bureau Data API but is not endorsed or certified by the Census Bureau.»; las tasas por 1.000 mujeres y por 10.000 habitantes las calculamos nosotros.'],
+     'Probada el 2026-10-06 con la llave gratuita (en .env, no en el repositorio). Último lanzamiento: ACS 2020-2024; responden los lanzamientos 2010 a 2024 (2009 da 400; 2025 y 2026 dan 404). B13016_001E = mujeres de 15 a 50 años y B13016_002E = las que tuvieron un nacimiento en los últimos 12 meses. Población por distrito: B01003_001E por sector censal del condado 037 (2.498 sectores) y puntos internos del Gazetteer del Censo (www2.census.gov/geo/docs/maps-data/data/gazetteer/2020_Gazetteer/2020_gaz_tracts_06.txt, 200 OK), asignados a distritos con los límites completos de F12; suma 0,23 % por debajo de la ciudad en el ACS. Desde el 2026-10-26 el mismo método da la población de las 21 áreas de LAPD (límites de F18; también 0,23 % por debajo) y la natalidad por distrito (B13016 por sector; mujeres -0,18 % y nacimientos -0,23 % frente a la ciudad). Son estimaciones con margen de error. Los términos exigen mostrar «This product uses the Census Bureau Data API but is not endorsed or certified by the Census Bureau.»; las tasas por 1.000 mujeres y por 10.000 habitantes las calculamos nosotros.'],
     ["F08", "Census Data by Council District", "City of Los Angeles (portal data.lacity.org)", "Entidad pública",
      "https://data.lacity.org/resource/ucyn-ru6w.json", "JSON", "API sin llave",
      "Creative Commons 1.0 Universal (Public Domain Dedication)", "Solo conteos por zona",
@@ -69,21 +69,24 @@ FUENTES = [
      "Catálogo del propio portal",
      "Es el censo de 2010 sobre los distritos viejos (última carga: 2017). No sirve para comparar hoy, y por "
      "eso el lago no tiene población por distrito."],
-    ["F09", "Metro Bike Share · GBFS station_status",
+    ["F09", "Metro Bike Share · GBFS station_status y station_information",
      "Los Angeles County Metropolitan Transportation Authority (Metro), operado con BCycle", "Entidad pública",
      "https://gbfs.bcycle.com/bcycle_lametro/station_status.json", "JSON", "API sin llave", "no declara", "No",
      "224 estaciones en las regiones City of LA, Westside y Hollywood", "Foto del momento (last_updated)",
      "Tiempo real", "2026-10-05", "Integrada al lago",
      "Se la pedimos a la IA, que dio una URL equivocada; la correcta salió de bikeshare.metro.net/about/data",
      "El feed se renueva cada 60 s. Las regiones del sistema no son los límites de la ciudad. La página de "
-     "datos de Metro no publica una licencia."],
+     "datos de Metro no publica una licencia. Desde el 2026-10-26 también se usa station_information (nombre y "
+     "coordenadas de cada estación, sin la dirección) para el mapa de estaciones: es infraestructura pública."],
     ["F10", "OpenStreetMap vía Overpass API", "Colaboradores de OpenStreetMap", "Plataforma colaborativa",
      "https://overpass-api.de/api/interpreter", "JSON", "API sin llave", "ODbL", "No",
      "Límite administrativo de la ciudad (relación OSM 207359)", "Estado actual del mapa", "Tiempo real",
      "2026-10-05", "Integrada al lago",
      "Se la pedimos a la IA; la primera prueba (2026-09-27) no llegó al servidor y desde el 2026-09-28 responde",
      "ODbL obliga a atribuir y a compartir igual lo derivado. Cobertura voluntaria: complementa, no reemplaza, "
-     "los registros oficiales. La etiqueta population de OSM (4.030.904) no coincide con F06 y no se usa."],
+     "los registros oficiales. La etiqueta population de OSM (4.030.904) no coincide con F06 y no se usa. Desde el 2026-10-26 colegios, "
+     "hospitales y parques se asignan a distritos de consejo por punto en polígono al ingerir; solo se guardan los "
+     "conteos, nunca las coordenadas."],
     ["F11", "Vistas mensuales del artículo «Los Ángeles» en Wikipedia en español", "Wikimedia Foundation",
      "Plataforma colaborativa",
      "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/es.wikipedia/all-access/user/Los_%C3%81ngeles/monthly/20250201/20260930",
@@ -96,7 +99,8 @@ FUENTES = [
      "API sin llave", "no declara", "No", "Los 15 distritos de consejo", "Límites adoptados en 2021",
      "No se sabe", "2026-10-05", "Integrada al lago", "Búsqueda web en LA GeoHub, después de descartar F16",
      "El hub marca la licencia como «none». El campo NAME es el nombre del concejal (cargo público). Se "
-     "simplifica a ~300 m y 4 decimales: 15,6 KB."],
+     "simplifica a ~300 m y 4 decimales: 15,6 KB. Los límites completos (sin simplificar) se usan solo al ingerir, "
+     "para asignar sectores censales y equipamientos a distritos."],
     ["F13", "AirNow API", "U.S. Environmental Protection Agency (AirNow)", "Entidad pública",
      "https://docs.airnowapi.org/", "JSON", "API con llave gratuita",
      "«should not be used to formulate or support regulation, trends, guidance, or any other government or "
@@ -134,6 +138,25 @@ FUENTES = [
      "esa copia redimensionada es una adaptación y se comparte bajo la misma licencia. "
      "La gradación de color es solo CSS y no modifica el archivo. Se descartaron otras candidatas: «Dodger Stadium and DTLA» (marca de agua y logotipo) "
      "y «Los Angeles with Mount Baldy» (sin palmeras)."],
+    ["F18", "LAPD Divisions", "City of Los Angeles · LA GeoHub (LAPD GIS Mapping)", "Entidad pública",
+     "https://services5.arcgis.com/7nsPwEMP38bSkCjy/arcgis/rest/services/LAPD_Division/FeatureServer/0", "GeoJSON",
+     "API sin llave", "This work is licensed under a Creative Commons Attribution 4.0 International License", "No",
+     "Las 21 áreas (divisiones) de LAPD", "Límites editados por última vez el 2023-04-28", "No se sabe",
+     "2026-10-26", "Integrada al lago",
+     "Búsqueda en geohub.lacity.org (ítem 031d488e158144d0b3aecaa9c888b7b3, cuenta n5875_lahub)",
+     "Licencia copiada del campo licenseInfo del ítem, que además dice «This data is provided as is with no "
+     "warranty of any kind». CC BY 4.0 exige atribución. El campo PREC (1 a 21) coincide con area de F01. Se "
+     "simplifica a ~300 m y 4 decimales (13 KB); los límites completos se usan solo para asignar sectores censales."],
+    ["F19", "LAPD Reporting District", "City of Los Angeles · LA GeoHub", "Entidad pública",
+     "https://services5.arcgis.com/7nsPwEMP38bSkCjy/arcgis/rest/services/LAPD_Reporting_District/FeatureServer/0",
+     "GeoJSON", "API sin llave", "no declara", "No", "1.135 distritos de reporte de LAPD (AGENCY = PD)",
+     "Capa editada por última vez el 2026-07-21", "No se sabe", "2026-10-26", "Integrada al lago",
+     "Búsqueda en geohub.lacity.org (ítem 924f1b2e8df642f38a6dcbcf3c7b1709, cuenta n5875_lahub)",
+     "El ítem deja vacío el campo de licencia. La capa trae 1.194 polígonos: 1.135 de LAPD y 59 de otras agencias "
+     "(se filtran). REPDIST coincide con rpt_dist_no de F01 en 1.132 polígonos; 3 no tienen ofensas y 8 códigos "
+     "de F01 no tienen polígono. Las ofensas por distrito llevan supresión de celdas con menos de 10. Se simplifica "
+     "a ~50 m y 4 decimales (unos 340 KB). La capa LAPD del servidor maps.lacity.org no sirve: tiene 1.000 "
+     "registros como máximo por consulta y su capa «Divisions» es la misma de distritos."],
 ]
 
 # Nivel de protección y uso en el sistema, para las fichas del catálogo
@@ -142,12 +165,14 @@ USO = {
     "F03": ("solo agregados", "Municipio: solicitudes 311 por tipo, distrito y mes"),
     "F04": ("solo agregados", "Vivienda: permisos y unidades netas por distrito y mes"),
     "F06": ("abierto", "Gente: población y viviendas de la ciudad"),
-    "F07": ("solo agregados", "Gente: natalidad y población por distrito (tasas per cápita)"),
-    "F09": ("abierto", "Movilidad: bicicleta compartida en tiempo real"),
-    "F10": ("abierto", "Territorio: equipamientos de la ciudad"),
+    "F07": ("solo agregados", "Gente: natalidad y población por distrito y por área de LAPD (tasas per cápita)"),
+    "F09": ("abierto", "Movilidad: bicicleta compartida en tiempo real y mapa de estaciones"),
+    "F10": ("abierto", "Territorio: equipamientos de la ciudad y conteos por distrito"),
     "F11": ("abierto", "Escucha: interés en la ciudad desde fuera"),
     "F12": ("abierto", "Territorio: capa de los 15 distritos de consejo"),
     "F17": ("abierto", "Capa web: fotografía de fondo (atribución exigida y compartir igual)"),
+    "F18": ("abierto", "Seguridad: mapa de las 21 áreas de LAPD (atribución exigida)"),
+    "F19": ("abierto", "Seguridad: mapa de los distritos de reporte de LAPD"),
 }
 
 if __name__ == "__main__":

@@ -1,6 +1,6 @@
 {
  "id": "F09",
- "nombre": "Metro Bike Share · GBFS station_status",
+ "nombre": "Metro Bike Share · GBFS station_status y station_information",
  "entidad": "Los Angeles County Metropolitan Transportation Authority (Metro), operado con BCycle",
  "url": "https://gbfs.bcycle.com/bcycle_lametro/station_status.json",
  "cobertura": "224 estaciones en las regiones City of LA, Westside y Hollywood",
@@ -10,6 +10,6 @@
  "licencia": "no declara",
  "personas": "No",
  "proteccion": "abierto",
- "uso": "Movilidad: bicicleta compartida en tiempo real",
- "nota": "El feed se renueva cada 60 s. Las regiones del sistema no son los límites de la ciudad. La página de datos de Metro no publica una licencia."
+ "uso": "Movilidad: bicicleta compartida en tiempo real y mapa de estaciones",
+ "nota": "El feed se renueva cada 60 s. Las regiones del sistema no son los límites de la ciudad. La página de datos de Metro no publica una licencia. Desde el 2026-10-26 también se usa station_information (nombre y coordenadas de cada estación, sin la dirección) para el mapa de estaciones: es infraestructura pública."
 }

@@ -1,0 +1,15 @@
+{
+ "id": "F18",
+ "nombre": "LAPD Divisions",
+ "entidad": "City of Los Angeles · LA GeoHub (LAPD GIS Mapping)",
+ "url": "https://services5.arcgis.com/7nsPwEMP38bSkCjy/arcgis/rest/services/LAPD_Division/FeatureServer/0",
+ "cobertura": "Las 21 áreas (divisiones) de LAPD",
+ "vigencia": "Límites editados por última vez el 2023-04-28",
+ "probado": "2026-10-26",
+ "estado": "Integrada al lago",
+ "licencia": "This work is licensed under a Creative Commons Attribution 4.0 International License",
+ "personas": "No",
+ "proteccion": "abierto",
+ "uso": "Seguridad: mapa de las 21 áreas de LAPD (atribución exigida)",
+ "nota": "Licencia copiada del campo licenseInfo del ítem, que además dice «This data is provided as is with no warranty of any kind». CC BY 4.0 exige atribución. El campo PREC (1 a 21) coincide con area de F01. Se simplifica a ~300 m y 4 decimales (13 KB); los límites completos se usan solo para asignar sectores censales."
+}
