@@ -72,6 +72,12 @@ for ruta in sorted(glob.glob(str(RAIZ / "lago" / "*.json"))):
     hallado = next((v for _, v in pares if isinstance(v, str) and PII.search(v)), None)
     check(f"{nombre}: ningún texto con correo, teléfono o SSN", hallado is None, hallado)
 
+# Un tema que no se escribió (p. ej. Overpass caído) no puede pasar en silencio
+TEMAS = ["demografia", "equipamientos", "escucha", "movilidad", "municipio", "seguridad", "vivienda"]
+check("están los siete temas del lago", sorted(lagos) == TEMAS, sorted(set(TEMAS) ^ set(lagos)))
+for capa in ("distritos_consejo", "areas_lapd", "distritos_reporte_lapd"):
+    check(f"existe territorio/{capa}.geojson", (RAIZ / "territorio" / f"{capa}.geojson").exists())
+
 # Comprobaciones de dominio para Los Ángeles
 v = lambda tema, clave: lagos[tema]["cifras"][clave]["valor"]
 filas = lambda tema, clave: lagos[tema]["tablas"][clave]["filas"]
