@@ -172,6 +172,20 @@ if "vivienda" in lagos:
 if "movilidad" in lagos:
     check("bicis · operando <= estaciones", v("movilidad", "estaciones_operando") <= v("movilidad", "estaciones"))
     check("bicis · eléctricas <= disponibles", v("movilidad", "bicis_electricas") <= v("movilidad", "bicis_disponibles"))
+    tes = lagos["movilidad"].get("tablas", {}).get("estaciones")
+    check("bicis · tabla de estaciones presente", tes is not None)
+    if tes:
+        fe, ce = tes["filas"], tes["columnas"]
+        ib, il = ce.index("bicis_disponibles"), ce.index("anclajes_libres")
+        check("bicis · estaciones mapeadas + sin coordenadas = estaciones",
+              len(fe) + tes["sin_coordenadas"] == v("movilidad", "estaciones"))
+        if tes["sin_coordenadas"] == 0:
+            check("bicis · las estaciones suman las bicis y anclajes de la misma foto",
+                  sum(f[ib] for f in fe) == v("movilidad", "bicis_disponibles")
+                  and sum(f[il] for f in fe) == v("movilidad", "anclajes_libres"))
+        check("bicis · coordenadas dentro del área de Los Ángeles",
+              all(33.6 < f[ce.index("lat")] < 34.9 and -119.0 < f[ce.index("lon")] < -117.6 for f in fe))
+        check("bicis · misma vigencia que las cifras", tes["vigencia"] == lagos["movilidad"]["cifras"]["estaciones"]["vigencia"])
 
 # Natalidad y población por distrito (F07) y tasas per cápita
 if "demografia" in lagos:
