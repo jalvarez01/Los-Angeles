@@ -6,7 +6,7 @@
 ## Entrega 1 · el lago y su diccionario
 
 - `entrega1/Diccionario_de_datos_LosAngeles.xlsx` — 16 fuentes, 62 campos y la bitácora de la búsqueda.
-- `entrega1/Preguntas_por_que_estos_datos_LosAngeles.docx` — las seis respuestas.
+- `entrega1/LosAngeles.docx` — las seis respuestas.
 - `catalogo/` — una ficha por fuente (`F01.json` … `F17.json`), generadas desde `catalogo/fuentes.py`.
 - `lago/` — siete temas con la forma del contrato. `territorio/` — los 15 distritos de consejo.
 
@@ -46,7 +46,7 @@ que tiene la fuente, no en el del calendario.
 
 Publicada en https://los-angeles-lemon.vercel.app (producción; las vistas previas de Vercel quedan protegidas con inicio de sesión). `web/` es un sitio estático que lee solo `lago/` y `territorio/` (sin llamadas en vivo; la llave del Censo nunca llega al navegador). Se prueba con `python3 web/build.py && python3 -m http.server -d web/dist`; `build.py` copia el lago al sitio.
 
-Diseño: inspirado en los menús de pausa de los videojuegos de mundo abierto, sin ningún recurso de terceros del juego; tipografías Anton e IBM Plex Sans (Google Fonts). Fotografía de fondo: «Echo park lake with lotus flowers and Los Angeles skyline in the background», de Alaiben, CC BY-SA 4.0, vía [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Echo_park_lake_with_lotus_flowers_and_Los_Angeles_skyline_in_the_background.jpg) (F17, en `web/assets/`; la gradación de color es solo CSS).
+Diseño: inspirado en los menús de pausa de los videojuegos de mundo abierto, sin ningún recurso de terceros del juego; tipografías Anton e IBM Plex Sans (Google Fonts). Fotografía de fondo: «Echo park lake with lotus flowers and Los Angeles skyline in the background», de Alaiben, CC BY-SA 4.0, vía [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Echo_park_lake_with_lotus_flowers_and_Los_Angeles_skyline_in_the_background.jpg) (F17, en `web/assets/fondo-los-angeles.jpg`, 2400 × 1515 px y 452.634 bytes; la gradación de color es solo CSS).
 
 ## Para quién y qué pregunta
 
