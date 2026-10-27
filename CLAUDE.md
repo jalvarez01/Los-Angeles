@@ -118,7 +118,7 @@ distrito. Probar a 1440 y 390 px con 0 errores de consola; el sitio debe pesar m
   anotarlo en el catálogo.
 - LAPD carga con semanas de rezago: la ventana de seguridad termina en el último mes completo de la fuente.
   Municipio y vivienda también cuentan solo meses completos.
-- Excel, hoja `Resumen`: las fórmulas usan rangos fijos (filas 5 a 100 de las otras hojas; la fila 4 es el
+- Excel, hoja `Resumen`: las fórmulas usan rangos fijos (filas 5 a 200 de las otras hojas, igual que las validaciones de «1. Fuentes» y «2. Diccionario»; la fila 4 es el
   ejemplo y queda fuera). Una fila fuera de ese rango no se cuenta. Las fórmulas no guardan valores, así que los
   visores que no recalculan las muestran vacías.
 
