@@ -72,6 +72,12 @@ for ruta in sorted(glob.glob(str(RAIZ / "lago" / "*.json"))):
     hallado = next((v for _, v in pares if isinstance(v, str) and PII.search(v)), None)
     check(f"{nombre}: ningún texto con correo, teléfono o SSN", hallado is None, hallado)
 
+# Un tema que no se escribió (p. ej. Overpass caído) no puede pasar en silencio
+TEMAS = ["demografia", "equipamientos", "escucha", "movilidad", "municipio", "seguridad", "vivienda"]
+check("están los siete temas del lago", sorted(lagos) == TEMAS, sorted(set(TEMAS) ^ set(lagos)))
+for capa in ("distritos_consejo", "areas_lapd", "distritos_reporte_lapd"):
+    check(f"existe territorio/{capa}.geojson", (RAIZ / "territorio" / f"{capa}.geojson").exists())
+
 # Comprobaciones de dominio para Los Ángeles
 v = lambda tema, clave: lagos[tema]["cifras"][clave]["valor"]
 filas = lambda tema, clave: lagos[tema]["tablas"][clave]["filas"]
@@ -80,9 +86,11 @@ if "demografia" in lagos:
     check("población de la ciudad (no del condado) en un rango sensato", 3_000_000 < pob < 4_500_000, pob)
     check("viviendas menos que habitantes", 0 < v("demografia", "viviendas") < pob)
 if "seguridad" in lagos:
-    areas = filas("seguridad", "delitos_por_area")
+    ta = lagos["seguridad"]["tablas"]["delitos_por_area"]
+    areas = ta["filas"]
+    ia = {c: ta["columnas"].index(c) for c in ta["columnas"]}
     check("LAPD tiene 21 áreas", len(areas) == 21, len(areas))
-    check("las áreas suman el total de delitos", sum(n for _, n in areas) == v("seguridad", "delitos_12m"))
+    check("las áreas suman el total de delitos", sum(f[ia["delitos_12m"]] for f in areas) == v("seguridad", "delitos_12m"))
     partes = ("personas", "propiedad", "sociedad", "varias_categorias", "sin_categoria")
     check("personas + propiedad + sociedad + varias + sin categoría = total exacto",
           sum(v("seguridad", f"delitos_{'contra_' if p in partes[:3] else ''}{p}_12m") for p in partes)
@@ -90,6 +98,64 @@ if "seguridad" in lagos:
     check("personas + propiedad no superan el total",
           v("seguridad", "delitos_contra_personas_12m") + v("seguridad", "delitos_contra_propiedad_12m")
           <= v("seguridad", "delitos_12m"))
+    check("áreas · códigos 1 a 21 sin repetir", sorted(f[ia["area"]] for f in areas) == list(range(1, 22)))
+    pa = sum(f[ia["poblacion"]] for f in areas)
+    check("áreas · población suma cerca de la de la ciudad en el mismo ACS (±1 %)",
+          abs(pa - ta["poblacion_ciudad_acs"]) / ta["poblacion_ciudad_acs"] < 0.01, (pa, ta["poblacion_ciudad_acs"]))
+    check("áreas · ofensas por 10.000 habitantes recalculadas",
+          all(abs(f[ia["delitos_por_10mil"]] - 10000 * f[ia["delitos_12m"]] / f[ia["poblacion"]]) < 0.06 for f in areas))
+    check("áreas · la nota dice el método y el error", "Método" in ta.get("nota", "") and "Error" in ta["nota"])
+    areas_geo = RAIZ / "territorio" / "areas_lapd.geojson"
+    check("áreas · existe territorio/areas_lapd.geojson", areas_geo.exists())
+    if areas_geo.exists():
+        g = json.load(open(areas_geo, encoding="utf-8"))
+        check("áreas · los códigos del lago coinciden con los de la geometría",
+              sorted(f["properties"]["area"] for f in g["features"]) == sorted(f[ia["area"]] for f in areas))
+        check("áreas · geometría con fuente, nota de simplificación y vigencia (F18)",
+              g.get("fuente") == "F18" and "simplificada" in g.get("nota", "")
+              and all(f["geometry"]["type"] in ("Polygon", "MultiPolygon")
+                      and re.fullmatch(r"\d{4}-\d{2}-\d{2}", str(f["properties"].get("vigencia")))
+                      for f in g["features"]))
+    tr = lagos["seguridad"]["tablas"].get("delitos_por_distrito_reporte")
+    check("distritos de reporte · tabla presente", tr is not None)
+    if tr:
+        ir = {c: tr["columnas"].index(c) for c in tr["columnas"]}
+        rf = tr["filas"]
+        n = [f[ir["delitos_12m"]] for f in rf]
+        check("distritos de reporte · ningún conteo guardado entre 1 y 9", not [x for x in n if x is not None and 0 < x < 10],
+              [x for x in n if x is not None and 0 < x < 10][:5])
+        check("distritos de reporte · null si y solo si suprimido",
+              all((f[ir["delitos_12m"]] is None) == (f[ir["suprimido"]] is True) for f in rf))
+        check("distritos de reporte · la nota dice la regla de supresión",
+              "menos de 10" in tr.get("nota", "") and "suprim" in tr["nota"])
+        check("distritos de reporte · sin códigos repetidos", len({f[ir["rd"]] for f in rf}) == len(rf))
+        tot_area = {f[ia["area"]]: f[ia["delitos_12m"]] for f in areas}
+        ok_comp, ok_suma = True, True
+        for a, t in tot_area.items():
+            fa = [f for f in rf if f[ir["area"]] == a]
+            ocultas = sum(1 for f in fa if f[ir["suprimido"]])
+            vis = sum(f[ir["delitos_12m"]] or 0 for f in fa)
+            ok_comp &= ocultas != 1
+            ok_suma &= vis == t if ocultas == 0 else vis < t
+        check("distritos de reporte · ninguna área con una sola celda suprimida (supresión complementaria)", ok_comp)
+        check("distritos de reporte · por área, visibles = total si no hay supresión y menor si la hay", ok_suma)
+        check("distritos de reporte · visibles no superan el total de la ciudad",
+              sum(x or 0 for x in n) <= v("seguridad", "delitos_12m"))
+        rd_geo = RAIZ / "territorio" / "distritos_reporte_lapd.geojson"
+        check("distritos de reporte · existe territorio/distritos_reporte_lapd.geojson", rd_geo.exists())
+        if rd_geo.exists():
+            g = json.load(open(rd_geo, encoding="utf-8"))
+            geo = {f["properties"]["rd"]: f["properties"]["area"] for f in g["features"]}
+            check("distritos de reporte · geometría con fuente, nota de simplificación y vigencia (F19)",
+                  g.get("fuente") == "F19" and "simplificada" in g.get("nota", "") and len(geo) == len(g["features"])
+                  and all(re.fullmatch(r"\d{4}-\d{2}-\d{2}", str(f["properties"].get("vigencia"))) for f in g["features"]))
+            check("distritos de reporte · en_capa coincide con la geometría",
+                  all(f[ir["en_capa"]] == (f[ir["rd"]] in geo) for f in rf))
+            check("distritos de reporte · todo polígono tiene fila", set(geo) <= {f[ir["rd"]] for f in rf})
+            check("distritos de reporte · el área de cada distrito es la de su polígono y la del código",
+                  all(geo[f[ir["rd"]]] == f[ir["area"]] == int(f[ir["rd"]]) // 100 for f in rf if f[ir["en_capa"]]))
+            check("distritos de reporte · las áreas de la geometría son las 21 de F18",
+                  sorted(set(geo.values())) == list(range(1, 22)))
 if "municipio" in lagos:
     cds = filas("municipio", "solicitudes_por_distrito")
     check("311 · distritos 1 a 15", sorted(f[0] for f in cds) == list(range(1, 16)), [f[0] for f in cds])
@@ -112,9 +178,26 @@ if "vivienda" in lagos:
 if "movilidad" in lagos:
     check("bicis · operando <= estaciones", v("movilidad", "estaciones_operando") <= v("movilidad", "estaciones"))
     check("bicis · eléctricas <= disponibles", v("movilidad", "bicis_electricas") <= v("movilidad", "bicis_disponibles"))
+    tes = lagos["movilidad"].get("tablas", {}).get("estaciones")
+    check("bicis · tabla de estaciones presente", tes is not None)
+    if tes:
+        fe, ce = tes["filas"], tes["columnas"]
+        ib, il = ce.index("bicis_disponibles"), ce.index("anclajes_libres")
+        check("bicis · estaciones mapeadas + sin coordenadas = estaciones",
+              len(fe) + tes["sin_coordenadas"] == v("movilidad", "estaciones"))
+        if tes["sin_coordenadas"] == 0:
+            check("bicis · las estaciones suman las bicis y anclajes de la misma foto",
+                  sum(f[ib] for f in fe) == v("movilidad", "bicis_disponibles")
+                  and sum(f[il] for f in fe) == v("movilidad", "anclajes_libres"))
+        check("bicis · coordenadas dentro del área de Los Ángeles",
+              all(33.6 < f[ce.index("lat")] < 34.9 and -119.0 < f[ce.index("lon")] < -117.6 for f in fe))
+        check("bicis · misma vigencia que las cifras", tes["vigencia"] == lagos["movilidad"]["cifras"]["estaciones"]["vigencia"])
 
 # Natalidad y población por distrito (F07) y tasas per cápita
-if "demografia" in lagos:
+# Si pull_natalidad.py no corrió (sin llave o sin red), demografia.json queda solo con F06: eso es un FAIL, no un error
+censo = "demografia" in lagos and "poblacion_por_distrito" in lagos["demografia"].get("tablas", {})
+check("demografía · tablas del Censo (F07) presentes", censo)
+if censo:
     tb = lagos["demografia"]["tablas"]
     pd = {f[0]: f[1] for f in tb["poblacion_por_distrito"]["filas"]}
     check("población por distrito · distritos 1 a 15", sorted(pd) == list(range(1, 16)), sorted(pd))
@@ -136,6 +219,21 @@ if "demografia" in lagos:
           len(ser) >= 2 and [f[0] for f in ser] == sorted({f[0] for f in ser}))
     check("natalidad · último lanzamiento de la serie igual a la tabla comparada",
           ser[-1][3] == nat["Ciudad de Los Ángeles"][3])
+    nd = tb.get("natalidad_por_distrito")
+    check("natalidad por distrito · tabla presente", nd is not None)
+    if nd:
+        fd = nd["filas"]
+        check("natalidad por distrito · distritos 1 a 15", sorted(f[0] for f in fd) == list(range(1, 16)))
+        check("natalidad por distrito · tasa recalculada y en rango (10 a 100)",
+              all(abs(f[3] - 1000 * f[2] / f[1]) < 0.06 and 10 < f[3] < 100 for f in fd))
+        c = nat["Ciudad de Los Ángeles"]
+        for i, nombre in ((1, "mujeres de 15 a 50"), (2, "nacimientos")):
+            s = sum(f[i] for f in fd)
+            check(f"natalidad por distrito · suma de {nombre} cerca de la ciudad en el mismo ACS (±1 %)",
+                  abs(s - c[i]) / c[i] < 0.01, (s, c[i]))
+        check("natalidad por distrito · mismo lanzamiento que la cifra de la ciudad",
+              nd["vigencia"] == tb["natalidad_por_ambito"]["vigencia"])
+        check("natalidad por distrito · la nota dice el método y el error", "Método" in nd.get("nota", "") and "Error" in nd["nota"])
     lic = next(f["licencia"] for f in lagos["demografia"]["fuentes"] if f["id"] == "F07")
     check("F07 · licencia con atribución exigida por el Censo", "not endorsed or certified" in lic, lic)
     for tema, clave, cols in (("municipio", "solicitudes_por_distrito", {"solicitudes": "solicitudes_por_10mil"}),
@@ -145,6 +243,19 @@ if "demografia" in lagos:
         ok = all(abs(f[t["columnas"].index(tasa)] - 10000 * f[t["columnas"].index(base)] / pd[f[0]]) < 0.06
                  for f in t["filas"] for base, tasa in cols.items())
         check(f"{tema} · tasas por 10.000 habitantes recalculadas con la población por distrito", ok)
+    te = lagos.get("equipamientos", {}).get("tablas", {}).get("equipamientos_por_distrito")
+    check("equipamientos por distrito · tabla presente", te is not None)
+    if te:
+        cols = te["columnas"]
+        check("equipamientos por distrito · distritos 1 a 15", sorted(f[0] for f in te["filas"]) == list(range(1, 16)))
+        for k in ("colegios", "hospitales", "parques"):
+            i, it = cols.index(k), cols.index(f"{k}_por_10mil")
+            check(f"equipamientos por distrito · {k}: distritos + fuera de los polígonos = total de la ciudad",
+                  sum(f[i] for f in te["filas"]) + te["sin_distrito"][k] == v("equipamientos", k))
+            check(f"equipamientos por distrito · {k} por 10.000 habitantes recalculado",
+                  all(abs(f[it] - 10000 * f[i] / pd[f[0]]) < 0.06 for f in te["filas"]))
+        check("equipamientos por distrito · sin columnas de coordenadas",
+              not [c for c in cols if re.search(r"lat|lon|coord|geom", c, re.I)])
 
 # Ciclo de vida: un tema probado hace más de un año se declara vencido
 hoy = datetime.date.today()

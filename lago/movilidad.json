@@ -1,10 +1,10 @@
 {
  "tema": "movilidad",
- "probado": "2026-10-06",
+ "probado": "2026-10-26",
  "fuentes": [
   {
    "id": "F09",
-   "nombre": "Metro Bike Share · GBFS station_status",
+   "nombre": "Metro Bike Share · GBFS station_status y station_information",
    "url": "https://gbfs.bcycle.com/bcycle_lametro/station_status.json",
    "estado": "vivo",
    "licencia": "no declara"
@@ -14,32 +14,1618 @@
   "estaciones": {
    "valor": 224,
    "unidad": "estaciones",
-   "vigencia": "2026-10-06T17:10Z",
+   "vigencia": "2026-10-26T19:55Z",
    "fuente": "F09"
   },
   "estaciones_operando": {
-   "valor": 212,
+   "valor": 219,
    "unidad": "estaciones",
-   "vigencia": "2026-10-06T17:10Z",
+   "vigencia": "2026-10-26T19:55Z",
    "fuente": "F09"
   },
   "bicis_disponibles": {
-   "valor": 1406,
+   "valor": 1419,
    "unidad": "bicicletas",
-   "vigencia": "2026-10-06T17:10Z",
+   "vigencia": "2026-10-26T19:55Z",
    "fuente": "F09"
   },
   "anclajes_libres": {
-   "valor": 1858,
+   "valor": 1870,
    "unidad": "anclajes",
-   "vigencia": "2026-10-06T17:10Z",
+   "vigencia": "2026-10-26T19:55Z",
    "fuente": "F09"
   },
   "bicis_electricas": {
-   "valor": 101,
+   "valor": 114,
    "unidad": "bicicletas eléctricas",
-   "vigencia": "2026-10-06T17:10Z",
+   "vigencia": "2026-10-26T19:55Z",
    "fuente": "F09"
+  }
+ },
+ "tablas": {
+  "estaciones": {
+   "unidad": "grados WGS84; bicicletas disponibles; anclajes libres",
+   "vigencia": "2026-10-26T19:55Z",
+   "fuente": "F09",
+   "columnas": [
+    "estacion",
+    "lat",
+    "lon",
+    "bicis_disponibles",
+    "anclajes_libres"
+   ],
+   "filas": [
+    [
+     "11th & Maple",
+     34.03705,
+     -118.25487,
+     12,
+     2
+    ],
+    [
+     "12th & Hill",
+     34.03861,
+     -118.26086,
+     7,
+     12
+    ],
+    [
+     "12th & Valencia",
+     34.04557,
+     -118.27419,
+     6,
+     7
+    ],
+    [
+     "17th St & SMC E Line Station",
+     34.02339,
+     -118.47964,
+     6,
+     13
+    ],
+    [
+     "18th & San Pedro",
+     34.02851,
+     -118.25667,
+     3,
+     7
+    ],
+    [
+     "1st & Central",
+     34.0493,
+     -118.23881,
+     9,
+     19
+    ],
+    [
+     "1st & Utah",
+     34.04776,
+     -118.22541,
+     4,
+     10
+    ],
+    [
+     "23rd St & Flower",
+     34.03027,
+     -118.27319,
+     10,
+     8
+    ],
+    [
+     "25th & Vermont",
+     34.03364,
+     -118.29131,
+     2,
+     6
+    ],
+    [
+     "28th & Figueroa",
+     34.02629,
+     -118.27769,
+     5,
+     10
+    ],
+    [
+     "28th & University",
+     34.02762,
+     -118.28068,
+     2,
+     7
+    ],
+    [
+     "29th & Ellendale",
+     34.02835,
+     -118.28867,
+     7,
+     12
+    ],
+    [
+     "2nd & Hill",
+     34.05287,
+     -118.24749,
+     7,
+     10
+    ],
+    [
+     "30th & University",
+     34.02662,
+     -118.28181,
+     4,
+     3
+    ],
+    [
+     "32nd & Figueroa",
+     34.02371,
+     -118.27917,
+     6,
+     8
+    ],
+    [
+     "3rd & San Pedro",
+     34.04775,
+     -118.24317,
+     10,
+     5
+    ],
+    [
+     "3rd & Santa Fe",
+     34.04607,
+     -118.23309,
+     8,
+     12
+    ],
+    [
+     "4th & Vermont",
+     34.06699,
+     -118.29088,
+     5,
+     9
+    ],
+    [
+     "5th & Grand",
+     34.05048,
+     -118.25459,
+     8,
+     14
+    ],
+    [
+     "5th & Hewitt",
+     34.04169,
+     -118.23535,
+     5,
+     11
+    ],
+    [
+     "5th & Western",
+     34.06543,
+     -118.30882,
+     7,
+     1
+    ],
+    [
+     "7th & Berendo",
+     34.05969,
+     -118.29466,
+     5,
+     10
+    ],
+    [
+     "7th & Bixel",
+     34.0511,
+     -118.26456,
+     7,
+     15
+    ],
+    [
+     "7th & Broadway",
+     34.04502,
+     -118.25319,
+     4,
+     11
+    ],
+    [
+     "7th & Flower",
+     34.0485,
+     -118.25854,
+     11,
+     18
+    ],
+    [
+     "7th & Park View",
+     34.05771,
+     -118.27976,
+     4,
+     11
+    ],
+    [
+     "7th & Westminster",
+     33.99537,
+     -118.4648,
+     6,
+     9
+    ],
+    [
+     "7th & Westmoreland",
+     34.05978,
+     -118.28854,
+     4,
+     9
+    ],
+    [
+     "8th & Vermont",
+     34.05765,
+     -118.29218,
+     7,
+     6
+    ],
+    [
+     "8th & Wall",
+     34.0401,
+     -118.25026,
+     9,
+     4
+    ],
+    [
+     "9th & Los Angeles",
+     34.0406,
+     -118.25384,
+     6,
+     6
+    ],
+    [
+     "Abbot Kinney & Cadiz",
+     33.99122,
+     -118.46796,
+     1,
+     19
+    ],
+    [
+     "Albany & Olympic",
+     34.04813,
+     -118.27103,
+     7,
+     8
+    ],
+    [
+     "Alla & Glencoe",
+     33.98486,
+     -118.43113,
+     1,
+     11
+    ],
+    [
+     "Alla & Maxella",
+     33.98995,
+     -118.43467,
+     0,
+     12
+    ],
+    [
+     "Ambrose & Hillhurst",
+     34.11003,
+     -118.28716,
+     3,
+     7
+    ],
+    [
+     "Ardmore & Olympic",
+     34.05243,
+     -118.30202,
+     4,
+     10
+    ],
+    [
+     "Argyle & Hollywood",
+     34.10185,
+     -118.32514,
+     12,
+     5
+    ],
+    [
+     "Arizona Ave & 16th St",
+     34.02705,
+     -118.48518,
+     5,
+     6
+    ],
+    [
+     "Avalon & Slauson",
+     33.98938,
+     -118.26495,
+     7,
+     7
+    ],
+    [
+     "Bagley & Venice",
+     34.02569,
+     -118.3953,
+     6,
+     11
+    ],
+    [
+     "Barrington & National",
+     34.02245,
+     -118.43833,
+     10,
+     6
+    ],
+    [
+     "Berendo & Olympic",
+     34.0519,
+     -118.29368,
+     11,
+     4
+    ],
+    [
+     "Broadway & 11th",
+     34.04031,
+     -118.25827,
+     7,
+     4
+    ],
+    [
+     "Broadway & 3rd",
+     34.05135,
+     -118.24794,
+     7,
+     10
+    ],
+    [
+     "Broadway & 8th",
+     34.04351,
+     -118.25509,
+     11,
+     7
+    ],
+    [
+     "Broadway & 9th",
+     34.04211,
+     -118.25619,
+     1,
+     15
+    ],
+    [
+     "Broxton & Weyburn",
+     34.06211,
+     -118.44692,
+     8,
+     8
+    ],
+    [
+     "California & Lincoln",
+     33.99834,
+     -118.46101,
+     8,
+     15
+    ],
+    [
+     "Centinela & Lucile",
+     33.98293,
+     -118.41083,
+     7,
+     1
+    ],
+    [
+     "Chandler & Cahuenga",
+     34.16875,
+     -118.36187,
+     4,
+     8
+    ],
+    [
+     "Chandler & Colfax",
+     34.16835,
+     -118.3875,
+     7,
+     11
+    ],
+    [
+     "Chandler & Laurel Canyon",
+     34.16833,
+     -118.39616,
+     7,
+     8
+    ],
+    [
+     "Compton & Slauson",
+     33.9895,
+     -118.248,
+     3,
+     12
+    ],
+    [
+     "Culver & Centinela",
+     33.99097,
+     -118.4213,
+     7,
+     5
+    ],
+    [
+     "Culver City E Line",
+     34.02828,
+     -118.38985,
+     12,
+     9
+    ],
+    [
+     "Denker & Slauson",
+     33.9893,
+     -118.3042,
+     6,
+     11
+    ],
+    [
+     "Dockweiler Beach at Imperial Hwy",
+     33.92846,
+     -118.4352,
+     0,
+     14
+    ],
+    [
+     "Downtown Santa Monica E Line Station (North)",
+     34.01431,
+     -118.49134,
+     15,
+     25
+    ],
+    [
+     "Downtown Santa Monica E Line Station (South)",
+     34.01332,
+     -118.49136,
+     14,
+     8
+    ],
+    [
+     "Drake Stadium",
+     34.07262,
+     -118.44944,
+     5,
+     15
+    ],
+    [
+     "Durango & Venice",
+     34.02683,
+     -118.39352,
+     2,
+     10
+    ],
+    [
+     "Echo Park Pool",
+     34.06417,
+     -118.25926,
+     5,
+     8
+    ],
+    [
+     "Ellendale Pl & Adams",
+     34.0315,
+     -118.28874,
+     4,
+     8
+    ],
+    [
+     "Expo & Bundy E Line Station",
+     34.0314,
+     -118.45363,
+     9,
+     10
+    ],
+    [
+     "Expo Park LAFC",
+     34.01252,
+     -118.2859,
+     6,
+     9
+    ],
+    [
+     "Expo/Sepulveda E Line Station",
+     34.03535,
+     -118.43414,
+     4,
+     11
+    ],
+    [
+     "Factory Place & Alameda",
+     34.03922,
+     -118.23649,
+     6,
+     9
+    ],
+    [
+     "Figueroa & 11th",
+     34.04381,
+     -118.26497,
+     14,
+     2
+    ],
+    [
+     "Figueroa & 12th",
+     34.04157,
+     -118.26735,
+     9,
+     10
+    ],
+    [
+     "Figueroa & 4th",
+     34.05355,
+     -118.25584,
+     11,
+     4
+    ],
+    [
+     "Figueroa & 8th",
+     34.0484,
+     -118.26095,
+     14,
+     9
+    ],
+    [
+     "Figueroa & 9th",
+     34.04661,
+     -118.26273,
+     8,
+     7
+    ],
+    [
+     "Figueroa & Cesar Chavez",
+     34.06318,
+     -118.24588,
+     6,
+     9
+    ],
+    [
+     "Figueroa & Jefferson",
+     34.02209,
+     -118.27979,
+     4,
+     4
+    ],
+    [
+     "Figueroa & McCarthy Way",
+     34.0203,
+     -118.28118,
+     6,
+     9
+    ],
+    [
+     "Figueroa & Slauson",
+     33.98934,
+     -118.28235,
+     7,
+     7
+    ],
+    [
+     "Fountain & Vine",
+     34.09435,
+     -118.32636,
+     7,
+     7
+    ],
+    [
+     "Franklin & Fuller",
+     34.10338,
+     -118.34919,
+     4,
+     17
+    ],
+    [
+     "Franklin & Hillhurst",
+     34.10536,
+     -118.28727,
+     2,
+     11
+    ],
+    [
+     "Gateway Plaza",
+     34.06975,
+     -118.44535,
+     14,
+     5
+    ],
+    [
+     "Glendale & Silver Lake",
+     34.1007,
+     -118.25912,
+     4,
+     8
+    ],
+    [
+     "Glendon & Kinross",
+     34.06097,
+     -118.44437,
+     9,
+     5
+    ],
+    [
+     "Grand & 14th",
+     34.03746,
+     -118.26538,
+     5,
+     10
+    ],
+    [
+     "Grand & 3rd",
+     34.0532,
+     -118.25095,
+     5,
+     9
+    ],
+    [
+     "Grand & 8th",
+     34.04613,
+     -118.25759,
+     7,
+     10
+    ],
+    [
+     "Grand & LATTC",
+     34.0298,
+     -118.27031,
+     7,
+     9
+    ],
+    [
+     "Grand & Olympic",
+     34.04373,
+     -118.26014,
+     13,
+     5
+    ],
+    [
+     "Grand & Washington",
+     34.03286,
+     -118.26808,
+     7,
+     7
+    ],
+    [
+     "Hawthorn & Orange",
+     34.10038,
+     -118.3418,
+     8,
+     3
+    ],
+    [
+     "Heliotrope & Lily Crest",
+     34.08788,
+     -118.29492,
+     7,
+     6
+    ],
+    [
+     "Highland & Hollywood",
+     34.10196,
+     -118.33885,
+     0,
+     11
+    ],
+    [
+     "Highland & Sunset",
+     34.09823,
+     -118.33882,
+     13,
+     5
+    ],
+    [
+     "Hill & College",
+     34.06428,
+     -118.23894,
+     6,
+     9
+    ],
+    [
+     "Hill & Washington",
+     34.03105,
+     -118.26709,
+     6,
+     9
+    ],
+    [
+     "Hillhurst & Kingswell",
+     34.10233,
+     -118.28746,
+     2,
+     8
+    ],
+    [
+     "Hollywood & Rodney",
+     34.10011,
+     -118.28986,
+     6,
+     2
+    ],
+    [
+     "Hoover & 29th",
+     34.02868,
+     -118.28411,
+     7,
+     8
+    ],
+    [
+     "Hoover & 32nd",
+     34.02586,
+     -118.2841,
+     13,
+     2
+    ],
+    [
+     "Hope & 11th",
+     34.04206,
+     -118.26338,
+     12,
+     13
+    ],
+    [
+     "Hope & 1st",
+     34.05772,
+     -118.24897,
+     4,
+     11
+    ],
+    [
+     "Hope & 6th",
+     34.04989,
+     -118.25588,
+     9,
+     18
+    ],
+    [
+     "Hope & Olympic",
+     34.04417,
+     -118.26117,
+     11,
+     11
+    ],
+    [
+     "Imperial & 7th",
+     34.0348,
+     -118.23128,
+     13,
+     5
+    ],
+    [
+     "Industrial & Mateo",
+     34.0358,
+     -118.23317,
+     2,
+     13
+    ],
+    [
+     "Inglewood & Ballona",
+     33.99032,
+     -118.41205,
+     2,
+     9
+    ],
+    [
+     "Ivar & Hollywood",
+     34.10186,
+     -118.32811,
+     2,
+     13
+    ],
+    [
+     "James M. Wood & Alvarado",
+     34.05323,
+     -118.27842,
+     5,
+     3
+    ],
+    [
+     "Kenmore & 3rd",
+     34.06927,
+     -118.29659,
+     9,
+     2
+    ],
+    [
+     "Kenmore & 6th",
+     34.06335,
+     -118.2968,
+     3,
+     13
+    ],
+    [
+     "Koreatown Plaza",
+     34.05516,
+     -118.30899,
+     8,
+     12
+    ],
+    [
+     "Lankershim & Califa",
+     34.17765,
+     -118.38231,
+     5,
+     5
+    ],
+    [
+     "Lankershim & Hesby",
+     34.16171,
+     -118.37282,
+     3,
+     8
+    ],
+    [
+     "Lankershim & Vineland",
+     34.15832,
+     -118.37081,
+     9,
+     3
+    ],
+    [
+     "Laveta Terrace & Sunset",
+     34.07598,
+     -118.25601,
+     4,
+     5
+    ],
+    [
+     "Los Angeles & Temple",
+     34.0529,
+     -118.24156,
+     8,
+     7
+    ],
+    [
+     "Lucerne & Sepulveda",
+     34.00031,
+     -118.40253,
+     5,
+     5
+    ],
+    [
+     "Lucile & Hoover",
+     34.0826,
+     -118.28439,
+     7,
+     3
+    ],
+    [
+     "Magnolia & Clybourn",
+     34.16522,
+     -118.35515,
+     5,
+     6
+    ],
+    [
+     "Main & 1st",
+     34.05194,
+     -118.24353,
+     22,
+     7
+    ],
+    [
+     "Main & 8th",
+     34.04298,
+     -118.25295,
+     3,
+     4
+    ],
+    [
+     "Main & 9th",
+     34.04099,
+     -118.2558,
+     4,
+     11
+    ],
+    [
+     "Main & Winston",
+     34.04744,
+     -118.24794,
+     6,
+     7
+    ],
+    [
+     "Mariota & Riverside",
+     34.152,
+     -118.3506,
+     7,
+     6
+    ],
+    [
+     "Maubert & Vermont",
+     34.09905,
+     -118.2915,
+     4,
+     6
+    ],
+    [
+     "Maxella & Glencoe",
+     33.98667,
+     -118.44095,
+     9,
+     6
+    ],
+    [
+     "McCadden & Hollywood",
+     34.102,
+     -118.33741,
+     9,
+     5
+    ],
+    [
+     "McConnell & Runway",
+     33.97619,
+     -118.41842,
+     7,
+     11
+    ],
+    [
+     "McLaughlin & Venice",
+     34.00902,
+     -118.42501,
+     1,
+     12
+    ],
+    [
+     "Melbourne & Vermont",
+     34.10363,
+     -118.29131,
+     6,
+     3
+    ],
+    [
+     "Mississippi & Sawtelle",
+     34.03974,
+     -118.44227,
+     5,
+     4
+    ],
+    [
+     "Mohawk Bend",
+     34.07735,
+     -118.26455,
+     6,
+     4
+    ],
+    [
+     "Motor & Regent",
+     34.02258,
+     -118.40551,
+     8,
+     3
+    ],
+    [
+     "New High & Ord",
+     34.06056,
+     -118.23833,
+     7,
+     8
+    ],
+    [
+     "Normandie & Hollywood",
+     34.10189,
+     -118.30061,
+     9,
+     5
+    ],
+    [
+     "Normandie & Sunset",
+     34.098,
+     -118.30047,
+     6,
+     6
+    ],
+    [
+     "North Hollywood Plaza",
+     34.16552,
+     -118.37515,
+     2,
+     7
+    ],
+    [
+     "North Hollywood Station",
+     34.16863,
+     -118.37707,
+     2,
+     17
+    ],
+    [
+     "Ocean Front Walk & Navy",
+     33.99556,
+     -118.48155,
+     3,
+     22
+    ],
+    [
+     "Ocean Front Walk & North Venice",
+     33.98434,
+     -118.47155,
+     14,
+     1
+    ],
+    [
+     "Olive & 8th",
+     34.04554,
+     -118.25667,
+     8,
+     21
+    ],
+    [
+     "Pacific & North Venice",
+     33.98493,
+     -118.46996,
+     14,
+     0
+    ],
+    [
+     "Palms & Motor",
+     34.02655,
+     -118.40846,
+     4,
+     5
+    ],
+    [
+     "Palms E Line Station",
+     34.02912,
+     -118.40317,
+     7,
+     7
+    ],
+    [
+     "Park & Echo Park",
+     34.07483,
+     -118.25873,
+     5,
+     10
+    ],
+    [
+     "Park & Ocean Front Walk",
+     33.99131,
+     -118.47741,
+     9,
+     14
+    ],
+    [
+     "Perloff Hall",
+     34.07365,
+     -118.43984,
+     3,
+     17
+    ],
+    [
+     "Pershing Square",
+     34.04804,
+     -118.25374,
+     0,
+     22
+    ],
+    [
+     "Pico & Flower",
+     34.03998,
+     -118.2664,
+     5,
+     20
+    ],
+    [
+     "Playa Vista Library",
+     33.97024,
+     -118.42607,
+     5,
+     12
+    ],
+    [
+     "Purdue & Santa Monica",
+     34.04621,
+     -118.45117,
+     4,
+     17
+    ],
+    [
+     "Rampart & Wilshire",
+     34.0616,
+     -118.28199,
+     7,
+     4
+    ],
+    [
+     "Riverside & Cahuenga",
+     34.15214,
+     -118.36195,
+     7,
+     11
+    ],
+    [
+     "Rose & 7th",
+     34.00088,
+     -118.46891,
+     14,
+     5
+    ],
+    [
+     "Rose & Main",
+     33.99624,
+     -118.47745,
+     4,
+     19
+    ],
+    [
+     "Rose & Overland",
+     34.02765,
+     -118.41356,
+     3,
+     4
+    ],
+    [
+     "Rose & Rennie",
+     33.99868,
+     -118.47298,
+     10,
+     7
+    ],
+    [
+     "Row DTLA",
+     34.03352,
+     -118.24184,
+     7,
+     9
+    ],
+    [
+     "Rowena & Hyperion",
+     34.10936,
+     -118.27181,
+     8,
+     7
+    ],
+    [
+     "San Pedro & Winston",
+     34.04518,
+     -118.24325,
+     9,
+     2
+    ],
+    [
+     "Santa Monica & Sunset",
+     34.0926,
+     -118.28093,
+     7,
+     10
+    ],
+    [
+     "Seabluff & Runway",
+     33.97366,
+     -118.42286,
+     2,
+     8
+    ],
+    [
+     "Sepulveda & National",
+     34.02697,
+     -118.42821,
+     8,
+     6
+    ],
+    [
+     "Sepulveda & Palms",
+     34.02006,
+     -118.42268,
+     3,
+     6
+    ],
+    [
+     "Sepulveda & Venice",
+     34.01376,
+     -118.4178,
+     4,
+     11
+    ],
+    [
+     "Severance & Adams",
+     34.03017,
+     -118.28095,
+     5,
+     10
+    ],
+    [
+     "Shatto Pl & Wilshire",
+     34.06258,
+     -118.29009,
+     5,
+     5
+    ],
+    [
+     "Spring & 3rd",
+     34.04998,
+     -118.24716,
+     9,
+     6
+    ],
+    [
+     "Spring & College",
+     34.06339,
+     -118.23616,
+     8,
+     7
+    ],
+    [
+     "Stanford & 12th",
+     34.03189,
+     -118.25018,
+     5,
+     7
+    ],
+    [
+     "Stanford & Washington",
+     33.9897,
+     -118.44888,
+     4,
+     6
+    ],
+    [
+     "Sunset & Douglas",
+     34.07364,
+     -118.25157,
+     1,
+     14
+    ],
+    [
+     "Sunset & Silver Lake",
+     34.08252,
+     -118.27272,
+     14,
+     0
+    ],
+    [
+     "Sunset & Virgil",
+     34.09801,
+     -118.28707,
+     1,
+     9
+    ],
+    [
+     "Sunset Triangle Plaza",
+     34.09028,
+     -118.27719,
+     8,
+     8
+    ],
+    [
+     "Temple & Vignes",
+     34.05014,
+     -118.23319,
+     6,
+     8
+    ],
+    [
+     "Toes Beach at Culver Blvd",
+     33.95718,
+     -118.45125,
+     8,
+     0
+    ],
+    [
+     "Traction & Rose",
+     34.04652,
+     -118.23741,
+     11,
+     11
+    ],
+    [
+     "Union & 7th",
+     34.05403,
+     -118.27092,
+     4,
+     4
+    ],
+    [
+     "Union & Olympic",
+     34.04887,
+     -118.2743,
+     8,
+     5
+    ],
+    [
+     "Union Station East Portal",
+     34.05628,
+     -118.23177,
+     5,
+     14
+    ],
+    [
+     "Union Station West Portal",
+     34.05659,
+     -118.2372,
+     5,
+     23
+    ],
+    [
+     "University & Hoover",
+     34.02404,
+     -118.28341,
+     14,
+     0
+    ],
+    [
+     "University Village (Sawtelle Blvd)",
+     34.02341,
+     -118.42901,
+     10,
+     2
+    ],
+    [
+     "University Village (Sepulveda Blvd)",
+     34.02385,
+     -118.42607,
+     11,
+     4
+    ],
+    [
+     "Vendome & Beverly",
+     34.07159,
+     -118.28229,
+     6,
+     2
+    ],
+    [
+     "Venice & Abbot Kinney",
+     33.98908,
+     -118.46226,
+     2,
+     8
+    ],
+    [
+     "Venice & Beethoven",
+     33.99958,
+     -118.44136,
+     1,
+     8
+    ],
+    [
+     "Venice & Colonial",
+     34.00351,
+     -118.43438,
+     7,
+     4
+    ],
+    [
+     "Venice & Glendon",
+     34.01745,
+     -118.40957,
+     3,
+     6
+    ],
+    [
+     "Venice & Hughes",
+     34.02339,
+     -118.39922,
+     4,
+     11
+    ],
+    [
+     "Venice & Inglewood",
+     34.00587,
+     -118.42916,
+     8,
+     0
+    ],
+    [
+     "Venice & Lincoln",
+     33.99377,
+     -118.45367,
+     2,
+     14
+    ],
+    [
+     "Venice & Motor",
+     34.02018,
+     -118.40403,
+     5,
+     6
+    ],
+    [
+     "Venice & Sawtelle",
+     34.0118,
+     -118.41944,
+     7,
+     4
+    ],
+    [
+     "Venice & Walgrove",
+     33.99724,
+     -118.44673,
+     4,
+     13
+    ],
+    [
+     "Vermont & Beverly",
+     34.07561,
+     -118.29186,
+     1,
+     4
+    ],
+    [
+     "Vermont & Exposition",
+     34.0179,
+     -118.29172,
+     4,
+     10
+    ],
+    [
+     "Vermont & Franklin",
+     34.10578,
+     -118.29194,
+     1,
+     7
+    ],
+    [
+     "Vermont & Santa Monica B-Line (North)",
+     34.09046,
+     -118.29196,
+     4,
+     7
+    ],
+    [
+     "Vermont & Santa Monica B-Line (South)",
+     34.0894,
+     -118.29216,
+     6,
+     7
+    ],
+    [
+     "Vermont & Slauson",
+     33.9893,
+     -118.29119,
+     9,
+     6
+    ],
+    [
+     "Vineland & Burbank",
+     34.17245,
+     -118.37037,
+     8,
+     6
+    ],
+    [
+     "Virgil & 6th",
+     34.06349,
+     -118.28716,
+     5,
+     8
+    ],
+    [
+     "Vista Del Mar & Culver",
+     33.95879,
+     -118.44828,
+     4,
+     4
+    ],
+    [
+     "Washington & Abbot Kinney",
+     33.98842,
+     -118.45163,
+     8,
+     8
+    ],
+    [
+     "Western & 3rd",
+     34.06875,
+     -118.30928,
+     5,
+     10
+    ],
+    [
+     "Western & Hollywood",
+     34.10164,
+     -118.30917,
+     3,
+     7
+    ],
+    [
+     "Westlake & 3rd",
+     34.06228,
+     -118.27152,
+     8,
+     2
+    ],
+    [
+     "Westlake & MacArthur Park Station",
+     34.05681,
+     -118.275,
+     5,
+     7
+    ],
+    [
+     "Westwood/Rancho Park E Line Station",
+     34.03687,
+     -118.4255,
+     10,
+     9
+    ],
+    [
+     "Weyburn Terrace",
+     34.06186,
+     -118.45002,
+     9,
+     3
+    ],
+    [
+     "Whitley & Hollywood",
+     34.10186,
+     -118.33329,
+     0,
+     13
+    ],
+    [
+     "Willow & Mateo",
+     34.03919,
+     -118.23253,
+     10,
+     5
+    ],
+    [
+     "Wilshire & Alexandria",
+     34.06166,
+     -118.29824,
+     6,
+     12
+    ],
+    [
+     "Wilshire & Fairfax D Line Station",
+     34.0625,
+     -118.36012,
+     6,
+     9
+    ],
+    [
+     "Wilshire & Hobart",
+     34.06162,
+     -118.30557,
+     3,
+     6
+    ],
+    [
+     "Wilshire & La Brea D Line Station",
+     34.06254,
+     -118.34453,
+     6,
+     6
+    ],
+    [
+     "Wilshire & La Cienega D Line Station",
+     34.06557,
+     -118.37586,
+     5,
+     10
+    ],
+    [
+     "Wilshire & Normandie",
+     34.06163,
+     -118.30119,
+     4,
+     10
+    ],
+    [
+     "Wilshire & Witmer",
+     34.05357,
+     -118.26636,
+     1,
+     2
+    ],
+    [
+     "Wiltern",
+     34.06079,
+     -118.30907,
+     7,
+     4
+    ],
+    [
+     "Windward & Main",
+     33.98813,
+     -118.47174,
+     5,
+     16
+    ],
+    [
+     "Yucca & Argyle",
+     34.10385,
+     -118.32546,
+     3,
+     10
+    ]
+   ],
+   "sin_coordenadas": 0,
+   "nota": "Nombre y coordenadas de https://gbfs.bcycle.com/bcycle_lametro/station_information.json; bicis y anclajes de station_status, en la misma foto. 0 estaciones de station_status no aparecen en station_information y no se mapean. Son estaciones (infraestructura pública), no viajes ni personas."
   }
  }
 }

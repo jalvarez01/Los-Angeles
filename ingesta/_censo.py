@@ -6,12 +6,18 @@ import json
 import urllib.error
 import urllib.parse
 
-from _comun import LAGO, URL_DISTRITOS, get_bytes, get_json, hoy, llave_census
+from _comun import LAGO, URL_AREAS_LAPD, URL_DISTRITOS, get_bytes, get_json, hoy, llave_census
 
 BASE = "https://api.census.gov/data"
 GAZETTEER = ("https://www2.census.gov/geo/docs/maps-data/data/gazetteer/"
              "{anio}_Gazetteer/{anio}_gaz_tracts_06.txt")
 CACHE = LAGO / "raw" / "poblacion_distrito.json"
+CACHE_AREAS = LAGO / "raw" / "poblacion_area_lapd.json"
+# Texto copiado de https://www.census.gov/data/developers/about/terms-of-service.html (consultado el día de la ingesta)
+LICENCIA = ('Census Bureau API Terms of Service (census.gov/data/developers/about/terms-of-service.html): '
+            '"You may use the Census Bureau API to develop a service or service to search, display, analyze, '
+            'retrieve, view and otherwise \"get\" information from Census Bureau data." Atribución exigida: '
+            '"This product uses the Census Bureau Data API but is not endorsed or certified by the Census Bureau."')
 
 
 def api(anio, variables, para, en=None):
@@ -61,52 +67,98 @@ def distrito_de(x, y, distritos):
     return None
 
 
-def poblacion_por_distrito():
-    """Población (B01003_001E) de cada distrito de consejo, sumando los sectores censales del condado de
-    Los Ángeles cuyo punto interno cae dentro del distrito. Se guarda en lago/raw (no va a git) para que
-    todos los scripts usen la misma cifra dentro de una reconstrucción.
-    """
-    if CACHE.exists():
-        return json.loads(CACHE.read_text(encoding="utf-8"))
-    anio = lanzamientos()[-1]
-    sectores = {r[-1]: int(r[0]) for r in api(anio, ["B01003_001E"], "tract:*", ["state:06", "county:037"])}
-    # Puntos internos de los sectores (Gazetteer del Censo, geografía de 2020: la del ACS desde 2020)
+def poligonos(url, clave):
+    """Límites completos (sin simplificar) de una capa ArcGIS, solo para asignar: no se guardan.
+    Devuelve [(clave(propiedades), partes)], con cada parte como lista de anillos."""
+    g = get_json(url + "&f=geojson")
+    assert not g.get("properties", {}).get("exceededTransferLimit"), f"respuesta truncada: {url}"
+    res = []
+    for f in g["features"]:
+        geo = f["geometry"]
+        partes = geo["coordinates"] if geo["type"] == "MultiPolygon" else [geo["coordinates"]]
+        res.append((clave(f["properties"]), partes))
+    return res
+
+
+def poligonos_distritos():
+    return poligonos(URL_DISTRITOS, lambda p: int(p["District"]))
+
+
+def _puntos_sectores():
+    """Puntos internos de los sectores del condado (Gazetteer del Censo, geografía de 2020: la del ACS desde 2020)."""
     filas = get_bytes(GAZETTEER.format(anio=2020)).decode("utf-8").splitlines()
     cab = [c.strip() for c in filas[0].split("\t")]
     puntos = {}
     for f in filas[1:]:
-        v = f.split("\t")
-        d = dict(zip(cab, v))
+        d = dict(zip(cab, f.split("\t")))
         if d["GEOID"].startswith("06037"):
             puntos[d["GEOID"][5:]] = (float(d["INTPTLONG"]), float(d["INTPTLAT"]))
-    # Límites completos (sin simplificar) solo para asignar: no se guardan
-    g = get_json(URL_DISTRITOS + "&f=geojson")
-    distritos = []
-    for f in g["features"]:
-        geo = f["geometry"]
-        partes = geo["coordinates"] if geo["type"] == "MultiPolygon" else [geo["coordinates"]]
-        distritos.append((int(f["properties"]["District"]), partes))
-    pob = {cd: 0 for cd, _ in distritos}
-    n_sectores = {cd: 0 for cd, _ in distritos}
-    fuera, sin_punto = 0, []
-    for tr, hab in sectores.items():
+    return puntos
+
+
+def suma_por_poligono(anio, variables, zonas):
+    """Suma variables del ACS de los sectores censales del condado de Los Ángeles cuyo punto interno cae dentro de
+    cada zona. Un sector que cruza un límite se asigna entero a la zona de su punto interno."""
+    sectores = {r[-1]: [int(x) for x in r[:len(variables)]]
+                for r in api(anio, variables, "tract:*", ["state:06", "county:037"])}
+    assert all(x >= 0 for v in sectores.values() for x in v), "el Censo devolvió códigos de anotación negativos"
+    puntos = _puntos_sectores()
+    suma = {k: [0] * len(variables) for k, _ in zonas}
+    n_sectores = {k: 0 for k, _ in zonas}
+    fuera, sin_punto = [0] * len(variables), 0
+    for tr, vals in sectores.items():
         if tr not in puntos:
-            sin_punto.append(tr)
+            sin_punto += 1
             continue
-        cd = distrito_de(*puntos[tr], distritos)
-        if cd is None:
-            fuera += hab
-        else:
-            pob[cd] += hab
-            n_sectores[cd] += 1
+        k = distrito_de(*puntos[tr], zonas)
+        destino = fuera if k is None else suma[k]
+        for i, x in enumerate(vals):
+            destino[i] += x
+        if k is not None:
+            n_sectores[k] += 1
+    return {"suma": suma, "sectores": n_sectores, "fuera": fuera, "sin_punto": sin_punto}
+
+
+def _poblacion(cache, zonas):
+    """Población (B01003_001E) por zona con suma_por_poligono. Se guarda en lago/raw (no va a git) para que
+    todos los scripts usen la misma cifra dentro de una reconstrucción."""
+    if cache.exists():
+        return json.loads(cache.read_text(encoding="utf-8"))
+    anio = lanzamientos()[-1]
+    r = suma_por_poligono(anio, ["B01003_001E"], zonas)
     ciudad = int(api(anio, ["B01003_001E"], "place:44000", ["state:06"])[0][0])
-    res = {"anio": anio, "poblacion": {str(k): v for k, v in sorted(pob.items())},
-           "sectores": {str(k): v for k, v in sorted(n_sectores.items())},
-           "poblacion_fuera": fuera, "sectores_sin_punto": len(sin_punto), "poblacion_ciudad_acs": ciudad}
-    CACHE.parent.mkdir(parents=True, exist_ok=True)
-    CACHE.write_text(json.dumps(res, indent=1) + "\n", encoding="utf-8")
+    res = {"anio": anio, "poblacion": {str(k): v[0] for k, v in sorted(r["suma"].items())},
+           "sectores": {str(k): v for k, v in sorted(r["sectores"].items())},
+           "poblacion_fuera": r["fuera"][0], "sectores_sin_punto": r["sin_punto"], "poblacion_ciudad_acs": ciudad}
+    cache.parent.mkdir(parents=True, exist_ok=True)
+    cache.write_text(json.dumps(res, indent=1) + "\n", encoding="utf-8")
     return res
 
 
-def por_10mil(n, cd, pob):
-    return round(10000 * n / pob["poblacion"][str(cd)], 1)
+def poblacion_por_distrito():
+    """Población de cada distrito de consejo (límites completos de F12)."""
+    return _poblacion(CACHE, poligonos_distritos())
+
+
+def poblacion_por_area_lapd():
+    """Población de cada una de las 21 áreas de LAPD (límites completos de F18)."""
+    return _poblacion(CACHE_AREAS, poligonos(URL_AREAS_LAPD, lambda p: int(p["PREC"])))
+
+
+def por_10mil(n, cd, pob, decimales=1):
+    return round(10000 * n / pob["poblacion"][str(cd)], decimales)
+
+
+def nota_metodo(pob, zonas, capa):
+    """Nota de método y error para una tabla de población por zona, como la de poblacion_por_distrito."""
+    miles = lambda n: f"{n:,}".replace(",", ".")
+    total = sum(pob["poblacion"].values())
+    dif = total - pob["poblacion_ciudad_acs"]
+    return (f"Método: se suman los {miles(sum(pob['sectores'].values()))} sectores censales del condado de Los Ángeles "
+            f"(ACS {pob['anio']}, B01003_001E) cuyo punto interno (Gazetteer del Censo 2020) cae dentro de cada "
+            f"{zonas}, usando los límites completos de {capa} (sin simplificar). Error: un sector que cruza el límite de "
+            f"dos zonas se asigna entero a la zona de su punto interno, así que cada {zonas} puede quedar algo por encima "
+            f"o por debajo; ese error no se puede medir con esta fuente. A escala de ciudad, la suma ({miles(total)}) "
+            f"difiere {'+' if dif >= 0 else '-'}{miles(abs(dif))} habitantes "
+            f"({100 * dif / pob['poblacion_ciudad_acs']:+.2f} %) de la población de la ciudad en el mismo ACS "
+            f"({miles(pob['poblacion_ciudad_acs'])}). Son estimaciones de encuesta con margen de error, no un censo.")

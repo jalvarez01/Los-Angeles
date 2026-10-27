@@ -95,14 +95,22 @@ h2 .n{font:600 .8rem/1 var(--cuerpo);font-style:normal;letter-spacing:.12em;colo
 /* ---------- gráficos y mapa ---------- */
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:14px;margin-top:12px}
 .chart{position:relative;height:300px}
-#mapa{height:480px;background:#0b0d12;border:1px solid var(--linea);border-top:3px solid var(--acc)}
+.mapa{height:480px;background:#0b0d12;border:1px solid var(--linea);border-top:3px solid var(--acc)}
+.mapa-box{margin-top:14px}
+.mapa-box h3{font-size:1.3rem;margin-bottom:4px}
+.mapa-box .nota{margin:.2rem 0 .5rem}
 .leaflet-container{background:#0b0d12;font-family:var(--cuerpo)}
 .leaflet-tooltip{background:rgba(7,8,13,.94);color:#fff;border:1px solid var(--acc);border-radius:0;box-shadow:0 6px 18px rgba(0,0,0,.6);font:500 .85rem var(--cuerpo)}
 .leaflet-tooltip-top:before{border-top-color:var(--acc)}
 .leaflet-bar a{background:#0b0d12;color:#fff;border-bottom:1px solid var(--linea);border-radius:0!important}
 .leaflet-bar a:hover{background:var(--verde);color:#04110a}
-.leyenda{display:flex;align-items:center;gap:10px;margin-top:10px;font-size:.8rem;color:var(--mut)}
-.leyenda i{flex:0 0 min(260px,50%);height:10px;background:linear-gradient(90deg,#3a1c5a,#6b1f7b,#b0226f,#e8445a,#ff8a3d,#ffd166);border:1px solid var(--linea)}
+.leyenda{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;margin-top:10px;font-size:.8rem;color:var(--mut)}
+.leyenda b{flex-basis:100%;font-weight:600;color:#fff}
+.leyenda span{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.leyenda i{flex:none;width:18px;height:12px;border:1px solid rgba(255,255,255,.5)}
+.leyenda i.raya{background:repeating-linear-gradient(45deg,#3b3f4a 0 3px,#a3aab8 3px 5px)}
+.leyenda i.punto{border-radius:50%;background:rgba(43,212,240,.55);border-color:#2BD4F0}
+.pie-mapa{font-size:.78rem;color:var(--mut);margin:.4rem 0 0;overflow-wrap:anywhere}
 select{font:500 .95rem var(--cuerpo);padding:6px 10px;background:rgba(0,0,0,.65);color:#fff;border:1px solid var(--amarillo);border-radius:0}
 select:focus-visible{outline:2px solid var(--amarillo);outline-offset:2px}
 
@@ -140,7 +148,8 @@ footer p{margin:.3rem 0}footer b{color:#fff}
   .panel{padding:18px 16px 20px}
   .portada{padding:22px 16px}
   html{scroll-padding-top:64px}
-  .chart{height:270px}#mapa{height:380px}
+  .chart{height:270px}.mapa{height:380px}
+  select{max-width:100%}
   .kpis{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
   .kpi{padding:10px 10px}
   .kpi b{font-size:1.75rem}
@@ -153,6 +162,7 @@ footer p{margin:.3rem 0}footer b{color:#fff}
 </head>
 <body>
 <a class="salto" href="#contenido">Saltar al contenido</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><pattern id="rayado" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" fill="#3b3f4a"/><rect width="2" height="6" fill="#a3aab8"/></pattern></defs></svg>
 <div class="app">
 <nav class="menu" aria-label="Secciones del tablero">
  <div class="menu-tit">Menú</div>
@@ -178,20 +188,27 @@ footer p{margin:.3rem 0}footer b{color:#fff}
 
 <section id="demografia" class="panel c1" style="--i:1"><h2><span class="n">01</span>Demografía y natalidad</h2><div class="kpis" id="k-demo"></div><div id="natal"></div><div id="poblacion"></div></section>
 <section id="seguridad" class="panel c2" style="--i:2"><h2><span class="n">02</span>Seguridad</h2><p class="nota" id="n-seg"></p><div class="kpis" id="k-seg"></div>
-<div class="grid"><div class="sub"><div class="chart"><canvas id="c-seg-area"></canvas></div></div><div class="sub"><div class="chart"><canvas id="c-seg-mes"></canvas></div></div></div></section>
+<div class="grid"><div class="sub"><div class="chart"><canvas id="c-seg-area"></canvas></div></div><div class="sub"><div class="chart"><canvas id="c-seg-mes"></canvas></div></div></div>
+<div class="sub mapa-box"><h3>Ofensas por área de LAPD</h3><p class="nota"><label for="sel-areas">Indicador:</label> <select id="sel-areas"></select></p>
+<div id="mapa-areas" class="mapa" role="img" aria-label="Mapa de las 21 áreas de LAPD, coloreadas según el indicador elegido"></div><div class="leyenda" id="ley-areas"></div><p class="pie-mapa" id="pie-areas"></p></div>
+<div class="sub mapa-box"><h3>Ofensas por distrito de reporte</h3><p class="nota"><label for="sel-rd">Acercar a:</label> <select id="sel-rd"></select></p>
+<div id="mapa-rd" class="mapa" role="img" aria-label="Mapa de los distritos de reporte de LAPD, coloreados por ofensas en 12 meses; los distritos con menos de 10 ofensas aparecen rayados"></div><div class="leyenda" id="ley-rd"></div><p class="pie-mapa" id="pie-rd"></p></div></section>
 <section id="m311" class="panel c3" style="--i:3"><h2><span class="n">03</span>Solicitudes ciudadanas (311)</h2><p class="nota" id="n-311"></p><div class="kpis" id="k-311"></div>
 <div class="grid"><div class="sub"><div class="chart"><canvas id="c-311-tipo"></canvas></div></div><div class="sub"><div class="chart"><canvas id="c-311-dist"></canvas></div></div><div class="sub"><div class="chart"><canvas id="c-311-mes"></canvas></div></div></div></section>
 <section id="vivienda" class="panel c4" style="--i:4"><h2><span class="n">04</span>Vivienda y permisos</h2><p class="nota" id="n-viv"></p><div class="kpis" id="k-viv"></div>
 <div class="grid"><div class="sub"><div class="chart"><canvas id="c-viv-dist"></canvas></div></div><div class="sub"><div class="chart"><canvas id="c-viv-mes"></canvas></div></div></div></section>
-<section id="movilidad" class="panel c5" style="--i:5"><h2><span class="n">05</span>Movilidad</h2><div class="kpis" id="k-mov"></div></section>
+<section id="movilidad" class="panel c5" style="--i:5"><h2><span class="n">05</span>Movilidad</h2><div class="kpis" id="k-mov"></div>
+<div class="sub mapa-box"><h3>Estaciones de Metro Bike Share</h3><p class="nota"><label for="sel-bici">Tamaño según:</label> <select id="sel-bici"></select></p>
+<div id="mapa-bici" class="mapa" role="img" aria-label="Mapa de las estaciones de Metro Bike Share sobre los distritos de consejo; cada círculo crece con el valor elegido"></div><div class="leyenda" id="ley-bici"></div><p class="pie-mapa" id="pie-bici"></p></div></section>
 <section id="equipamientos" class="panel c1" style="--i:6"><h2><span class="n">06</span>Equipamientos</h2><div class="kpis" id="k-equ"></div></section>
 <section id="interes" class="panel c2" style="--i:7"><h2><span class="n">07</span>Interés externo</h2><div class="kpis" id="k-esc"></div><div class="sub"><div class="chart"><canvas id="c-esc"></canvas></div></div></section>
 <section id="mapa-s" class="panel c3" style="--i:8"><h2><span class="n">08</span>Mapa de los 15 distritos de consejo</h2>
-<p class="nota"><label for="sel-mapa">Indicador:</label> <select id="sel-mapa"></select> <span id="n-mapa"></span></p><div id="mapa" role="img" aria-label="Mapa de los 15 distritos de consejo, coloreados según el indicador elegido"></div><div class="leyenda"><span id="ley-min"></span><i></i><span id="ley-max"></span></div></section>
+<p class="nota"><label for="sel-mapa">Indicador:</label> <select id="sel-mapa"></select></p><div id="mapa" class="mapa" role="img" aria-label="Mapa de los 15 distritos de consejo, coloreados según el indicador elegido"></div><div class="leyenda" id="ley-mapa"></div><p class="pie-mapa" id="pie-mapa"></p></section>
 <section id="gobernanza" class="panel c4" style="--i:9"><h2><span class="n">09</span>Gobernanza</h2><p class="nota">Fuentes, licencia, fecha de prueba y vigencia de cada archivo del lago.</p><div id="gob" class="grid"></div></section>
 <footer class="panel" style="--i:10">
  <p><b>This product uses the Census Bureau Data API but is not endorsed or certified by the Census Bureau.</b></p>
  <p>Proyecto de gobierno de datos, EAFIT 2026-2. Datos abiertos de la Ciudad de Los Ángeles, California DOF, Metro Bike Share, OpenStreetMap y Wikipedia, con las licencias indicadas en «Gobernanza».</p>
+ <p>Límites de las áreas de LAPD: «LAPD Divisions», LAPD GIS Mapping vía <a href="https://geohub.lacity.org/" rel="noopener">LA GeoHub</a>, licencia <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener">CC BY 4.0</a>, simplificados. Distritos de reporte y distritos de consejo: LA GeoHub. Equipamientos: © colaboradores de OpenStreetMap (ODbL).</p>
  <p>Fotografía de fondo: «<a href="https://commons.wikimedia.org/wiki/File:Echo_park_lake_with_lotus_flowers_and_Los_Angeles_skyline_in_the_background.jpg" rel="noopener">Echo park lake with lotus flowers and Los Angeles skyline in the background</a>», de Alaiben, licencia <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="noopener">CC BY-SA 4.0</a>, vía Wikimedia Commons. Redimensionada y con gradación de color aplicada con CSS.</p>
 </footer>
 </div>
@@ -200,7 +217,7 @@ footer p{margin:.3rem 0}footer b{color:#fff}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
 <script>
 const TEMAS=["demografia","seguridad","municipio","vivienda","movilidad","equipamientos","escucha"];
-const $=id=>document.getElementById(id), fmt=n=>Number(n).toLocaleString("es-CO",{maximumFractionDigits:1});
+const $=id=>document.getElementById(id), fmt=n=>Number(n).toLocaleString("es-CO",{maximumFractionDigits:Math.abs(n)<1?2:1});
 const el=(t,txt,cls)=>{const e=document.createElement(t);e.textContent=txt;if(cls)e.className=cls;return e};
 const fetchJ=u=>fetch(u).then(r=>{if(!r.ok)throw new Error(u);return r.json()});
 const COL={verde:"#2EBD59",naranja:"#FF8A3D",rosa:"#FF6AA5",cian:"#2BD4F0"};
@@ -224,10 +241,43 @@ function menuActivo(){const links=[...document.querySelectorAll("#menu a")],porI
  marca("demografia");
  const io=new IntersectionObserver(es=>{es.filter(e=>e.isIntersecting).forEach(e=>{marca(e.target.id);const a=porId[e.target.id];if(a&&innerWidth<=900)a.scrollIntoView({inline:"center",block:"nearest"})})},{rootMargin:"-25% 0px -65% 0px"});
  Object.keys(porId).forEach(id=>{const s=$(id);if(s)io.observe(s)})}
+// Mapas: solo geometría local, sin teselas. Cinco clases por quintiles; null = celda suprimida (menos de 10, o complementaria)
+const PAL=["#3a1c5a","#7d1f7c","#c4266a","#f2604c","#ffc15e"];
+function cortes(vals){const v=[...vals].sort((a,b)=>a-b),c=[];
+ for(let i=1;i<PAL.length;i++){const x=v[Math.floor(i*v.length/PAL.length)];if(x>v[0]&&!c.includes(x))c.push(x)}return c}
+function muestra(cls,bg){const i=document.createElement("i");if(cls)i.className=cls;if(bg)i.style.background=bg;return i}
+function coropleta(o){
+ const map=L.map(o.id,{attributionControl:false,zoomSnap:.1,zoomDelta:.5});let capa,primera=true;
+ if(o.sel)Object.keys(o.inds).forEach(k=>o.sel.append(new Option(k,k)));
+ function pinta(){const I=o.inds[o.sel?o.sel.value:Object.keys(o.inds)[0]],vals=Object.values(I.v).filter(x=>x!=null);
+  const mn=Math.min(...vals),mx=Math.max(...vals),c=cortes(vals),paso=(PAL.length-1)/Math.max(1,c.length);
+  const color=x=>x===null?"url(#rayado)":x===undefined?"#2a2d36":PAL[Math.round(c.filter(k=>x>=k).length*paso)];
+  if(capa)capa.remove();
+  capa=L.geoJSON(o.geo,{style:f=>({fillColor:color(I.v[o.clave(f)]),fillOpacity:.92,color:"rgba(255,255,255,.65)",weight:o.peso||1.2}),
+   onEachFeature:(f,l)=>{const x=I.v[o.clave(f)];l.bindTooltip(`${o.nombre(f)}: ${x===null?"suprimido (menos de 10, o complementario)":x===undefined?"sin dato":fmt(x)+" "+I.corta}`,{sticky:true})}}).addTo(map);
+  const lim=[mn,...c,mx],ley=$(o.ley);ley.replaceChildren(el("b",I.u));
+  for(let i=0;i<lim.length-1;i++){const s=el("span",`${fmt(lim[i])} – ${fmt(lim[i+1])}`);s.prepend(muestra("",PAL[Math.round(i*paso)]));ley.append(s)}
+  if(Object.values(I.v).includes(null)){const s=el("span","suprimido: menos de 10, o complementario");s.prepend(muestra("raya"));ley.append(s)}
+  $(o.pie).textContent=I.pie;
+  if(primera){map.invalidateSize();map.fitBounds(capa.getBounds(),{padding:[14,14]});primera=false}}
+ if(o.sel)o.sel.onchange=pinta;pinta();return{map,capa:()=>capa}}
+// Puntos con círculos proporcionales (área ∝ valor) sobre el contorno de una capa
+const radio=x=>1.5+1.7*Math.sqrt(Math.max(0,x));
+function circulos(o){
+ const map=L.map(o.id,{attributionControl:false,zoomSnap:.1,zoomDelta:.5});
+ const fondo=L.geoJSON(o.contorno,{style:{fill:true,fillColor:"#151821",fillOpacity:.9,color:"rgba(255,255,255,.45)",weight:1},interactive:false}).addTo(map);
+ let capa;Object.keys(o.inds).forEach(k=>o.sel.append(new Option(k,k)));
+ function pinta(){const I=o.inds[o.sel.value];if(capa)capa.remove();
+  capa=L.layerGroup(o.filas.map(f=>L.circleMarker([f[o.lat],f[o.lon]],{radius:radio(f[I.i]),color:"#2BD4F0",weight:1.2,fillColor:"#2BD4F0",fillOpacity:.45})
+   .bindTooltip(`${f[o.nombre]}: ${fmt(f[I.i])} ${I.corta}`))).addTo(map);
+  const mx=Math.max(...o.filas.map(f=>f[I.i])),ley=$(o.ley);ley.replaceChildren(el("b",I.u));
+  [...new Set([0,5,15,mx])].filter(x=>x<=mx).forEach(x=>{const s=el("span",fmt(x)),i=muestra("punto");i.style.width=i.style.height=2*radio(x)+"px";s.prepend(i);ley.append(s)});
+  $(o.pie).textContent=I.pie}
+ o.sel.onchange=pinta;pinta();map.invalidateSize();map.fitBounds(L.latLngBounds(o.filas.map(f=>[f[o.lat],f[o.lon]])).pad(.15));return map}
 (async()=>{
  menuActivo();
  const D={};await Promise.all(TEMAS.map(async t=>D[t]=await fetchJ(`lago/${t}.json`)));
- const geo=await fetchJ("territorio/distritos_consejo.geojson");
+ const [geo,areasGeo,rdGeo]=await Promise.all(["distritos_consejo","areas_lapd","distritos_reporte_lapd"].map(n=>fetchJ(`territorio/${n}.geojson`)));
  await Promise.race([document.fonts.ready,new Promise(r=>setTimeout(r,1500))]);
  pintaDefaults();
  // HUD de cifras clave (mismos datos del lago)
@@ -252,6 +302,17 @@ function menuActivo(){const links=[...document.querySelectorAll("#menu a")],porI
  kpis("k-seg",sg,{delitos_12m:"Ofensas totales",delitos_contra_personas_12m:"Contra personas",delitos_contra_propiedad_12m:"Contra la propiedad",delitos_contra_sociedad_12m:"Contra la sociedad",delitos_varias_categorias_12m:"Varias categorías",delitos_sin_categoria_12m:"Sin categoría"});
  const ar=sg.tablas.delitos_por_area;chart("c-seg-area","bar",ar.filas.map(f=>f[0]),ar.filas.map(f=>f[1]),"Ofensas por área de LAPD",{h:true,color:COL.rosa});
  const sm=sg.series.delitos_mensuales;chart("c-seg-mes","line",sm.puntos.map(p=>p[0]),sm.puntos.map(p=>p[1]),"Ofensas por mes",{color:COL.naranja});
+ const ia=c=>ar.columnas.indexOf(c),porArea=c=>Object.fromEntries(ar.filas.map(f=>[f[ia("area")],f[ia(c)]]));
+ const nomArea=porArea("area_nombre"),pieA=`Fuentes: F01 (ofensas), F18 (límites), F07 (población) · vigencia ${ar.vigencia}. ${areasGeo.nota}`;
+ coropleta({id:"mapa-areas",geo:areasGeo,sel:$("sel-areas"),ley:"ley-areas",pie:"pie-areas",clave:f=>f.properties.area,nombre:f=>`Área ${f.properties.area} · ${nomArea[f.properties.area]}`,
+  inds:{"Ofensas totales (12 meses)":{v:porArea("delitos_12m"),u:"Ofensas registradas en 12 meses",corta:"ofensas",pie:pieA},
+        "Ofensas por 10.000 habitantes":{v:porArea("delitos_por_10mil"),u:"Ofensas por 10.000 habitantes (población ACS por área, aproximada)",corta:"por 10.000 hab.",pie:pieA}}});
+ const tr=sg.tablas.delitos_por_distrito_reporte;
+ if(tr){const ir=c=>tr.columnas.indexOf(c),vrd=Object.fromEntries(tr.filas.filter(f=>f[ir("en_capa")]).map(f=>[f[ir("rd")],f[ir("delitos_12m")]]));
+  const m=coropleta({id:"mapa-rd",geo:rdGeo,ley:"ley-rd",pie:"pie-rd",peso:.35,clave:f=>f.properties.rd,nombre:f=>`Distrito ${f.properties.rd} · ${nomArea[f.properties.area]}`,
+   inds:{o:{v:vrd,u:"Ofensas registradas en 12 meses por distrito de reporte",corta:"ofensas",pie:`Fuentes: F01 (ofensas), F19 (límites) · vigencia ${tr.vigencia}. ${tr.nota} ${rdGeo.nota}`}}});
+  const sr=$("sel-rd");sr.append(new Option("Toda la ciudad",""));Object.entries(nomArea).sort((a,b)=>a[1].localeCompare(b[1])).forEach(([a,n])=>sr.append(new Option(n,a)));
+  sr.onchange=()=>{const a=+sr.value,b=L.latLngBounds([]);m.capa().eachLayer(l=>{if(!a||l.feature.properties.area===a)b.extend(l.getBounds())});m.map.fitBounds(b,{padding:[14,14]})}}
  // 311
  const mu=D.municipio;$("n-311").textContent=mu.tablas.solicitudes_por_distrito.nota+". Los porcentajes de cierre se muestran con y sin el tipo Information-Only, que se cierra al instante.";
  kpis("k-311",mu,{solicitudes_anio:"Solicitudes del año",pct_cerradas:"% cerradas (todas)",pct_cerradas_sin_informativas:"% cerradas sin informativas"});
@@ -264,22 +325,30 @@ function menuActivo(){const links=[...document.querySelectorAll("#menu a")],porI
  const dv=porDistrito(vv,"permisos_por_distrito",1);chart("c-viv-dist","bar",dv.filas.map(f=>"D"+f[0]),dv.filas.map(f=>f[dv.i]),"Permisos por distrito · "+dv.etq,{color:COL.verde});
  const pm=vv.series.permisos_mensuales;chart("c-viv-mes","line",pm.puntos.map(p=>p[0]),pm.puntos.map(p=>p[1]),"Permisos por mes",{color:COL.naranja});
  kpis("k-mov",D.movilidad,{estaciones:"Estaciones",estaciones_operando:"Operando",bicis_disponibles:"Bicicletas disponibles",anclajes_libres:"Anclajes libres",bicis_electricas:"Bicicletas eléctricas"});
+ const te=D.movilidad.tablas&&D.movilidad.tablas.estaciones;
+ if(te){const ic=c=>te.columnas.indexOf(c),pieB=`Fuentes: F09 (estaciones), F12 (contorno de los distritos) · vigencia ${te.vigencia} (foto del momento). ${te.nota}`;
+  circulos({id:"mapa-bici",contorno:geo,sel:$("sel-bici"),ley:"ley-bici",pie:"pie-bici",filas:te.filas,lat:ic("lat"),lon:ic("lon"),nombre:ic("estacion"),
+   inds:{"Bicicletas disponibles":{i:ic("bicis_disponibles"),u:"Bicicletas disponibles por estación (el área del círculo crece con el valor)",corta:"bicicletas",pie:pieB},
+         "Anclajes libres":{i:ic("anclajes_libres"),u:"Anclajes libres por estación (el área del círculo crece con el valor)",corta:"anclajes",pie:pieB}}})}
  kpis("k-equ",D.equipamientos,{hoteles:"Hoteles",hospitales:"Hospitales",colegios:"Colegios",parques:"Parques"});
  kpis("k-esc",D.escucha,{vistas_ultimo_mes:"Vistas del artículo «Los Ángeles»"});
  const es=D.escucha.series.vistas_mensuales;chart("c-esc","line",es.puntos.map(p=>p[0]),es.puntos.map(p=>p[1]),"Vistas mensuales en Wikipedia",{color:COL.rosa});
  // Mapa (sin teselas: solo la geometría local)
  const inds={};
- const todas=(t,sufijo)=>t.columnas.forEach((c,i)=>{if(i)inds[sufijo+c]={f:t.filas,i,u:t.unidad}});
- todas(mu.tablas.solicitudes_por_distrito,"311 · ");todas(vv.tablas.permisos_por_distrito,"Permisos · ");
- if(pob)inds["Población · habitantes"]={f:pob.filas,i:1,u:pob.unidad};
- const sel=$("sel-mapa");Object.keys(inds).forEach(k=>sel.append(new Option(k,k)));
- const map=L.map("mapa",{zoomControl:true,attributionControl:false,zoomSnap:.1,zoomDelta:.5});let capa;
- const pal=["#3a1c5a","#6b1f7b","#b0226f","#e8445a","#ff8a3d","#ffd166"];
- function pinta(){const I=inds[sel.value],v=Object.fromEntries(I.f.map(f=>[f[0],f[I.i]])),vals=Object.values(v),mn=Math.min(...vals),mx=Math.max(...vals);
-  if(capa)capa.remove();$("n-mapa").textContent=I.u+" · "+geo.nota;$("ley-min").textContent=fmt(mn);$("ley-max").textContent=fmt(mx);
-  capa=L.geoJSON(geo,{style:f=>{const x=v[f.properties.cd],q=mx>mn?Math.min(5,Math.floor(5.999*(x-mn)/(mx-mn))):0;return{fillColor:pal[q],fillOpacity:.92,color:"rgba(255,255,255,.7)",weight:1.4}},
-   onEachFeature:(f,l)=>l.bindTooltip(`Distrito ${f.properties.cd} · ${f.properties.nombre}: ${fmt(v[f.properties.cd])}`)}).addTo(map);map.invalidateSize();map.fitBounds(capa.getBounds(),{padding:[14,14]})}
- sel.onchange=pinta;pinta();
+ const aDist=(t,prefijo,cols)=>{for(const[c,[e,u,k]]of Object.entries(cols)){const i=t.columnas.indexOf(c);if(i<0)continue;
+  inds[`${prefijo} · ${e}`]={v:Object.fromEntries(t.filas.map(f=>[f[0],f[i]])),u,corta:k,pie:`Fuentes: ${t.fuente} (datos), F12 (límites) · vigencia ${t.vigencia}. ${t.nota?t.nota+" ":""}${geo.nota}`}}};
+ aDist(mu.tablas.solicitudes_por_distrito,"311",{solicitudes:["solicitudes del año","Solicitudes 311 en el año","solicitudes"],
+  solicitudes_por_10mil:["por 10.000 habitantes","Solicitudes 311 por 10.000 habitantes","por 10.000 hab."]});
+ aDist(vv.tablas.permisos_por_distrito,"Permisos",{permisos:["permisos 12 meses","Permisos emitidos en 12 meses","permisos"],
+  unidades_netas:["unidades netas","Unidades de vivienda netas en 12 meses","unidades"],
+  permisos_por_10mil:["permisos por 10.000 habitantes","Permisos por 10.000 habitantes","por 10.000 hab."],
+  unidades_netas_por_10mil:["unidades netas por 10.000 habitantes","Unidades netas por 10.000 habitantes","por 10.000 hab."]});
+ if(pob)aDist(pob,"Población",{poblacion:["habitantes","Habitantes (ACS, aproximada)","habitantes"]});
+ const nd=dm.tablas&&dm.tablas.natalidad_por_distrito;
+ const eq=D.equipamientos.tablas&&D.equipamientos.tablas.equipamientos_por_distrito;
+ if(eq)for(const[k,n]of[["colegios","Colegios"],["hospitales","Hospitales"],["parques","Parques"]])aDist(eq,n,{[k]:[k+" en OpenStreetMap",n+" en OpenStreetMap (por distrito)",k],[k+"_por_10mil"]:[k+" por 10.000 habitantes",n+" por 10.000 habitantes",`por 10.000 hab.`]});
+ if(nd)aDist(nd,"Natalidad",{nacimientos_por_1000:["nacimientos por 1.000 mujeres de 15 a 50 años","Nacimientos en 12 meses por 1.000 mujeres de 15 a 50 años (ACS, aproximada)","por 1.000 mujeres"]});
+ coropleta({id:"mapa",geo,sel:$("sel-mapa"),ley:"ley-mapa",pie:"pie-mapa",inds,peso:1.4,clave:f=>f.properties.cd,nombre:f=>`Distrito ${f.properties.cd} · ${f.properties.nombre}`});
  // Gobernanza
  for(const t of TEMAS){const l=D[t],d=document.createElement("div");d.className="gob";d.append(el("h3",`lago/${t}.json`));
   const vig=[...new Set([...Object.values(l.cifras).map(c=>c.vigencia),...Object.values(l.tablas||{}).map(x=>x.vigencia)])].join(" · ");

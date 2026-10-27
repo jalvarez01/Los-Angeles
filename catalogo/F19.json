@@ -1,0 +1,15 @@
+{
+ "id": "F19",
+ "nombre": "LAPD Reporting District",
+ "entidad": "City of Los Angeles · LA GeoHub",
+ "url": "https://services5.arcgis.com/7nsPwEMP38bSkCjy/arcgis/rest/services/LAPD_Reporting_District/FeatureServer/0",
+ "cobertura": "1.135 distritos de reporte de LAPD (AGENCY = PD)",
+ "vigencia": "Capa editada por última vez el 2026-07-21",
+ "probado": "2026-10-26",
+ "estado": "Integrada al lago",
+ "licencia": "no declara",
+ "personas": "No",
+ "proteccion": "abierto",
+ "uso": "Seguridad: mapa de los distritos de reporte de LAPD",
+ "nota": "El ítem deja vacío el campo de licencia. La capa trae 1.194 polígonos: 1.135 de LAPD y 59 de otras agencias (se filtran). REPDIST coincide con rpt_dist_no de F01 en 1.132 polígonos; 3 no tienen ofensas y 8 códigos de F01 no tienen polígono. Las ofensas por distrito llevan supresión de celdas con menos de 10. Se simplifica a ~50 m y 4 decimales (unos 340 KB). La capa LAPD del servidor maps.lacity.org no sirve: tiene 1.000 registros como máximo por consulta y su capa «Divisions» es la misma de distritos."
+}

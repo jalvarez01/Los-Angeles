@@ -9,6 +9,11 @@ UA = {"User-Agent": "taller-sistemas-de-informacion/1.0 (curso universitario EAF
 RAIZ = pathlib.Path(__file__).resolve().parent.parent
 URL_DISTRITOS = ("https://maps.lacity.org/lahub/rest/services/Boundaries/MapServer/13/query"
                  "?where=1%3D1&outFields=District,NAME&returnGeometry=true&outSR=4326")
+# Límites de LAPD publicados por LA GeoHub (cuenta n5875_lahub): F18 áreas (divisiones), F19 distritos de reporte
+GEOHUB = "https://services5.arcgis.com/7nsPwEMP38bSkCjy/arcgis/rest/services"
+URL_AREAS_LAPD = f"{GEOHUB}/LAPD_Division/FeatureServer/0/query?where=1%3D1&outFields=PREC,APREC&outSR=4326"
+URL_RD_LAPD = (f"{GEOHUB}/LAPD_Reporting_District/FeatureServer/0/query"
+               "?where=AGENCY%3D%27PD%27&outFields=REPDIST,PREC&outSR=4326")
 LAGO = RAIZ / "lago"
 TERRITORIO = RAIZ / "territorio"
 
@@ -63,6 +68,15 @@ def llave_census():
     if os.environ.get("CENSUS_API_KEY"):
         return os.environ["CENSUS_API_KEY"]
     raise SystemExit("Falta CENSUS_API_KEY: ponla en .env (llave gratuita en api.census.gov/data/key_signup.html)")
+
+
+def escribir_territorio(nombre, fuente, nota, feats):
+    """Escribe territorio/<nombre>.geojson compacto, con la fuente y la nota de simplificación."""
+    TERRITORIO.mkdir(exist_ok=True)
+    ruta = TERRITORIO / f"{nombre}.geojson"
+    ruta.write_text(json.dumps({"type": "FeatureCollection", "fuente": fuente, "nota": nota, "features": feats},
+                               ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
+    print(f"escrito {ruta.relative_to(RAIZ)}")
 
 
 def escribir_lago(tema, fuentes, cifras, series=None, tablas=None, fusionar=False):
