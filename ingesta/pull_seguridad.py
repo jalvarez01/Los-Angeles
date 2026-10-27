@@ -93,6 +93,7 @@ nibrs = {r["rpt_dist_no"].zfill(4): (int(r["area"]), int(r["n"])) for r in
 rd_filas = suprimir(sorted([[rd, rd_geo.get(rd, a), n, rd in rd_geo] for rd, (a, n) in nibrs.items()]
                            + [[rd, a, 0, True] for rd, a in rd_geo.items() if rd not in nibrs]))
 n_supr = sum(1 for f in rd_filas if f[3])
+n_peq = sum(1 for _, (_, n) in nibrs.items() if 0 < n < UMBRAL)  # solo el total: no se dice cuáles son
 sin_capa = [f for f in rd_filas if not f[4]]
 
 c = lambda v: {"valor": v, "unidad": UNIDAD, "vigencia": VIG, "fuente": "F01"}
@@ -135,7 +136,7 @@ escribir_lago(
             "nota": f"Regla de supresión: toda celda con menos de {UMBRAL} ofensas (de 1 a 9) se guarda como null con "
                     "suprimido = true, nunca el número. Si en un área queda una sola celda suprimida, se suprime "
                     "también la celda visible más pequeña de esa área, para que no se pueda despejar restando del total "
-                    f"del área. {n_supr} celdas suprimidas. Las celdas con 0 son distritos de F19 sin ofensas en la "
+                    f"del área. {n_supr} celdas suprimidas: {n_peq} con 1 a 9 ofensas y {n_supr - n_peq} complementarias. Las celdas con 0 son distritos de F19 sin ofensas en la "
                     f"ventana. {len(sin_capa)} códigos de F01 no tienen polígono en F19 (en_capa = false; códigos "
                     f"{', '.join(f[0] for f in sin_capa)}). El área de cada distrito es la de F19; para los que no "
                     "tienen polígono, la de F01."}},

@@ -8335,7 +8335,7 @@
      true
     ]
    ],
-   "nota": "Regla de supresión: toda celda con menos de 10 ofensas (de 1 a 9) se guarda como null con suprimido = true, nunca el número. Si en un área queda una sola celda suprimida, se suprime también la celda visible más pequeña de esa área, para que no se pueda despejar restando del total del área. 28 celdas suprimidas. Las celdas con 0 son distritos de F19 sin ofensas en la ventana. 8 códigos de F01 no tienen polígono en F19 (en_capa = false; códigos 0010, 0012, 0193, 0214, 0220, 0372, 0444, 1014). El área de cada distrito es la de F19; para los que no tienen polígono, la de F01."
+   "nota": "Regla de supresión: toda celda con menos de 10 ofensas (de 1 a 9) se guarda como null con suprimido = true, nunca el número. Si en un área queda una sola celda suprimida, se suprime también la celda visible más pequeña de esa área, para que no se pueda despejar restando del total del área. 28 celdas suprimidas: 25 con 1 a 9 ofensas y 3 complementarias. Las celdas con 0 son distritos de F19 sin ofensas en la ventana. 8 códigos de F01 no tienen polígono en F19 (en_capa = false; códigos 0010, 0012, 0193, 0214, 0220, 0372, 0444, 1014). El área de cada distrito es la de F19; para los que no tienen polígono, la de F01."
   }
  }
 }
