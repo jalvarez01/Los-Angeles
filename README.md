@@ -5,8 +5,8 @@
 
 ## Entrega 1 · el lago y su diccionario
 
-- `entrega1/Diccionario_de_datos_LosAngeles.xlsx` — 16 fuentes, 62 campos y la bitácora de la búsqueda.
-- `entrega1/LosAngeles.docx` — las seis respuestas.
+- `entrega1/Diccionario_de_datos_LosAngeles.xlsx` — 18 fuentes (F01–F16, F18 y F19; la foto F17 solo está en `catalogo/`), 95 campos y la bitácora de la búsqueda.
+- `entrega1/LosAngeles.docx` — las seis respuestas. Sus cifras corresponden al lago construido el 2026-10-06; el lago se ha reconstruido desde entonces, así que las cifras actuales no coinciden con las del Word.
 - `catalogo/` — una ficha por fuente (`F01.json` … `F19.json`), generadas desde `catalogo/fuentes.py`.
 - `lago/` — siete temas con la forma del contrato. `territorio/` — los 15 distritos de consejo, las 21 áreas de LAPD y sus 1.135 distritos de reporte.
 
