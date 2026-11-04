@@ -30,7 +30,10 @@ NOTA_MOE = ("Margen de error (MOE, 90 % de confianza, como lo publica el Census 
             "La columna _dif_significativa aplica la prueba del Census Bureau contra la ciudad: "
             "|tasa_zona − tasa_ciudad| / raíz(EE_zona² + EE_ciudad²) > 1,645, con EE = MOE / 1,645; la ciudad es la "
             "suma de las zonas de la tabla (referencia_ciudad), que incluye a cada zona, así que la prueba es "
-            "aproximada. Si dos zonas se traslapan en su intervalo ± MOE, la diferencia entre ellas no es significativa.")
+            "aproximada. Si dos zonas se traslapan en su intervalo ± MOE, la diferencia entre ellas no es significativa. "
+            "Como aquí el MOE solo cubre el denominador, la marca _dif_significativa es una cota inferior de la "
+            "incertidumbre y no prueba que una diferencia sea real; solo en natalidad, donde numerador y denominador son "
+            "estimaciones del ACS, la prueba cubre todo el error de muestreo.")
 
 
 def api(anio, variables, para, en=None):

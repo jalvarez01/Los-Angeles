@@ -334,7 +334,7 @@ function cabMapa(id){const h=$(id).closest(".mapa-box,section").querySelector("h
  if(!c){c=document.createElement("span");c.className="cab-mapa";h.append(c)}return c}
 function texto(o,I,f){const k=o.clave(f),x=I.v[k];if(x===null)return`${o.nombre(f)}: suprimido (menos de 10, o complementario)`;if(x===undefined)return`${o.nombre(f)}: sin dato`;
  const m=I.m&&I.m[k],s=I.s&&I.s[k];return`${o.nombre(f)}: ${fmt(x)}${m!=null?" ± "+fmt(m):""} ${I.corta}`+
-  (s===true?" · difiere de la ciudad (90 %)":s===false?" · no difiere de la ciudad (90 %)":"")+(I.proxy?" · PROXY":"")}
+  (s===true?" · difiere de la ciudad (90 %)":s===false?" · no difiere de la ciudad (90 %)":"")+(s!=null&&I.parcial?" considerando solo el error del ACS (el conteo se toma como exacto)":"")+(I.proxy?" · PROXY":"")}
 function coropleta(o){
  const map=L.map(o.id,{attributionControl:false,zoomSnap:.1,zoomDelta:.5});let capa,primera=true;
  if(o.sel)Object.keys(o.inds).forEach(k=>o.sel.append(new Option(k,k)));
@@ -429,7 +429,7 @@ function circulos(o){
  chart("c-seg-area","bar",ar.filas.map(f=>f[0]),ar.filas.map(f=>f[1]),"Ofensas por área de LAPD",{h:true,color:COL.rosa,unidad:"ofensas",meta:mSeg});
  const ordT=[...ar.filas].sort((a,b)=>b[ia("delitos_por_10mil")]-a[ia("delitos_por_10mil")]);
  chart("c-seg-tasa","bar",ordT.map(f=>f[0]),ordT.map(f=>f[ia("delitos_por_10mil")]),"Ofensas por 10.000 habitantes por área",{h:true,color:COL.naranja,unidad:"por 10.000 hab.",
-  moe:ordT.map(f=>f[ia("delitos_por_10mil_moe")]),notaMoe:"Aquí casi no se ven: el conteo de ofensas es exacto y el error de la población por área es pequeño frente a las diferencias.",
+  moe:ordT.map(f=>f[ia("delitos_por_10mil_moe")]),notaMoe:"Estas barras solo cubren el error del ACS en la población; el conteo se toma como exacto y no se modela su variación de un año a otro, así que barras que no se traslapan no prueban que la diferencia sea real.",
   meta:{fuentes:["F01","F07","F18"],vigencia:ar.vigencia,temas:["seguridad"],limites:[["F18","areas_lapd"]],proxy:PROXY.tasa,nota:ar.nota_moe}});
  const sm=sg.series.delitos_mensuales;chart("c-seg-mes","line",sm.puntos.map(p=>p[0]),sm.puntos.map(p=>p[1]),"Ofensas por mes",{color:COL.naranja,unidad:"ofensas",
   meta:{fuentes:["F01"],vigencia:`${sm.puntos[0][0]} a ${sm.puntos.at(-1)[0]}`,temas:["seguridad"]}});
@@ -438,7 +438,7 @@ function circulos(o){
  coropleta({id:"mapa-areas",geo:areasGeo,sel:$("sel-areas"),ley:"ley-areas",pie:"pie-areas",clave:f=>f.properties.area,nombre:f=>`Área ${f.properties.area} · ${nomArea[f.properties.area]}`,
   inds:{"Ofensas totales (12 meses)":{v:porArea("delitos_12m"),u:"Ofensas registradas en 12 meses",corta:"ofensas",pie:pieA,fuentes:["F01","F18"],vigencia:ar.vigencia,temas:["seguridad"],limites:[["F18","areas_lapd"]]},
         "Ofensas por 10.000 habitantes":{v:porArea("delitos_por_10mil"),m:porArea("delitos_por_10mil_moe"),s:porArea("delitos_por_10mil_dif_significativa"),
-         u:"Ofensas por 10.000 habitantes (población ACS por área, aproximada)",corta:"por 10.000 hab.",pie:pieA,fuentes:["F01","F07","F18"],vigencia:ar.vigencia,temas:["seguridad"],limites:[["F18","areas_lapd"]],proxy:PROXY.tasa,nota:ar.nota_moe}}});
+         u:"Ofensas por 10.000 habitantes (población ACS por área, aproximada)",corta:"por 10.000 hab.",parcial:true,pie:pieA,fuentes:["F01","F07","F18"],vigencia:ar.vigencia,temas:["seguridad"],limites:[["F18","areas_lapd"]],proxy:PROXY.tasa,nota:ar.nota_moe}}});
  const tr=sg.tablas.delitos_por_distrito_reporte;
  if(tr){const ir=c=>tr.columnas.indexOf(c),vrd=Object.fromEntries(tr.filas.filter(f=>f[ir("en_capa")]).map(f=>[f[ir("rd")],f[ir("delitos_12m")]]));
   const m=coropleta({id:"mapa-rd",geo:rdGeo,ley:"ley-rd",pie:"pie-rd",peso:.35,clave:f=>f.properties.rd,nombre:f=>`Distrito ${f.properties.rd} · ${nomArea[f.properties.area]}`,
@@ -453,14 +453,14 @@ function circulos(o){
   meta:{fuentes:["F03"],vigencia:ty.vigencia,temas:["municipio"]}});
  const mTasa=(t,tema,f)=>({fuentes:[f,"F07","F12"],vigencia:t.vigencia,temas:[tema,"demografia"],limites:[["F12","distritos_consejo"]],proxy:PROXY.tasa,nota:t.nota_moe});
  chart("c-311-dist","bar",tm.filas.map(f=>"D"+f[0]),tm.filas.map(f=>f[im("solicitudes_por_10mil")]),"Solicitudes por 10.000 habitantes por distrito",
-  {color:COL.verde,unidad:"por 10.000 hab.",moe:tm.filas.map(f=>f[im("solicitudes_por_10mil_moe")]),notaMoe:"El error es pequeño: el conteo es exacto y solo la población es estimada.",meta:mTasa(tm,"municipio","F03")});
+  {color:COL.verde,unidad:"por 10.000 hab.",moe:tm.filas.map(f=>f[im("solicitudes_por_10mil_moe")]),notaMoe:"Estas barras solo cubren el error del ACS en la población; el conteo se toma como exacto y no se modela su variación de un año a otro, así que barras que no se traslapan no prueban que la diferencia sea real.",meta:mTasa(tm,"municipio","F03")});
  const m3=mu.series.solicitudes_mensuales;chart("c-311-mes","line",m3.puntos.map(p=>p[0]),m3.puntos.map(p=>p[1]),"Solicitudes por mes",{color:COL.cian,unidad:"solicitudes",
   meta:{fuentes:["F03"],vigencia:`${m3.puntos[0][0]} a ${m3.puntos.at(-1)[0]}`,temas:["municipio"]}});
  // Vivienda
  $("n-viv").textContent=tp.nota;
  kpis("k-viv","vivienda",{permisos_12m:"Permisos emitidos",unidades_netas_12m:"Unidades netas"});
  chart("c-viv-dist","bar",tp.filas.map(f=>"D"+f[0]),tp.filas.map(f=>f[ip("permisos_por_10mil")]),"Permisos por 10.000 habitantes por distrito",
-  {color:COL.verde,unidad:"por 10.000 hab.",moe:tp.filas.map(f=>f[ip("permisos_por_10mil_moe")]),notaMoe:"El error es pequeño: el conteo es exacto y solo la población es estimada.",meta:mTasa(tp,"vivienda","F04")});
+  {color:COL.verde,unidad:"por 10.000 hab.",moe:tp.filas.map(f=>f[ip("permisos_por_10mil_moe")]),notaMoe:"Estas barras solo cubren el error del ACS en la población; el conteo se toma como exacto y no se modela su variación de un año a otro, así que barras que no se traslapan no prueban que la diferencia sea real.",meta:mTasa(tp,"vivienda","F04")});
  const pm=vv.series.permisos_mensuales;chart("c-viv-mes","line",pm.puntos.map(p=>p[0]),pm.puntos.map(p=>p[1]),"Permisos por mes",{color:COL.naranja,unidad:"permisos",
   meta:{fuentes:["F04"],vigencia:`${pm.puntos[0][0]} a ${pm.puntos.at(-1)[0]}`,temas:["vivienda"]}});
  // Movilidad
@@ -478,7 +478,7 @@ function circulos(o){
  // Mapa de los 15 distritos de consejo
  const inds={},porCd=(t,c)=>c&&t.columnas.includes(c)?Object.fromEntries(t.filas.map(f=>[f[0],f[col(t,c)]])):undefined;
  const aDist=(t,tema,prefijo,cols)=>{for(const[c,[e,u,k,proxy]]of Object.entries(cols)){if(!t.columnas.includes(c))continue;const usaACS=/por_10mil|por_1000|poblacion/.test(c);
-  inds[`${prefijo} · ${e}`]={v:porCd(t,c),m:porCd(t,c+"_moe")||(c==="poblacion"?porCd(t,"poblacion_moe"):undefined),s:porCd(t,c+"_dif_significativa"),u,corta:k,proxy,
+  inds[`${prefijo} · ${e}`]={v:porCd(t,c),m:porCd(t,c+"_moe")||(c==="poblacion"?porCd(t,"poblacion_moe"):undefined),s:porCd(t,c+"_dif_significativa"),parcial:/_por_10mil$/.test(c),u,corta:k,proxy,
    pie:`Fuentes: ${t.fuente} (datos)${usaACS&&t.fuente!=="F07"?", F07 (población)":""}, F12 (límites) · vigencia ${t.vigencia}. ${t.nota?t.nota+" ":""}${geo.nota}`,
    fuentes:[...new Set([t.fuente,...(usaACS?["F07"]:[]),"F12"])],vigencia:t.vigencia,temas:[tema,...(usaACS?["demografia"]:[])],limites:[["F12","distritos_consejo"]],nota:t.nota_moe||t.nota}}};
  aDist(tm,"municipio","311",{solicitudes:["solicitudes del año","Solicitudes 311 en el año","solicitudes"],
