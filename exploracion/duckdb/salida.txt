@@ -1,0 +1,6 @@
+== Ingesta: DuckDB lee la API de Wikipedia (F11) directo desde la URL, sin bajarla a disco
+   20 meses; último ('2026-09', 18658) · en el lago: ['2026-09', 18658] · iguales: True
+== Verificación: dos comprobaciones de verificar.py reescritas en SQL sobre lago/seguridad.json
+   las áreas suman el total: 220420 == 220420 → True
+   conteos guardados entre 1 y 9 por distrito de reporte: 0 (debe ser 0)
+duckdb 2.0.0
