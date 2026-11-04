@@ -10,7 +10,7 @@ así que este script necesita CENSUS_API_KEY en .env.
 """
 import datetime
 
-from _censo import LICENCIA, nota_metodo, poblacion_por_area_lapd, por_10mil
+from _censo import LICENCIA, NOTA_MOE, con_moe, nota_metodo, poblacion_por_area_lapd, por_10mil
 from _comun import (URL_AREAS_LAPD, URL_RD_LAPD, entre, escribir_lago, escribir_territorio, get_json, hoy,
                     mes_anterior, meses_completos, soql)
 
@@ -74,6 +74,13 @@ escribir_territorio("areas_lapd", "F18",
                     "para mapas de la ciudad, no para medir ni para asignar hechos a un área. Vigencia = fecha de "
                     "descarga (la fuente no publica la suya).", feats)
 pob = poblacion_por_area_lapd()
+cols_a, filas_a, ref_a = con_moe(
+    ["area_nombre", "delitos_12m", "area", "poblacion", "delitos_por_10mil"],
+    [[r["area_name"].strip(), int(r["n"]), int(r["area"]), pob["poblacion"][str(int(r["area"]))],
+      por_10mil(int(r["n"]), int(r["area"]), pob)] for r in areas],
+    pob, zona="area", bases={"delitos_por_10mil": "delitos_12m"})
+cols_a.append("poblacion_moe")
+filas_a = [f + [pob["poblacion_moe"][str(f[2])]] for f in filas_a]
 
 # Distritos de reporte (F19): conteo en el servidor por área y distrito, en la misma ventana
 g = get_json(URL_RD_LAPD + SIMPLE_RD)
@@ -122,10 +129,8 @@ escribir_lago(
     series={"delitos_mensuales": {"unidad": UNIDAD, "fuente": "F01",
                                   "puntos": [[r["mes"][:7], int(r["n"])] for r in mensual]}},
     tablas={"delitos_por_area": {
-        "unidad": UNIDAD + "; habitantes (ACS); ofensas por 10.000 habitantes", "vigencia": VIG, "fuente": "F01",
-        "columnas": ["area_nombre", "delitos_12m", "area", "poblacion", "delitos_por_10mil"],
-        "filas": [[r["area_name"].strip(), int(r["n"]), int(r["area"]), pob["poblacion"][str(int(r["area"]))],
-                   por_10mil(int(r["n"]), int(r["area"]), pob)] for r in areas],
+        "unidad": UNIDAD + "; habitantes (ACS) y su MOE; ofensas por 10.000 habitantes y su MOE", "vigencia": VIG, "fuente": "F01",
+        "columnas": cols_a, "filas": filas_a, "referencia_ciudad": ref_a, "nota_moe": NOTA_MOE,
         "poblacion_ciudad_acs": pob["poblacion_ciudad_acs"],
         "nota": f"Población por área de LAPD (F18, ACS {pob['anio']}, F07). "
                 + nota_metodo(pob, "área", "F18")

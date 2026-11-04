@@ -6,7 +6,7 @@ En enero hay que cambiar DATASET por el del año nuevo y anotarlo en el catálog
 """
 import datetime
 
-from _censo import poblacion_por_distrito, por_10mil
+from _censo import NOTA_MOE, con_moe, poblacion_por_distrito, por_10mil
 from _comun import entre, escribir_lago, hoy, mes_anterior, soql
 
 DATASET = "2cy6-i7zn"  # MyLA311 Cases 2026
@@ -37,6 +37,8 @@ mensual = soql(DATASET, select="date_trunc_ym(createddate) AS mes, count(*) AS n
 por_cd = sorted(([int(r["cd"]), int(r["n"])] for r in distritos if r.get("cd") not in (None, "", "0")))
 sin_cd = total - sum(n for _, n in por_cd)
 pob = poblacion_por_distrito()
+cols_cd, filas_cd, ref_cd = con_moe(["cd", "solicitudes", "solicitudes_por_10mil"],
+                                    [[cd, n, por_10mil(n, cd, pob)] for cd, n in por_cd], pob)
 
 escribir_lago(
     "municipio",
@@ -61,8 +63,8 @@ escribir_lago(
                                  "columnas": ["tipo", "solicitudes"],
                                  "filas": [[r["type"], int(r["n"])] for r in tipos]},
         "solicitudes_por_distrito": {"unidad": UNIDAD + " (y solicitudes por 10.000 habitantes)", "vigencia": VIG, "fuente": "F03",
-                                     "columnas": ["cd", "solicitudes", "solicitudes_por_10mil"],
-                                     "filas": [[cd, n, por_10mil(n, cd, pob)] for cd, n in por_cd],
+                                     "columnas": cols_cd, "filas": filas_cd, "referencia_ciudad": ref_cd,
+                                     "nota_moe": NOTA_MOE,
                                      "nota": f"{sin_cd} solicitudes del periodo no traen distrito de consejo. "
                                              f"La tasa es solicitudes del periodo por 10.000 habitantes del distrito "
                                              f"(población ACS {pob['anio']} de F07, aproximada: ver demografia.json)"},

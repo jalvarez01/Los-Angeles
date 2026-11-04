@@ -1,6 +1,6 @@
 {
  "tema": "demografia",
- "probado": "2026-10-26",
+ "probado": "2026-11-03",
  "fuentes": [
   {
    "id": "F06",
@@ -44,7 +44,8 @@
   },
   "natalidad_ciudad_por_1000": {
    "valor": 39.5,
-   "unidad": "nacimientos en los últimos 12 meses por 1.000 mujeres de 15 a 50 años",
+   "moe": 1.4,
+   "unidad": "nacimientos en los últimos 12 meses por 1.000 mujeres de 15 a 50 años (± MOE al 90 %)",
    "vigencia": "ACS 2020-2024",
    "fuente": "F07"
   }
@@ -58,29 +59,41 @@
     "ambito",
     "mujeres_15_50",
     "nacimientos",
-    "nacimientos_por_1000"
+    "nacimientos_por_1000",
+    "mujeres_15_50_moe",
+    "nacimientos_moe",
+    "nacimientos_por_1000_moe"
    ],
    "filas": [
     [
      "Ciudad de Los Ángeles",
      1012365,
      40027,
-     39.5
+     39.5,
+     4488,
+     1379,
+     1.4
     ],
     [
      "California",
      9471090,
      455771,
-     48.1
+     48.1,
+     3826,
+     6129,
+     0.6
     ],
     [
      "Estados Unidos",
      78113460,
      4009203,
-     51.3
+     51.3,
+     12430,
+     20898,
+     0.3
     ]
    ],
-   "nota": "B13016_002E / B13016_001E × 1.000. Estimaciones del ACS con margen de error."
+   "nota": "B13016_002E / B13016_001E × 1.000. Estimaciones del ACS con margen de error. MOE de la tasa con la fórmula de proporción del Census Bureau, MOE_p = (1/X)·raíz(MOE_Y² − p²·MOE_X²), con X = mujeres e Y = nacimientos; si el radicando es negativo se usa la de razón (con +). Aquí: proporción en 3."
   },
   "natalidad_serie_ciudad": {
    "unidad": "mujeres de 15 a 50 años; nacimientos en los últimos 12 meses; nacimientos por 1.000 mujeres",
@@ -90,100 +103,149 @@
     "periodo",
     "mujeres_15_50",
     "nacimientos",
-    "nacimientos_por_1000"
+    "nacimientos_por_1000",
+    "mujeres_15_50_moe",
+    "nacimientos_moe",
+    "nacimientos_por_1000_moe"
    ],
    "filas": [
     [
      "2006-2010",
      1034037,
      55893,
-     54.1
+     54.1,
+     4059,
+     1621,
+     1.6
     ],
     [
      "2007-2011",
      1033381,
      55622,
-     53.8
+     53.8,
+     4645,
+     1698,
+     1.6
     ],
     [
      "2008-2012",
      1034993,
      55573,
-     53.7
+     53.7,
+     4114,
+     1760,
+     1.7
     ],
     [
      "2009-2013",
      1041034,
      52176,
-     50.1
+     50.1,
+     3828,
+     1418,
+     1.3
     ],
     [
      "2010-2014",
      1046626,
      50441,
-     48.2
+     48.2,
+     4166,
+     1436,
+     1.4
     ],
     [
      "2011-2015",
      1055427,
      49348,
-     46.8
+     46.8,
+     4183,
+     1337,
+     1.3
     ],
     [
      "2012-2016",
      1055991,
      48074,
-     45.5
+     45.5,
+     3678,
+     1436,
+     1.4
     ],
     [
      "2013-2017",
      1061167,
      46114,
-     43.5
+     43.5,
+     3793,
+     1350,
+     1.3
     ],
     [
      "2014-2018",
      1056486,
      45173,
-     42.8
+     42.8,
+     4474,
+     1390,
+     1.3
     ],
     [
      "2015-2019",
      1056711,
      44513,
-     42.1
+     42.1,
+     3449,
+     1346,
+     1.3
     ],
     [
      "2016-2020",
      1057644,
      43278,
-     40.9
+     40.9,
+     4392,
+     1616,
+     1.5
     ],
     [
      "2017-2021",
      1032107,
      42631,
-     41.3
+     41.3,
+     5382,
+     1584,
+     1.5
     ],
     [
      "2018-2022",
      1019510,
      42777,
-     42.0
+     42.0,
+     4420,
+     1471,
+     1.4
     ],
     [
      "2019-2023",
      1015250,
      41593,
-     41.0
+     41.0,
+     4996,
+     1595,
+     1.6
     ],
     [
      "2020-2024",
      1012365,
      40027,
-     39.5
+     39.5,
+     4488,
+     1379,
+     1.4
     ]
    ],
+   "nota_moe": "MOE de la tasa con la fórmula de proporción del Census Bureau, MOE_p = (1/X)·raíz(MOE_Y² − p²·MOE_X²), con X = mujeres e Y = nacimientos; si el radicando es negativo se usa la de razón (con +). Aquí: proporción en 15.",
    "nota": "Una fila por lanzamiento del ACS de 5 años (el periodo es la ventana de 5 años). Los lanzamientos consecutivos se traslapan (comparten cuatro de sus cinco años), así que los puntos consecutivos no son independientes y no deben compararse entre sí. Solo se deben comparar ventanas que no se traslapen: 2010-2014, 2015-2019 y 2020-2024."
   },
   "poblacion_por_distrito": {
@@ -193,86 +255,107 @@
    "columnas": [
     "cd",
     "poblacion",
-    "sectores_censales"
+    "sectores_censales",
+    "poblacion_moe"
    ],
    "filas": [
     [
      1,
      251726,
-     79
+     79,
+     4961
     ],
     [
      2,
      243946,
-     70
+     70,
+     4898
     ],
     [
      3,
      251935,
-     66
+     66,
+     5430
     ],
     [
      4,
      258975,
-     77
+     77,
+     4729
     ],
     [
      5,
      262857,
-     84
+     84,
+     4516
     ],
     [
      6,
      254031,
-     69
+     69,
+     5205
     ],
     [
      7,
      252933,
-     69
+     69,
+     5208
     ],
     [
      8,
      245703,
-     61
+     61,
+     5701
     ],
     [
      9,
      257735,
-     66
+     66,
+     5543
     ],
     [
      10,
      261188,
-     82
+     82,
+     5352
     ],
     [
      11,
      266184,
-     81
+     81,
+     5145
     ],
     [
      12,
      266216,
-     70
+     70,
+     5502
     ],
     [
      13,
      262569,
-     81
+     81,
+     4693
     ],
     [
      14,
      258567,
-     83
+     83,
+     4815
     ],
     [
      15,
      253773,
-     72
+     72,
+     5228
     ]
    ],
-   "nota": "Método: se suman los 1.110 sectores censales del condado de Los Ángeles (ACS 2024, B01003_001E) cuyo punto interno (Gazetteer del Censo 2020) cae dentro de cada distrito, usando los límites completos de F12 (sin simplificar). Error: un sector que cruza el límite de dos distritos se asigna entero al distrito de su punto interno, así que cada distrito puede quedar algo por encima o por debajo; el error por distrito no se puede medir con esta fuente. A escala de ciudad, la suma de los distritos (3.848.338) difiere -8.925 habitantes (-0.23 %) de la población de la ciudad en el mismo ACS (3.857.263). Son estimaciones de encuesta con margen de error, no un censo."
+   "referencia_ciudad": {
+    "poblacion": 3848338,
+    "poblacion_moe": 19905
+   },
+   "nota": "Método: se suman los 1.110 sectores censales del condado de Los Ángeles (ACS 2024, B01003_001E) cuyo punto interno (Gazetteer del Censo 2020) cae dentro de cada distrito, usando los límites completos de F12 (sin simplificar). Error: un sector que cruza el límite de dos distritos se asigna entero al distrito de su punto interno, así que cada distrito puede quedar algo por encima o por debajo; el error por distrito no se puede medir con esta fuente. A escala de ciudad, la suma de los distritos (3.848.338) difiere -8.925 habitantes (-0.23 %) de la población de la ciudad en el mismo ACS (3.857.263). Son estimaciones de encuesta con margen de error, no un censo.",
+   "nota_moe": "Margen de error (MOE, 90 % de confianza, como lo publica el Census Bureau): el de la población de cada zona es la raíz de la suma de los MOE² de sus sectores censales, la aproximación que el Census Bureau da para estimaciones derivadas; puede quedar conservadora u optimista según cuánto se correlacionen los sectores. Una tasa con numerador exacto (conteo administrativo) y denominador del ACS hereda MOE_tasa = tasa × MOE_pob / pob. La columna _dif_significativa aplica la prueba del Census Bureau contra la ciudad: |tasa_zona − tasa_ciudad| / raíz(EE_zona² + EE_ciudad²) > 1,645, con EE = MOE / 1,645; la ciudad es la suma de las zonas de la tabla (referencia_ciudad), que incluye a cada zona, así que la prueba es aproximada. Si dos zonas se traslapan en su intervalo ± MOE, la diferencia entre ellas no es significativa."
   },
   "natalidad_por_distrito": {
    "unidad": "mujeres de 15 a 50 años; nacimientos en los últimos 12 meses; nacimientos por 1.000 mujeres",
@@ -282,101 +365,172 @@
     "cd",
     "mujeres_15_50",
     "nacimientos",
-    "nacimientos_por_1000"
+    "nacimientos_por_1000",
+    "mujeres_15_50_moe",
+    "nacimientos_moe",
+    "nacimientos_por_1000_moe",
+    "nacimientos_por_1000_dif_significativa"
    ],
    "filas": [
     [
      1,
      63516,
      2659,
-     41.9
+     41.9,
+     1977,
+     437,
+     6.8,
+     false
     ],
     [
      2,
      68275,
      2871,
-     42.1
+     42.1,
+     2192,
+     413,
+     5.9,
+     false
     ],
     [
      3,
      61034,
      2713,
-     44.5
+     44.5,
+     2040,
+     419,
+     6.7,
+     false
     ],
     [
      4,
      66801,
      2183,
-     32.7
+     32.7,
+     1978,
+     347,
+     5.1,
+     true
     ],
     [
      5,
      83291,
      2076,
-     24.9
+     24.9,
+     2283,
+     335,
+     4.0,
+     true
     ],
     [
      6,
      63700,
      2378,
-     37.3
+     37.3,
+     1953,
+     378,
+     5.8,
+     false
     ],
     [
      7,
      61209,
      3090,
-     50.5
+     50.5,
+     1848,
+     442,
+     7.1,
+     true
     ],
     [
      8,
      64629,
      2541,
-     39.3
+     39.3,
+     2360,
+     422,
+     6.4,
+     false
     ],
     [
      9,
      71966,
      3778,
-     52.5
+     52.5,
+     2258,
+     492,
+     6.6,
+     true
     ],
     [
      10,
      69664,
      2799,
-     40.2
+     40.2,
+     2113,
+     429,
+     6.0,
+     false
     ],
     [
      11,
      70739,
      2838,
-     40.1
+     40.1,
+     2142,
+     466,
+     6.5,
+     false
     ],
     [
      12,
      60318,
      2501,
-     41.5
+     41.5,
+     2069,
+     366,
+     5.9,
+     false
     ],
     [
      13,
      73802,
      1746,
-     23.7
+     23.7,
+     2180,
+     321,
+     4.3,
+     true
     ],
     [
      14,
      68487,
      2550,
-     37.2
+     37.2,
+     2036,
+     391,
+     5.6,
+     false
     ],
     [
      15,
      63143,
      3210,
-     50.8
+     50.8,
+     2036,
+     478,
+     7.4,
+     true
     ]
    ],
-   "nota": "Método: B13016_001E (mujeres de 15 a 50 años) y B13016_002E (las que tuvieron un nacimiento en los últimos 12 meses) de los 1.110 sectores censales del condado (ACS 2020-2024) cuyo punto interno cae en cada distrito, con los límites completos de F12; la tasa es nacimientos / mujeres × 1.000. Error: un sector que cruza el límite de dos distritos se asigna entero al de su punto interno, y a esta escala el margen de error del ACS es grande (pocas mujeres con nacimiento por sector), así que diferencias pequeñas entre distritos no son significativas. A escala de ciudad, la suma de los distritos (1.010.574 mujeres, 39.933 nacimientos) difiere -0.18 % y -0.23 % de las cifras de la ciudad en el mismo ACS (1.012.365 y 40.027)."
+   "referencia_ciudad": {
+    "nacimientos_por_1000": [
+     39.5,
+     1.4
+    ]
+   },
+   "nota": "Método: B13016_001E (mujeres de 15 a 50 años) y B13016_002E (las que tuvieron un nacimiento en los últimos 12 meses) de los 1.110 sectores censales del condado (ACS 2020-2024) cuyo punto interno cae en cada distrito, con los límites completos de F12; la tasa es nacimientos / mujeres × 1.000. Error: un sector que cruza el límite de dos distritos se asigna entero al de su punto interno, y a esta escala el margen de error del ACS es grande (pocas mujeres con nacimiento por sector), así que diferencias pequeñas entre distritos no son significativas. A escala de ciudad, la suma de los distritos (1.010.574 mujeres, 39.933 nacimientos) difiere -0.18 % y -0.23 % de las cifras de la ciudad en el mismo ACS (1.012.365 y 40.027).",
+   "nota_moe": "Margen de error (MOE, 90 % de confianza, como lo publica el Census Bureau): el de la población de cada zona es la raíz de la suma de los MOE² de sus sectores censales, la aproximación que el Census Bureau da para estimaciones derivadas; puede quedar conservadora u optimista según cuánto se correlacionen los sectores. MOE de la tasa con la fórmula de proporción del Census Bureau, MOE_p = (1/X)·raíz(MOE_Y² − p²·MOE_X²), con X = mujeres e Y = nacimientos; si el radicando es negativo se usa la de razón (con +). Aquí: proporción en 15. La columna _dif_significativa compara cada distrito con la ciudad (place 06-44000, mismo ACS) con la prueba del Census Bureau a 90 %: |r − r_ciudad| / raíz(EE² + EE_ciudad²) > 1,645, EE = MOE / 1,645."
   }
  }
 }

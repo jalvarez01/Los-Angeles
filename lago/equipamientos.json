@@ -1,6 +1,6 @@
 {
  "tema": "equipamientos",
- "probado": "2026-10-26",
+ "probado": "2026-11-03",
  "fuentes": [
   {
    "id": "F10",
@@ -28,32 +28,32 @@
   "hoteles": {
    "valor": 398,
    "unidad": "elementos en OpenStreetMap",
-   "vigencia": "2026-10-26",
+   "vigencia": "2026-11-04",
    "fuente": "F10"
   },
   "hospitales": {
    "valor": 57,
    "unidad": "elementos en OpenStreetMap",
-   "vigencia": "2026-10-26",
+   "vigencia": "2026-11-04",
    "fuente": "F10"
   },
   "colegios": {
    "valor": 1088,
    "unidad": "elementos en OpenStreetMap",
-   "vigencia": "2026-10-26",
+   "vigencia": "2026-11-04",
    "fuente": "F10"
   },
   "parques": {
    "valor": 670,
    "unidad": "elementos en OpenStreetMap",
-   "vigencia": "2026-10-26",
+   "vigencia": "2026-11-04",
    "fuente": "F10"
   }
  },
  "tablas": {
   "equipamientos_por_distrito": {
    "unidad": "elementos en OpenStreetMap; por 10.000 habitantes (ACS)",
-   "vigencia": "2026-10-26",
+   "vigencia": "2026-11-04",
    "fuente": "F10",
    "columnas": [
     "cd",
@@ -62,7 +62,13 @@
     "parques",
     "colegios_por_10mil",
     "hospitales_por_10mil",
-    "parques_por_10mil"
+    "parques_por_10mil",
+    "colegios_por_10mil_moe",
+    "colegios_por_10mil_dif_significativa",
+    "hospitales_por_10mil_moe",
+    "hospitales_por_10mil_dif_significativa",
+    "parques_por_10mil_moe",
+    "parques_por_10mil_dif_significativa"
    ],
    "filas": [
     [
@@ -72,7 +78,13 @@
      40,
      3.3,
      0.12,
-     1.6
+     1.6,
+     0.07,
+     true,
+     0.002,
+     true,
+     0.03,
+     true
     ],
     [
      2,
@@ -81,7 +93,13 @@
      39,
      2.5,
      0.04,
-     1.6
+     1.6,
+     0.05,
+     true,
+     0.001,
+     true,
+     0.03,
+     true
     ],
     [
      3,
@@ -90,7 +108,13 @@
      35,
      3.1,
      0.2,
-     1.4
+     1.4,
+     0.07,
+     true,
+     0.004,
+     true,
+     0.03,
+     true
     ],
     [
      4,
@@ -99,7 +123,13 @@
      30,
      2.9,
      0.15,
-     1.2
+     1.2,
+     0.05,
+     true,
+     0.003,
+     true,
+     0.02,
+     true
     ],
     [
      5,
@@ -108,7 +138,13 @@
      42,
      2.3,
      0.23,
-     1.6
+     1.6,
+     0.04,
+     true,
+     0.004,
+     true,
+     0.03,
+     true
     ],
     [
      6,
@@ -117,7 +153,13 @@
      39,
      2.7,
      0.24,
-     1.5
+     1.5,
+     0.06,
+     true,
+     0.005,
+     true,
+     0.03,
+     true
     ],
     [
      7,
@@ -126,7 +168,13 @@
      46,
      3.0,
      0.2,
-     1.8
+     1.8,
+     0.06,
+     true,
+     0.004,
+     true,
+     0.04,
+     true
     ],
     [
      8,
@@ -135,7 +183,13 @@
      15,
      2.6,
      0.04,
-     0.6
+     0.6,
+     0.06,
+     true,
+     0.001,
+     true,
+     0.01,
+     true
     ],
     [
      9,
@@ -144,7 +198,13 @@
      32,
      2.5,
      0.04,
-     1.2
+     1.2,
+     0.05,
+     true,
+     0.001,
+     true,
+     0.03,
+     true
     ],
     [
      10,
@@ -153,7 +213,13 @@
      22,
      2.3,
      0.08,
-     0.8
+     0.8,
+     0.05,
+     true,
+     0.002,
+     true,
+     0.02,
+     true
     ],
     [
      11,
@@ -162,7 +228,13 @@
      80,
      3.0,
      0.04,
-     3.0
+     3.0,
+     0.06,
+     true,
+     0.001,
+     true,
+     0.06,
+     true
     ],
     [
      12,
@@ -171,7 +243,13 @@
      69,
      3.5,
      0.11,
-     2.6
+     2.6,
+     0.07,
+     true,
+     0.002,
+     true,
+     0.05,
+     true
     ],
     [
      13,
@@ -180,7 +258,13 @@
      46,
      2.2,
      0.27,
-     1.8
+     1.8,
+     0.04,
+     true,
+     0.005,
+     true,
+     0.03,
+     true
     ],
     [
      14,
@@ -189,7 +273,13 @@
      62,
      3.3,
      0.27,
-     2.4
+     2.4,
+     0.06,
+     true,
+     0.005,
+     true,
+     0.04,
+     true
     ],
     [
      15,
@@ -198,9 +288,32 @@
      55,
      3.0,
      0.04,
-     2.2
+     2.2,
+     0.06,
+     true,
+     0.001,
+     true,
+     0.04,
+     true
     ]
    ],
+   "referencia_ciudad": {
+    "poblacion": 3848338,
+    "poblacion_moe": 19905,
+    "colegios_por_10mil": [
+     2.8,
+     0.01
+    ],
+    "hospitales_por_10mil": [
+     0.14,
+     0.001
+    ],
+    "parques_por_10mil": [
+     1.7,
+     0.01
+    ]
+   },
+   "nota_moe": "Margen de error (MOE, 90 % de confianza, como lo publica el Census Bureau): el de la población de cada zona es la raíz de la suma de los MOE² de sus sectores censales, la aproximación que el Census Bureau da para estimaciones derivadas; puede quedar conservadora u optimista según cuánto se correlacionen los sectores. Una tasa con numerador exacto (conteo administrativo) y denominador del ACS hereda MOE_tasa = tasa × MOE_pob / pob; ese MOE solo mide la incertidumbre del denominador del ACS, porque el conteo se toma como exacto (no modela la variación aleatoria de un año a otro). Se guarda con un decimal más que la tasa. La columna _dif_significativa aplica la prueba del Census Bureau contra la ciudad: |tasa_zona − tasa_ciudad| / raíz(EE_zona² + EE_ciudad²) > 1,645, con EE = MOE / 1,645; la ciudad es la suma de las zonas de la tabla (referencia_ciudad), que incluye a cada zona, así que la prueba es aproximada. Si dos zonas se traslapan en su intervalo ± MOE, la diferencia entre ellas no es significativa.",
    "sin_distrito": {
     "colegios": 5,
     "hospitales": 4,

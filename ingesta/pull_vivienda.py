@@ -4,7 +4,7 @@
 El campo du_changed (cambio en unidades de vivienda) llega como texto: se agrupa en el
 servidor por distrito y valor, y la suma se hace aquí después de convertirlo a número.
 """
-from _censo import poblacion_por_distrito, por_10mil
+from _censo import NOTA_MOE, con_moe, poblacion_por_distrito, por_10mil
 from _comun import entre, escribir_lago, mes_anterior, meses_completos, soql
 
 DATASET = "pi9x-tg5x"  # Building and Safety - Building Permits Issued from 2020 to Present (N)
@@ -33,6 +33,10 @@ for r in unidades:
 pob = poblacion_por_distrito()
 sin_cd = total - sum(por_cd.values())
 sin_cd_netas = netas - sum(netas_cd.values())
+cols_cd, filas_cd, ref_cd = con_moe(
+    ["cd", "permisos", "unidades_netas", "permisos_por_10mil", "unidades_netas_por_10mil"],
+    [[int(cd), por_cd[cd], netas_cd.get(cd, 0), por_10mil(por_cd[cd], cd, pob), por_10mil(netas_cd.get(cd, 0), cd, pob)]
+     for cd in sorted(por_cd, key=int)], pob)
 
 escribir_lago(
     "vivienda",
@@ -48,9 +52,7 @@ escribir_lago(
                                    "puntos": [[r["mes"][:7], int(r["n"])] for r in mensual]}},
     tablas={"permisos_por_distrito": {
         "unidad": "permisos emitidos / unidades de vivienda netas (y sus tasas por 10.000 habitantes)", "vigencia": VIG, "fuente": "F04",
-        "columnas": ["cd", "permisos", "unidades_netas", "permisos_por_10mil", "unidades_netas_por_10mil"],
-        "filas": [[int(cd), por_cd[cd], netas_cd.get(cd, 0), por_10mil(por_cd[cd], cd, pob),
-                   por_10mil(netas_cd.get(cd, 0), cd, pob)] for cd in sorted(por_cd, key=int)],
+        "columnas": cols_cd, "filas": filas_cd, "referencia_ciudad": ref_cd, "nota_moe": NOTA_MOE,
         "nota": f"{sin_cd} permisos del periodo no traen distrito de consejo "
                 f"(y {sin_cd_netas} de las unidades netas): quedan fuera de las filas y dentro de los totales. "
                 f"Las tasas son por 10.000 habitantes del distrito (población ACS {pob['anio']} de F07, aproximada)"}},

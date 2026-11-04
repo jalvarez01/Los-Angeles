@@ -1,6 +1,6 @@
 {
  "tema": "vivienda",
- "probado": "2026-10-26",
+ "probado": "2026-11-03",
  "fuentes": [
   {
    "id": "F04",
@@ -12,15 +12,15 @@
  ],
  "cifras": {
   "permisos_12m": {
-   "valor": 64232,
+   "valor": 64543,
    "unidad": "permisos de construcción emitidos",
-   "vigencia": "2025-10 a 2026-09",
+   "vigencia": "2025-11 a 2026-10",
    "fuente": "F04"
   },
   "unidades_netas_12m": {
-   "valor": 17553,
+   "valor": 18170,
    "unidad": "unidades de vivienda (neto, según permisos emitidos)",
-   "vigencia": "2025-10 a 2026-09",
+   "vigencia": "2025-11 a 2026-10",
    "fuente": "F04"
   }
  },
@@ -29,10 +29,6 @@
    "unidad": "permisos de construcción emitidos",
    "fuente": "F04",
    "puntos": [
-    [
-     "2025-02",
-     5096
-    ],
     [
      "2025-03",
      5542
@@ -51,7 +47,7 @@
     ],
     [
      "2025-07",
-     5305
+     5304
     ],
     [
      "2025-08",
@@ -63,7 +59,7 @@
     ],
     [
      "2025-10",
-     5844
+     5843
     ],
     [
      "2025-11",
@@ -71,7 +67,7 @@
     ],
     [
      "2025-12",
-     5075
+     5074
     ],
     [
      "2026-01",
@@ -91,7 +87,7 @@
     ],
     [
      "2026-05",
-     5267
+     5266
     ],
     [
      "2026-06",
@@ -103,11 +99,15 @@
     ],
     [
      "2026-08",
-     5557
+     5556
     ],
     [
      "2026-09",
-     5930
+     5928
+    ],
+    [
+     "2026-10",
+     6160
     ]
    ]
   }
@@ -115,123 +115,200 @@
  "tablas": {
   "permisos_por_distrito": {
    "unidad": "permisos emitidos / unidades de vivienda netas (y sus tasas por 10.000 habitantes)",
-   "vigencia": "2025-10 a 2026-09",
+   "vigencia": "2025-11 a 2026-10",
    "fuente": "F04",
    "columnas": [
     "cd",
     "permisos",
     "unidades_netas",
     "permisos_por_10mil",
-    "unidades_netas_por_10mil"
+    "unidades_netas_por_10mil",
+    "permisos_por_10mil_moe",
+    "permisos_por_10mil_dif_significativa",
+    "unidades_netas_por_10mil_moe",
+    "unidades_netas_por_10mil_dif_significativa"
    ],
    "filas": [
     [
      1,
-     2181,
-     730,
-     86.6,
-     29.0
+     2189,
+     681,
+     87.0,
+     27.1,
+     1.71,
+     true,
+     0.53,
+     true
     ],
     [
      2,
-     3892,
-     874,
-     159.5,
-     35.8
+     3882,
+     910,
+     159.1,
+     37.3,
+     3.2,
+     true,
+     0.75,
+     true
     ],
     [
      3,
-     5036,
-     1716,
-     199.9,
-     68.1
+     5120,
+     1712,
+     203.2,
+     68.0,
+     4.38,
+     true,
+     1.46,
+     true
     ],
     [
      4,
-     7337,
-     822,
-     283.3,
-     31.7
+     7420,
+     1285,
+     286.5,
+     49.6,
+     5.23,
+     true,
+     0.91,
+     true
     ],
     [
      5,
-     6248,
-     1155,
-     237.7,
-     43.9
+     6211,
+     1181,
+     236.3,
+     44.9,
+     4.06,
+     true,
+     0.77,
+     true
     ],
     [
      6,
-     2679,
-     532,
-     105.5,
-     20.9
+     2619,
+     528,
+     103.1,
+     20.8,
+     2.11,
+     true,
+     0.43,
+     true
     ],
     [
      7,
      2977,
      122,
      117.7,
-     4.8
+     4.8,
+     2.42,
+     true,
+     0.1,
+     true
     ],
     [
      8,
-     2924,
-     567,
-     119.0,
-     23.1
+     2882,
+     730,
+     117.3,
+     29.7,
+     2.72,
+     true,
+     0.69,
+     true
     ],
     [
      9,
-     1673,
-     344,
-     64.9,
-     13.3
+     1654,
+     482,
+     64.2,
+     18.7,
+     1.38,
+     true,
+     0.4,
+     true
     ],
     [
      10,
-     3379,
-     2680,
-     129.4,
-     102.6
+     3408,
+     2487,
+     130.5,
+     95.2,
+     2.67,
+     true,
+     1.95,
+     true
     ],
     [
      11,
-     11013,
-     3367,
-     413.7,
-     126.5
+     11146,
+     3418,
+     418.7,
+     128.4,
+     8.09,
+     true,
+     2.48,
+     true
     ],
     [
      12,
-     5605,
-     632,
-     210.5,
-     23.7
+     5651,
+     626,
+     212.3,
+     23.5,
+     4.39,
+     true,
+     0.49,
+     true
     ],
     [
      13,
-     3688,
-     2227,
-     140.5,
-     84.8
+     3733,
+     2223,
+     142.2,
+     84.7,
+     2.54,
+     true,
+     1.51,
+     true
     ],
     [
      14,
-     3203,
-     680,
-     123.9,
-     26.3
+     3240,
+     688,
+     125.3,
+     26.6,
+     2.33,
+     true,
+     0.5,
+     true
     ],
     [
      15,
-     2387,
-     1105,
-     94.1,
-     43.5
+     2405,
+     1097,
+     94.8,
+     43.2,
+     1.95,
+     true,
+     0.89,
+     true
     ]
    ],
-   "nota": "10 permisos del periodo no traen distrito de consejo (y 0 de las unidades netas): quedan fuera de las filas y dentro de los totales. Las tasas son por 10.000 habitantes del distrito (población ACS 2024 de F07, aproximada)"
+   "referencia_ciudad": {
+    "poblacion": 3848338,
+    "poblacion_moe": 19905,
+    "permisos_por_10mil": [
+     167.7,
+     0.87
+    ],
+    "unidades_netas_por_10mil": [
+     47.2,
+     0.24
+    ]
+   },
+   "nota_moe": "Margen de error (MOE, 90 % de confianza, como lo publica el Census Bureau): el de la población de cada zona es la raíz de la suma de los MOE² de sus sectores censales, la aproximación que el Census Bureau da para estimaciones derivadas; puede quedar conservadora u optimista según cuánto se correlacionen los sectores. Una tasa con numerador exacto (conteo administrativo) y denominador del ACS hereda MOE_tasa = tasa × MOE_pob / pob; ese MOE solo mide la incertidumbre del denominador del ACS, porque el conteo se toma como exacto (no modela la variación aleatoria de un año a otro). Se guarda con un decimal más que la tasa. La columna _dif_significativa aplica la prueba del Census Bureau contra la ciudad: |tasa_zona − tasa_ciudad| / raíz(EE_zona² + EE_ciudad²) > 1,645, con EE = MOE / 1,645; la ciudad es la suma de las zonas de la tabla (referencia_ciudad), que incluye a cada zona, así que la prueba es aproximada. Si dos zonas se traslapan en su intervalo ± MOE, la diferencia entre ellas no es significativa.",
+   "nota": "6 permisos del periodo no traen distrito de consejo (y 0 de las unidades netas): quedan fuera de las filas y dentro de los totales. Las tasas son por 10.000 habitantes del distrito (población ACS 2024 de F07, aproximada)"
   }
  }
 }

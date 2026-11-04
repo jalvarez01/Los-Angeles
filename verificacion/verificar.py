@@ -7,6 +7,7 @@ datos personales con formato de EE. UU. y comprobaciones de dominio para Los Án
 import datetime
 import glob
 import json
+import math
 import pathlib
 import re
 import sys
@@ -256,6 +257,85 @@ if censo:
                   all(abs(f[it] - 10000 * f[i] / pd[f[0]]) < 0.06 for f in te["filas"]))
         check("equipamientos por distrito · sin columnas de coordenadas",
               not [c for c in cols if re.search(r"lat|lon|coord|geom", c, re.I)])
+
+# Margen de error (MOE, 90 %) de toda tasa y prueba de significancia contra la ciudad (fórmulas del Census Bureau)
+Z90 = 1.645
+TASA = re.compile(r"_por_(10mil|1000)$")
+
+
+def decimales(vals):
+    return max((len(repr(float(x)).split(".")[1].rstrip("0")) for x in vals if x is not None), default=0)
+
+
+def sig(r, m, rc, mc):
+    se = math.hypot(m / Z90, mc / Z90)
+    return abs(r - rc) > 0 if se == 0 else abs(r - rc) / se > Z90
+
+
+def moe_prop(x, y, mx, my):
+    p = y / x
+    rad = my ** 2 - p ** 2 * mx ** 2
+    return math.sqrt(rad if rad >= 0 else my ** 2 + p ** 2 * mx ** 2) / x
+
+
+ZONALES = {"solicitudes_por_distrito", "permisos_por_distrito", "equipamientos_por_distrito", "delitos_por_area",
+           "natalidad_por_distrito"}
+pob_cd = {}
+if censo:
+    tp = lagos["demografia"]["tablas"]["poblacion_por_distrito"]
+    pob_cd = {f[0]: (f[1], f[tp["columnas"].index("poblacion_moe")]) for f in tp["filas"]} if "poblacion_moe" in tp["columnas"] else {}
+    check("MOE · población por distrito con poblacion_moe positivo", bool(pob_cd) and all(m > 0 for _, m in pob_cd.values()))
+for tema, lago in lagos.items():
+    for clave, t in lago.get("tablas", {}).items():
+        cols = t["columnas"]
+        tasas = [c for c in cols if TASA.search(c)]
+        if not tasas:
+            continue
+        idx = cols.index
+        check(f"MOE · {tema}.{clave}: toda tasa tiene su columna _moe", all(c + "_moe" in cols for c in tasas),
+              [c for c in tasas if c + "_moe" not in cols])
+        moes = [c for c in cols if c.endswith("_moe")]
+        check(f"MOE · {tema}.{clave}: ningún MOE negativo",
+              all(f[idx(c)] is not None and f[idx(c)] >= 0 for f in t["filas"] for c in moes))
+        if clave in ZONALES:
+            check(f"MOE · {tema}.{clave}: toda tasa tiene su marca _dif_significativa y su referencia de ciudad",
+                  all(c + "_dif_significativa" in cols and c in t.get("referencia_ciudad", {}) for c in tasas))
+        for c in tasas:
+            if c + "_moe" not in cols:
+                continue
+            ir, im = idx(c), idx(c + "_moe")
+            tol = 0.5 * 10 ** -(decimales(f[ir] for f in t["filas"]) + 1) + 1e-9
+            if c.endswith("_por_1000"):  # natalidad: proporción del Census Bureau sobre mujeres y nacimientos
+                ix, iy, ixm, iym = idx("mujeres_15_50"), idx("nacimientos"), idx("mujeres_15_50_moe"), idx("nacimientos_moe")
+                ok = all(abs(f[im] - round(1000 * moe_prop(f[ix], f[iy], f[ixm], f[iym]), 1)) <= 0.051 for f in t["filas"])
+            else:  # numerador exacto: MOE_tasa = tasa × MOE_pob / pob
+                base = "delitos_12m" if c == "delitos_por_10mil" else c[: -len("_por_10mil")]
+                if clave == "delitos_por_area":
+                    pz = {f[idx("area")]: (f[idx("poblacion")], f[idx("poblacion_moe")]) for f in t["filas"]}
+                    zona = idx("area")
+                else:
+                    pz, zona = pob_cd, idx("cd")
+                ok = bool(pz) and all(abs(f[im] - abs(10000 * f[idx(base)] / pz[f[zona]][0]) * pz[f[zona]][1] / pz[f[zona]][0]) <= tol
+                                      for f in t["filas"])
+                ref = t.get("referencia_ciudad", {})
+                if c in ref and pz:
+                    zonas = [f[zona] for f in t["filas"]]
+                    pr, mr = sum(pz[z][0] for z in zonas), math.sqrt(sum(pz[z][1] ** 2 for z in zonas))
+                    rc = 10000 * sum(f[idx(base)] for f in t["filas"]) / pr
+                    check(f"MOE · {tema}.{clave}.{c}: referencia de la ciudad recalculada",
+                          pr == ref["poblacion"] and abs(ref["poblacion_moe"] - mr) <= 0.51
+                          and abs(ref[c][0] - rc) <= 0.051 and abs(ref[c][1] - abs(rc) * mr / pr) <= tol, (ref[c], rc))
+            check(f"MOE · {tema}.{clave}.{c}_moe recalculado dentro del redondeo", ok)
+            if c + "_dif_significativa" in cols and c in t.get("referencia_ciudad", {}):
+                rc, mc = t["referencia_ciudad"][c]
+                ids = idx(c + "_dif_significativa")
+                check(f"MOE · {tema}.{clave}.{c}_dif_significativa igual a la prueba del Census Bureau",
+                      all(f[ids] is sig(f[ir], f[im], rc, mc) for f in t["filas"]))
+if censo:
+    cn = lagos["demografia"]["cifras"]["natalidad_ciudad_por_1000"]
+    ciudad_nat = next(f for f in lagos["demografia"]["tablas"]["natalidad_por_ambito"]["filas"] if f[0] == "Ciudad de Los Ángeles")
+    check("MOE · natalidad de la ciudad: el MOE de la cifra es el de la tabla y la referencia de los distritos",
+          cn.get("moe") == ciudad_nat[6] == lagos["demografia"]["tablas"]["natalidad_por_distrito"]["referencia_ciudad"]["nacimientos_por_1000"][1])
 
 # Ciclo de vida: un tema probado hace más de un año se declara vencido
 hoy = datetime.date.today()

@@ -11,7 +11,7 @@ import time
 import urllib.error
 import urllib.parse
 
-from _censo import LICENCIA, distrito_de, poblacion_por_distrito, poligonos_distritos, por_10mil
+from _censo import LICENCIA, NOTA_MOE, con_moe, distrito_de, poblacion_por_distrito, poligonos_distritos, por_10mil
 from _comun import URL_DISTRITOS, escribir_lago, get_json
 
 URL = "https://overpass-api.de/api/interpreter"
@@ -66,6 +66,12 @@ for k in POR_DISTRITO:
         else:
             por_cd[cd][k] += 1
 del puntos  # las coordenadas no salen de este script
+DEC = {"hospitales_por_10mil": 2}  # hay pocos hospitales: con un decimal casi todos darían 0,0 a 0,2
+cols_cd, filas_cd, ref_cd = con_moe(
+    ["cd", *POR_DISTRITO, *(f"{k}_por_10mil" for k in POR_DISTRITO)],
+    [[cd, *(por_cd[cd][k] for k in POR_DISTRITO),
+      *(por_10mil(por_cd[cd][k], cd, pob, DEC.get(f"{k}_por_10mil", 1)) for k in POR_DISTRITO)] for cd in range(1, 16)],
+    pob, decimales=DEC)
 
 escribir_lago(
     "equipamientos",
@@ -79,9 +85,7 @@ escribir_lago(
                 "vigencia": vig, "fuente": "F10"} for k in CAPAS},
     tablas={"equipamientos_por_distrito": {
         "unidad": "elementos en OpenStreetMap; por 10.000 habitantes (ACS)", "vigencia": vig, "fuente": "F10",
-        "columnas": ["cd", *POR_DISTRITO, *(f"{k}_por_10mil" for k in POR_DISTRITO)],
-        "filas": [[cd, *(por_cd[cd][k] for k in POR_DISTRITO),
-                   *(por_10mil(por_cd[cd][k], cd, pob, 2 if k == "hospitales" else 1) for k in POR_DISTRITO)] for cd in range(1, 16)],
+        "columnas": cols_cd, "filas": filas_cd, "referencia_ciudad": ref_cd, "nota_moe": NOTA_MOE,
         "sin_distrito": sin_distrito,
         "nota": "Cada elemento se asigna al distrito de consejo (límites completos de F12) que contiene su punto: el "
                 "nodo, o el centro que calcula Overpass para vías y relaciones; un parque grande que cruza dos "
