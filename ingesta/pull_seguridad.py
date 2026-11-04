@@ -110,7 +110,7 @@ escribir_lago(
               "estado": "vivo", "licencia": "no declara"},
              {"id": "F18", "nombre": "LAPD Divisions (LA GeoHub)", "url": URL_AREAS_LAPD.split("/query")[0],
               "estado": "vivo",
-              "licencia": "This work is licensed under a Creative Commons Attribution 4.0 International License"},
+              "licencia": "This data is provided as is with no warranty of any kind. This work is licensed under a Creative Commons Attribution 4.0 International License"},
              {"id": "F19", "nombre": "LAPD Reporting District (LA GeoHub)", "url": URL_RD_LAPD.split("/query")[0],
               "estado": "vivo", "licencia": "no declara"},
              {"id": "F07", "nombre": "American Community Survey 5-Year Estimates (API)",

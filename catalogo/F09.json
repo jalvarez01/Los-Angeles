@@ -5,7 +5,7 @@
  "url": "https://gbfs.bcycle.com/bcycle_lametro/station_status.json",
  "cobertura": "224 estaciones en las regiones City of LA, Westside y Hollywood",
  "vigencia": "Foto del momento (last_updated)",
- "probado": "2026-10-05",
+ "probado": "2026-11-03",
  "estado": "Integrada al lago",
  "licencia": "no declara",
  "personas": "No",

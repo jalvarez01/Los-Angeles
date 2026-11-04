@@ -76,7 +76,8 @@ cols_cd, filas_cd, ref_cd = con_moe(
 escribir_lago(
     "equipamientos",
     fuentes=[{"id": "F10", "nombre": "OpenStreetMap vía Overpass API", "url": URL,
-              "estado": "vivo", "licencia": "ODbL"},
+              "estado": "vivo",
+              "licencia": "OpenStreetMap is open data, licensed under the Open Data Commons Open Database License (ODbL) by the OpenStreetMap Foundation (OSMF)."},
              {"id": "F12", "nombre": "LA City Council Districts (Adopted 2021)", "url": URL_DISTRITOS.split("/query")[0],
               "estado": "vivo", "licencia": "no declara"},
              {"id": "F07", "nombre": "American Community Survey 5-Year Estimates (API)",

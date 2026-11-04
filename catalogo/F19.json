@@ -5,7 +5,7 @@
  "url": "https://services5.arcgis.com/7nsPwEMP38bSkCjy/arcgis/rest/services/LAPD_Reporting_District/FeatureServer/0",
  "cobertura": "1.135 distritos de reporte de LAPD (AGENCY = PD)",
  "vigencia": "Capa editada por última vez el 2026-07-21",
- "probado": "2026-10-26",
+ "probado": "2026-11-03",
  "estado": "Integrada al lago",
  "licencia": "no declara",
  "personas": "No",

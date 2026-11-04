@@ -25,7 +25,8 @@ ultimo = puntos[-1]
 
 escribir_lago(
     "escucha",
-    fuentes=[{"id": "F11", "nombre": "Wikimedia Pageviews API", "url": url, "estado": "vivo", "licencia": "CC0"}],
+    fuentes=[{"id": "F11", "nombre": "Wikimedia Pageviews API", "url": url, "estado": "vivo",
+              "licencia": "All Analytics datasets are available under the Creative Commons CC0 dedication."}],
     cifras={"vistas_ultimo_mes": {"valor": ultimo[1], "unidad": "vistas de personas",
                                   "vigencia": ultimo[0], "fuente": "F11"}},
     series={"vistas_mensuales": {"unidad": "vistas de personas", "fuente": "F11", "puntos": puntos}},
