@@ -4,3 +4,7 @@ __pycache__/
 web/dist/
 .vercel/
 .env*
+exploracion/observable/node_modules/
+exploracion/observable/dist/
+exploracion/observable/src/.observablehq/
+exploracion/duckdb/.venv/

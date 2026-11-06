@@ -4,7 +4,7 @@ Contexto para continuar el trabajo sin el historial del chat. El detalle está e
 
 ## Qué es
 
-Trabajo de curso (Sexto Semestre) de Jeronimo Escobar Restrepo y Juan Jose Alvarez Ocampo. Un «lago» de datos abiertos
+Trabajo de curso (Sexto Semestre) de Jeronimo Escobar Restrepo y Juan José Álvarez Ocampo (los dos nombres van en la portada y el pie del sitio). Un «lago» de datos abiertos
 de la ciudad de Los Ángeles y una web estática que lo muestra.
 
 - **Usuario:** un concejal del Ayuntamiento y su equipo. **Escala:** la ciudad y sus 15 distritos de consejo
@@ -27,6 +27,7 @@ de la ciudad de Los Ángeles y una web estática que lo muestra.
 | `catalogo/fuentes.py` → `catalogo/F*.json` | fuente única de las fichas; las fichas se regeneran, no se editan a mano |
 | `web/index.html`, `web/assets/`, `web/build.py` | web estática; `build.py` arma `web/dist/` (ignorado) con el lago copiado |
 | `entrega1/` | `Diccionario_de_datos_LosAngeles.xlsx` y `LosAngeles.docx` (entregables; no tocar sin pedirlo) |
+| `exploracion/` | prototipos de la bitácora de exploración (MapLibre, Observable Framework, DuckDB); sus dependencias (`node_modules`, `.venv`, `dist`) están fuera de git y nunca entran al sistema |
 
 ## Comandos
 
@@ -54,6 +55,18 @@ a ±1 % de la ciudad en el mismo ACS.
 
 ## Reglas duras
 
+- **Margen de error (MOE, 90 %):** toda columna de tasa (`*_por_10mil`, `*_por_1000`) lleva al lado `<tasa>_moe`; las tablas por zona
+  llevan además `<tasa>_dif_significativa` y `referencia_ciudad`. Población por zona: MOE = raíz de la suma de MOE² de los sectores;
+  tasa con conteo exacto: MOE = tasa × MOE_pob / pob (con un decimal más que la tasa); natalidad: fórmula de proporción del Census
+  Bureau (de razón si el radicando es negativo). Prueba: |r − r_c| / raíz(EE² + EE_c²) > 1,645, EE = MOE / 1,645, calculada con los
+  valores redondeados que se guardan. Todo en `ingesta/_censo.py` (`con_moe`, `moe_proporcion`, `significativa`); el verificador lo recalcula.
+- **PROXY:** toda cifra aproximada lleva la etiqueta PROXY en la web con la razón (población o natalidad por zona, tasas per cápita,
+  estimaciones del ACS y del DOF, conteos de OSM). Los conteos administrativos (ofensas, 311, permisos, estaciones) no son PROXY.
+- **Procedencia a un clic:** toda cifra, gráfico y mapa de la web tiene un botón `button.info` (aria-label «Fuente y vigencia») que abre
+  fuente (enlazada a `#fuente-Fxx` en Gobernanza), licencia, vigencia, probado y PROXY; junto a cada KPI va su ID y vigencia. Las cifras
+  de la prosa (sección Preguntas) se calculan desde el lago, nunca se escriben a mano.
+- **Dos geografías:** las ofensas solo en áreas y distritos de reporte de LAPD; nunca en distritos de consejo ni superpuestas.
+
 - Solo biblioteca estándar de Python (3.10+). Nada de pip.
 - Ningún registro individual llega al lago ni a la web (delitos, solicitudes 311, permisos: ni ubicaciones, ni número
   de predio, ni marcas de violencia doméstica). Solo agregados.
@@ -70,7 +83,10 @@ a ±1 % de la ciudad en el mismo ACS.
 - **Imágenes de fondo:** solo con licencia libre verificada en la página de origen, con autor, licencia, URL, tamaño
   en px y bytes registrados en `catalogo/fuentes.py` (y regenerado), en el README y en el pie de `web/index.html`.
   Nunca imágenes sacadas de buscadores sin autor conocido.
-- Preguntar antes de cada commit, push, PR o despliegue.
+- Preguntar antes de cada commit, push, PR o despliegue, salvo que el usuario lo haya autorizado para esa tarea.
+- **Excel:** solo celdas amarillas (estilo 10). «2. Diccionario» = exactamente una fila por campo real de `lago/` y `territorio/`
+  (metadatos del contrato en filas genéricas `lago/*.json`); licencia copiada tal como la publica la fuente y fecha de prueba real.
+  El Resumen guarda valores calculados (se recalcularon con LibreOffice y se cruzaron con Python).
 
 ## Fuentes
 
@@ -104,13 +120,16 @@ distrito. Probar a 1440 y 390 px con 0 errores de consola; el sitio debe pesar m
 - Proyecto `los-angeles` (equipo de `jalvarez01`), enlazado en `.vercel/` (ignorado). `vercel.json`: build
   `python3 web/build.py`, salida `web/dist`. `.vercelignore` excluye `.env*`, `.vercel/`, `lago/raw/`, `web/dist/`.
 - Producción: alias `los-angeles-lemon.vercel.app`. Las vistas previas están protegidas con inicio de sesión.
-- Sin despliegue automático desde Git: se despliega a mano con `npx vercel` (vista previa) o `npx vercel --prod`.
-  Producción no se actualiza al hacer push.
-- Tras desplegar: `/` da 200 y `/.env` da 404.
+- Conectado a GitHub (`jalvarez01/Los-Angeles`): cada push a `main` despliega producción y cada PR tiene su vista previa (protegida;
+  se prueba con `vercel curl` o el bypass solo en la vista previa). No desplegar a mano a producción con la CLI.
+- Tras desplegar: `/`, cada archivo de `lago/` y `territorio/` dan 200; `/.env`, `/.env.local` y `/lago/raw/` dan 404; el `index.html`
+  servido es igual al de `main`.
 
 ## Rarezas conocidas
 
 - Overpass (F10) a veces responde 502/504 o tarda ~1 min; `pull_equipamientos.py` reintenta hasta 4 veces.
+- macOS no tiene el comando `timeout`: los reintentos se hacen con un bucle simple.
+- d3-geo (Observable Plot) lee los anillos de los GeoJSON de GeoHub al revés: hay que invertirlos; Leaflet y MapLibre no lo necesitan.
 - data.lacity.org a veces responde 500 en una consulta; volver a correr el script.
 - F01 trae 8 códigos de distrito de reporte sin polígono en F19 (p. ej. `0010`, `0012`); quedan con `en_capa = false`.
 - La capa «LAPD» de maps.lacity.org no sirve para F18/F19: corta en 1.000 registros y su «Divisions» son distritos.

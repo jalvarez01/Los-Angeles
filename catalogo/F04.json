@@ -5,7 +5,7 @@
  "url": "https://data.lacity.org/resource/pi9x-tg5x.json",
  "cobertura": "Ciudad · dirección, número de predio (APN), distrito de consejo, latitud y longitud",
  "vigencia": "2020-01-01 a 2026-10-03",
- "probado": "2026-10-05",
+ "probado": "2026-11-03",
  "estado": "Integrada al lago",
  "licencia": "no declara",
  "personas": "Personas identificables",

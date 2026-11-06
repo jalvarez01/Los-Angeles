@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Exploración · MapLibre GL JS</title>
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@6.16.0/dist/maplibre-gl.css">
+<style>
+ body{margin:0;font:15px/1.5 system-ui,sans-serif;background:#0b0d12;color:#e8ebf2}
+ header{padding:12px 16px}h1{font-size:1.1rem;margin:0}p{margin:.3rem 0;color:#b9c0cc;font-size:.85rem}
+ #mapa{height:calc(100vh - 150px);min-height:360px}
+ #ley{display:flex;flex-wrap:wrap;gap:6px 14px;padding:8px 16px;font-size:.8rem}#ley i{display:inline-block;width:16px;height:11px;margin-right:5px;vertical-align:middle}
+ .maplibregl-popup-content{background:#11141b;color:#fff;font-size:.85rem}
+</style>
+</head>
+<body>
+<header><h1>MapLibre GL JS 6.16.0 · solicitudes 311 por 10.000 habitantes, por distrito de consejo</h1>
+<p id="pie">Mismos datos que el sitio: territorio/distritos_consejo.geojson (F12) y lago/municipio.json (F03, F07). Sin teselas externas.</p></header>
+<div id="mapa"></div><div id="ley"></div>
+<script type="module">
+// v6 solo publica el módulo ES (dist/maplibre-gl.mjs): el <script> clásico de dist/maplibre-gl.js da 404
+import {Map, Popup} from "https://unpkg.com/maplibre-gl@6.16.0/dist/maplibre-gl.mjs";
+const [geo, mu] = await Promise.all(["../../territorio/distritos_consejo.geojson", "../../lago/municipio.json"].map(u => fetch(u).then(r => r.json())));
+const t = mu.tablas.solicitudes_por_distrito, c = n => t.columnas.indexOf(n);
+const fila = Object.fromEntries(t.filas.map(f => [f[0], f]));
+for (const f of geo.features) {  // se une el lago a la geometría por el número de distrito
+  const x = fila[f.properties.cd];
+  Object.assign(f.properties, {tasa: x[c("solicitudes_por_10mil")], moe: x[c("solicitudes_por_10mil_moe")], sig: x[c("solicitudes_por_10mil_dif_significativa")]});
+}
+const v = geo.features.map(f => f.properties.tasa).sort((a, b) => a - b), q = [1, 2, 3, 4].map(i => v[Math.floor(i * v.length / 5)]);
+const PAL = ["#3a1c5a", "#7d1f7c", "#c4266a", "#f2604c", "#ffc15e"];
+const map = new Map({container: "mapa", attributionControl: false,
+  style: {version: 8, sources: {}, layers: [{id: "fondo", type: "background", paint: {"background-color": "#0b0d12"}}]}});
+map.on("load", () => {
+  map.addSource("cd", {type: "geojson", data: geo});
+  map.addLayer({id: "relleno", type: "fill", source: "cd",
+    paint: {"fill-color": ["step", ["get", "tasa"], PAL[0], q[0], PAL[1], q[1], PAL[2], q[2], PAL[3], q[3], PAL[4]], "fill-opacity": .92}});
+  map.addLayer({id: "borde", type: "line", source: "cd", paint: {"line-color": "#ffffffaa", "line-width": 1.2}});
+  const b = geo.features.flatMap(f => f.geometry.coordinates.flat(f.geometry.type === "MultiPolygon" ? 2 : 1));
+  map.fitBounds([[Math.min(...b.map(p => p[0])), Math.min(...b.map(p => p[1]))], [Math.max(...b.map(p => p[0])), Math.max(...b.map(p => p[1]))]], {padding: 20, animate: false});
+  const pop = new Popup({closeButton: false, closeOnClick: false});
+  map.on("mousemove", "relleno", e => { const p = e.features[0].properties;
+    pop.setLngLat(e.lngLat).setText(`Distrito ${p.cd}: ${p.tasa} ± ${p.moe} por 10.000 hab. · ${p.sig ? "difiere" : "no difiere"} de la ciudad (90 %) · PROXY`).addTo(map); });
+  map.on("mouseleave", "relleno", () => pop.remove());
+  const lim = [v[0], ...q, v.at(-1)];
+  document.getElementById("ley").innerHTML = lim.slice(0, -1).map((x, i) => `<span><i style="background:${PAL[i]}"></i>${x} – ${lim[i + 1]}</span>`).join("");
+  document.getElementById("pie").textContent += ` Vigencia ${t.vigencia}; lago probado ${mu.probado}.`;
+  document.body.dataset.listo = "1";
+});
+</script>
+</body>
+</html>

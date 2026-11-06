@@ -5,7 +5,7 @@
  "url": "https://api.census.gov/data/2024/acs/acs5?get=NAME,B13016_001E,B13016_002E&for=place:44000&in=state:06",
  "cobertura": "Ciudad (place 06-44000), California, EE. UU. y sectores censales del condado de Los Ángeles",
  "vigencia": "ACS 2020-2024 (serie desde 2006-2010)",
- "probado": "2026-10-06",
+ "probado": "2026-11-03",
  "estado": "Integrada al lago",
  "licencia": "Census Bureau API Terms of Service (census.gov/data/developers/about/terms-of-service.html): \"You may use the Census Bureau API to develop a service or service to search, display, analyze, retrieve, view and otherwise \"get\" information from Census Bureau data.\" Atribución exigida: \"This product uses the Census Bureau Data API but is not endorsed or certified by the Census Bureau.\"",
  "personas": "No",
