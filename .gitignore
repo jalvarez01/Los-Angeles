@@ -8,3 +8,5 @@ exploracion/observable/node_modules/
 exploracion/observable/dist/
 exploracion/observable/src/.observablehq/
 exploracion/duckdb/.venv/
+exploracion/contrato/.venv/
+exploracion/permiso/node_modules/

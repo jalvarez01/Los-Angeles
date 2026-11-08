@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/jalvarez01/Los-Angeles/exploracion/contrato/esquema.json",
+  "title": "Contrato de un archivo del lago (lago/*.json)",
+  "type": "object",
+  "required": ["tema", "probado", "fuentes", "cifras"],
+  "additionalProperties": false,
+  "properties": {
+    "tema": {"enum": ["demografia", "equipamientos", "escucha", "movilidad", "municipio", "seguridad", "vivienda"]},
+    "probado": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$"},
+    "fuentes": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "url", "licencia"],
+        "properties": {
+          "id": {"$ref": "#/$defs/idFuente"},
+          "url": {"type": "string", "pattern": "^https?://"},
+          "licencia": {"type": "string", "minLength": 1},
+          "nombre": {"type": "string"},
+          "estado": {"type": "string"}
+        }
+      }
+    },
+    "cifras": {
+      "type": "object", "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "required": ["valor", "unidad", "vigencia", "fuente"],
+        "properties": {
+          "valor": {"type": "number"},
+          "unidad": {"type": "string", "minLength": 1},
+          "vigencia": {"type": "string", "minLength": 1},
+          "fuente": {"$ref": "#/$defs/idFuente"},
+          "moe": {"type": "number", "minimum": 0}
+        },
+        "additionalProperties": false
+      }
+    },
+    "series": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["unidad", "fuente", "puntos"],
+        "additionalProperties": false,
+        "properties": {
+          "unidad": {"type": "string", "minLength": 1},
+          "fuente": {"$ref": "#/$defs/idFuente"},
+          "puntos": {
+            "type": "array", "minItems": 1,
+            "items": {"type": "array", "prefixItems": [{"type": "string", "pattern": "^\\d{4}-\\d{2}$"}, {"type": "number"}], "items": false, "minItems": 2}
+          }
+        }
+      }
+    },
+    "tablas": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["unidad", "vigencia", "fuente", "columnas", "filas"],
+        "properties": {
+          "unidad": {"type": "string", "minLength": 1},
+          "vigencia": {"type": "string", "minLength": 1},
+          "fuente": {"$ref": "#/$defs/idFuente"},
+          "columnas": {"type": "array", "minItems": 1, "items": {"type": "string"}, "uniqueItems": true},
+          "filas": {"type": "array", "minItems": 1, "items": {"type": "array"}},
+          "nota": {"type": "string"},
+          "nota_moe": {"type": "string"}
+        }
+      }
+    }
+  },
+  "$defs": {
+    "idFuente": {"type": "string", "pattern": "^F\\d{2}$"}
+  }
+}

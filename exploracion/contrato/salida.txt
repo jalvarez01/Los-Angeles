@@ -1,0 +1,17 @@
+== 1. Los siete archivos reales del lago contra esquema.json
+check-jsonschema: código 0
+ok -- validation done
+
+== 2. Roturas a propósito en una copia del lago: ¿quién las atrapa?
+a) una cifra sin vigencia:
+   esquema:     ATRAPA · copia/lago/municipio.json::$.cifras.solicitudes_anio: 'vigencia' is a required property
+   verificador: ATRAPA · FAIL lago/municipio.json: solicitudes_anio con valor, unidad, vigencia y fuente conocida  <- {'valor': 1992257, 'unidad': 'solicitudes de se
+b) una fila de tabla con una columna de menos:
+   esquema:     no lo ve
+   verificador: ATRAPA · FAIL lago/municipio.json: tabla solicitudes_por_distrito con filas del ancho de sus columnas  <- 
+c) una cifra cuya fuente (F99) no está en fuentes:
+   esquema:     no lo ve
+   verificador: ATRAPA · FAIL lago/vivienda.json: permisos_12m con valor, unidad, vigencia y fuente conocida  <- {'valor': 64543, 'unidad': 'permisos de construcción
+d) un conteo de 5 ofensas guardado en un distrito de reporte:
+   esquema:     no lo ve
+   verificador: ATRAPA · FAIL distritos de reporte · ningún conteo guardado entre 1 y 9  <- [5]
