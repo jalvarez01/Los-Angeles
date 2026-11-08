@@ -1,8 +1,22 @@
 # Los Ángeles · sistema de información
 
-Grupo: Jeronimo Escobar Restrepo · Juan José Álvarez Ocampo · Enlace: https://los-angeles-lemon.vercel.app · Revisado: 2026-11-03
+Grupo: Jeronimo Escobar Restrepo · Juan José Álvarez Ocampo · Enlace: https://los-angeles-lemon.vercel.app · Revisado: 2026-11-08
 
 Repositorio: https://github.com/jalvarez01/Los-Angeles. El sitio es abierto y sin compuerta: solo publica agregados de fuentes públicas (ver «Protección»).
+
+## Papeles
+
+El trabajo empezó en un repositorio de Jeronimo que no es público y pasó a este el 2026-10-06, así que esa parte de la historia no se ve aquí.
+
+| Papel (guía) | Quién | Evidencia |
+|---|---|---|
+| Curaduría (fuentes, licencias, catálogo) | Juan José Álvarez Ocampo | autor de los commits de `catalogo/` y del Excel en este repositorio |
+| Datos (contrato, ingesta, verificación) | Juan José Álvarez Ocampo | autor de los commits de `ingesta/`, `lago/` y `verificacion/` en este repositorio |
+| Interfaz (herramienta y vistas) | Juan José Álvarez Ocampo | autor de los commits de `web/` y `exploracion/` en este repositorio |
+| Seguridad (protección, secretos, ataque) | no se asignó formalmente | la protección se comprueba con el verificador y con las pruebas de terminal descritas en «Protección» |
+| Revisión e integración | Jeronimo Escobar Restrepo | fusionó los PR #1 y #3; hizo parte del trabajo de la primera entrega en su propio repositorio, antes del traslado |
+
+Desde el 2026-10-26 los commits de este repositorio los hizo Claude Code por encargo de Juan José, con su cuenta (ver «Bitácora de IA»). El repositorio no registra el trabajo hecho fuera de git.
 
 ## Para quién y qué pregunta
 
