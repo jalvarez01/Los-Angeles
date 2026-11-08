@@ -1,0 +1,44 @@
+F01 · HTTP 200 · 7808 caracteres leídos · https://data.lacity.org/d/k7nn-b2ep
+   metadatos (API): no declara
+   página: License The license for this dataset is unspecified
+   → coincide: ninguna de las dos declara licencia
+F03 · HTTP 200 · 6859 caracteres leídos · https://data.lacity.org/d/2cy6-i7zn
+   metadatos (API): Creative Commons 1.0 Universal (Public Domain Dedication)
+   página: License: Source Link	https://myla311.lacity.gov | License | Creative Commons 1 | 0 Universal (Public Domain Dedication)
+   → coincide: la página trae el mismo texto que los metadatos
+F04 · HTTP 200 · 7728 caracteres leídos · https://data.lacity.org/d/pi9x-tg5x
+   metadatos (API): no declara
+   página: (ninguna frase de licencia en el texto visible)
+   → coincide: ninguna de las dos declara licencia
+F06 · HTTP 200 · 6244 caracteres leídos · https://dof.ca.gov/forecasting/demographics/estimates-e1/
+   metadatos (API): no declara
+   página: The state population is estimated using the Driver License Address Change (DLAC) Method | Administrative records such as births, deaths, driver license address changes, tax return data, Medicare and Medi-Cal enrollment, immigration reports, school enrollments, | A modified version of the state Drive
+   → coincide: ninguna de las dos declara licencia
+F07 · HTTP 200 · 8520 caracteres leídos · https://www.census.gov/data/developers/about/terms-of-service.html
+   metadatos (API): Census Bureau API Terms of Service (census.gov/data/developers/about/terms-of-service.html): "You may use the Census Bur
+   página: Terms of Service | Terms of Service Agreement
+   → coincide: la página trae el mismo texto que los metadatos
+F09 · HTTP 200 · 6224 caracteres leídos · https://bikeshare.metro.net/about/data/
+   metadatos (API): no declara
+   página: (ninguna frase de licencia en el texto visible)
+   → coincide: ninguna de las dos declara licencia
+F10 · HTTP 200 · 5561 caracteres leídos · https://www.openstreetmap.org/copyright
+   metadatos (API): OpenStreetMap is open data, licensed under the Open Data Commons Open Database License (ODbL) by the OpenStreetMap Found
+   página: Copyright and License | OpenStreetMap is open data, licensed under the Open Data Commons Open Database License (ODbL) by the OpenStreetMap Foundation (OSMF) | If you alter or build upon our data, you may distribute the result only under the same license | Our documentation is licensed under the Crea
+   → coincide: la página trae el mismo texto que los metadatos
+F11 · HTTP 200 · 1347 caracteres leídos · https://dumps.wikimedia.org/other/pageviews/readme.html
+   metadatos (API): All Analytics datasets are available under the Creative Commons CC0 dedication.
+   página: All Analytics datasets are available under the Creative Commons CC0 dedication
+   → coincide: la página trae el mismo texto que los metadatos
+F12 · HTTP 200 · 12381 caracteres leídos · https://geohub.lacity.org/datasets/76104f230e384f38871eb3c4782f903d/about
+   metadatos (API): no declara
+   página: No License Provided
+   → coincide: ninguna de las dos declara licencia
+F18 · HTTP 200 · 12654 caracteres leídos · https://geohub.lacity.org/datasets/031d488e158144d0b3aecaa9c888b7b3/about
+   metadatos (API): This data is provided as is with no warranty of any kind. This work is licensed under a Creative Commons Attribution 4.0
+   página: CC BY 4 | 0 License | View license details
+   → DISCREPA: los metadatos traen una licencia que la página no muestra igual
+F19 · HTTP 200 · 13202 caracteres leídos · https://geohub.lacity.org/datasets/924f1b2e8df642f38a6dcbcf3c7b1709/about
+   metadatos (API): no declara
+   página: No License Provided
+   → coincide: ninguna de las dos declara licencia
