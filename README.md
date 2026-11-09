@@ -181,6 +181,41 @@ Resumen de la hoja «3. Bitácora IA» del Excel, con las 12 filas nuevas de est
 - Ataque de otro grupo: pendiente. Como no hay compuerta, el ataque no tiene clave que romper: lo que cabe probar es que no salgan registros individuales ni conteos suprimidos, y que `/.env` y `/lago/raw/` den 404.
 - Vueltas atrás en la ruta: de las vistas al contrato, para agregar el MOE y la prueba de significancia que pidió el profesor; de la verificación a la ingesta, cuando el verificador pasaba con un tema faltante; de la curaduría a la capa web, cuando la foto de fondo no tenía licencia.
 
+### Nuestra revisión a Cerebro Milán
+
+Revisamos el sistema de Samuel Arango Echeverri, Alyson Henao Fernández y Mateo Sanz Medina: el sitio
+https://cerebro-milan.vercel.app y el repositorio https://github.com/MateoSanzEafit/CerebroMilan (commit `c4519a9`, del
+2026-11-03). Lo hicimos el 2026-11-09, bajando de nuevo cada fuente desde `dati.comune.milano.it` y Wikimedia y comparándola
+con lo que guarda su lago.
+
+**Tres cifras auditadas**
+
+| Cifra en su sistema | Lo que dice la fuente | Resultado | Corrección sugerida |
+|---|---|---|---|
+| 13.195 visitas a «Milán» en Wikipedia en español, agosto de 2026 (`lago/escucha.json`) | 13.195 en la API de Wikimedia (agente `user`) | **Coincide.** Queda vieja: `pull_escucha.py` fija el fin en `20260831`, y ya hay septiembre (12.958) y octubre (12.914) | Calcular el último mes completo con la fecha del día en vez de dejarlo fijo |
+| 7.534 estructuras de alojamiento y 84.210 camas, vigencia 2024 (`lago/turismo.json`, F08) | El conjunto ds216 termina en 2018: 1.484 estructuras y 68.830 camas. No hay filas de 2019 en adelante | **No coincide.** `pull_turismo.py` no descarga nada: las cifras, la serie 2018-2024 y el reparto por tipo están escritos a mano. El reparto tampoco cuadra con la fuente (en 2018 hay 171 B&B, no 980) | Leer el CSV, sumar `N_Esercizi` y `N_Letti` del último año y poner vigencia 2018 |
+| 312,4 km de red ciclable (`lago/ciclabili.json`, F05) | 346,3 km al sumar el campo `lunghezza` de los 4.411 tramos de `bike_ciclabili.geojson` (346,0 km midiendo la geometría) | **No coincide.** El valor y la serie 2018-2026 están escritos a mano en `pull_ciclabili.py`. Los «8 ejes» son los tramos del GeoJSON recortado de su repositorio, no un dato de la fuente | Calcular la longitud desde el GeoJSON completo y quitar la serie o citar de dónde sale |
+
+Otras dos cifras que miramos: los 7.602 siniestros viales de 2024 (ds177) **coinciden**. Las 188 cámaras de Área B también
+coinciden con la fuente, pero el reparto por municipio de `varchi.json` no tiene base: la fuente no trae municipio, y su
+`territorio/varchi.geojson` solo tiene 18 de las 188 cámaras. Su `verificar.py` da 0 fallos con todo esto, porque revisa la forma
+del contrato y no compara contra la fuente.
+
+**Ataque**
+
+- *Qué intentamos:* pedir al sitio público `/.env`, `/.env.local`, `/.git/config`, `/lago/raw/`, los crudos
+  (`/lago/raw/incidenti_raw.json`), los scripts de ingesta y verificación, el README, el Excel, el catálogo y `vercel.json`;
+  meter una inyección SQL en la URL; y buscar correos o celulares (`+39`) en los datos que se publican.
+- *Qué conseguimos:* nada que no debiera salir. Todo eso da 404, porque Vercel solo publica `web/`. La inyección no hace nada en un
+  sitio estático. Los datos publicados no tienen correos ni teléfonos.
+- *Puntos débiles que encontramos:* los cuatro scripts que descargan (`pull_ambiente`, `pull_demografia`, `pull_escucha` y
+  `pull_seguridad`) usan `ssl._create_unverified_context()`, es decir, no verifican el certificado del servidor. Alguien en la misma
+  red podría hacerse pasar por el portal y meter cifras falsas en el lago sin que el verificador lo note. Además, Leaflet se carga
+  desde unpkg sin `integrity` y el sitio no envía `Content-Security-Policy`, lo que choca con su propia reflexión sobre la cadena de
+  suministro.
+- *Qué cambiamos nosotros:* revisamos lo mismo en nuestro sistema. Nuestra ingesta sí verifica los certificados. Nuestra web
+  también carga Leaflet y Chart.js desde cdnjs sin `integrity`: queda pendiente agregarlo.
+
 ## ¿Se puede usar?
 
 | Fuente | Licencia (como la publica la fuente) | Personas | Estado | Condición |
